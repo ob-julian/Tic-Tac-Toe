@@ -1,54 +1,66 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
-    <meta name=viewport content="width=device-width,initial-scale=1,user-scalable=no">
-    <meta name=google-site-verification content=ZkYZLMkiLfya4NMM9wztcqkhilJw5L2_akPe9ottCdY>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="google-site-verification" content="ZkYZLMkiLfya4NMM9wztcqkhilJw5L2_akPe9ottCdY" />
     <title>Tic Tac Toe</title>
-    <meta name=description content="Eine kleine Seite zum Singel- und Multiplayer spielen von Tic-Tac-Toe. Adfree!">
-    <meta http-equiv=X-UA-Compatible content="IE=edge">
-    <meta http-equiv=Content-Type content="text/html; charset=utf-8">
-    <meta name=robots content="index, follow">
-    <meta name=version content=4.0.1>
-    <meta name=author content="Julian Oberhofer">
-    <meta name=twitter:card content=player>
-    <meta name=twitter:title content="Tic Tac Toe">
-    <meta name=twitter:description content="Eine kleine Seite zum Singel- und Multiplayer spielen von Tic-Tac-Toe. Adfree!">
-    <meta name=twitter:image content=https://karlsgymnasium.ddns.net:2001/icon/apple-icon-180x180.png>
-    <meta name=twitter:player content=https://karlsgymnasium.ddns.net/ttt-schwer/index.html>
-    <meta name=twitter:player:height content=326>
-    <meta name=twitter:player:width content=326>
-    <meta name=twitter:creator content=@Julian05862910>
-    <meta property=og:type content=website.gaming>
-    <meta property=og:title content="Tic Tac Toe">
-    <meta property=og:description content="Eine kleine Seite zum Singel- und Multiplayer spielen von Tic-Tac-Toe. Adfree!">
-    <meta property=og:image content=https://karlsgymnasium.ddns.net:2001/icon/apple-icon-180x180.png>
-    <meta property=og:url content=https://karlsgymnasium.ddns.net:2001/ >
-    <meta property=og:site_name content="Tic Tac Toe">
-    <link rel=apple-touch-icon sizes=57x57 href=/icon/apple-icon-57x57.png>
-    <link rel=apple-touch-icon sizes=60x60 href=/icon/apple-icon-60x60.png>
-    <link rel=apple-touch-icon sizes=72x72 href=/icon/apple-icon-72x72.png>
-    <link rel=apple-touch-icon sizes=76x76 href=/icon/apple-icon-76x76.png>
-    <link rel=apple-touch-icon sizes=114x114 href=/icon/apple-icon-114x114.png>
-    <link rel=apple-touch-icon sizes=120x120 href=/icon/apple-icon-120x120.png>
-    <link rel=apple-touch-icon sizes=144x144 href=/icon/apple-icon-144x144.png>
-    <link rel=apple-touch-icon sizes=152x152 href=/icon/apple-icon-152x152.png>
-    <link rel=apple-touch-icon sizes=180x180 href=/icon/apple-icon-180x180.png>
-    <link rel=icon type=image/png sizes=192x192 href=/icon/android-icon-192x192.png>
-    <link rel=icon type=image/png sizes=32x32 href=/icon/favicon-32x32.png>
-    <link rel=icon type=image/png sizes=96x96 href=/icon/favicon-96x96.png>
-    <link rel=icon type=image/png sizes=16x16 href=/icon/favicon-16x16.png>
-    <link rel=manifest href=/icon/manifest.json>
-    <meta name=msapplication-TileColor content=#ffffff>
-    <meta name=msapplication-TileImage content=/icon/ms-icon-144x144.png>
-    <meta name=theme-color content=#ffffff>
-    <link rel=stylesheet href=css/css.css>
-    <script src=js/js.js></script>
-    <link rel=stylesheet href=https://kit-free.fontawesome.com/releases/latest/css/free.min.css media=all>
-    <script src=https://cdn.socket.io/socket.io-1.4.5.js></script>
-    <script id=yourscripttagID></script>
-    <style id=chatt></style>
-    <style id=typingg></style>
-    <style id=patchh></style>
+    <meta name="description" content="Eine kleine Seite zum Singel- und Multiplayer spielen von Tic-Tac-Toe. Adfree!">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="robots" content="index, follow">
+    <meta name="version" content="4.0.1.5">
+    <meta name="author" content="Julian Oberhofer">
+    <!--Twitter stuff-->
+    <meta name="twitter:card" content="player">
+    <!--meta name="twitter:site" content="@"-->
+    <meta name="twitter:title" content="Tic Tac Toe">
+    <meta name="twitter:description" content="Eine kleine Seite zum Singel- und Multiplayer spielen von Tic-Tac-Toe. Adfree!">
+    <meta name="twitter:image" content="https://karlsgymnasium.ddns.net:2001/icon/apple-icon-180x180.png">
+    <meta name="twitter:player" content="https://karlsgymnasium.ddns.net/ttt-schwer/index.html">
+    <meta name="twitter:player:height" content="326">
+    <meta name="twitter:player:width" content="326">
+    <meta name="twitter:creator" content="@Julian05862910">
+    <!--Open Graph stuff-->
+    <meta property="og:type" content="website.gaming" />
+    <meta property="og:title" content="Tic Tac Toe" />
+    <meta property="og:description" content="Eine kleine Seite zum Singel- und Multiplayer spielen von Tic-Tac-Toe. Adfree!" />
+    <meta property="og:image" content="https://karlsgymnasium.ddns.net:2001/icon/apple-icon-180x180.png" />
+    <meta property="og:url" content="https://karlsgymnasium.ddns.net:2001/" />
+    <meta property="og:site_name" content="Tic Tac Toe" />
+    <!--favicon stuff-->
+    <link rel="apple-touch-icon" sizes="57x57" href="/icon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/icon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/icon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/icon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/icon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/icon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/icon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/icon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/icon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/icon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icon/favicon-16x16.png">
+    <link rel="manifest" href="/icon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/icon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="stylesheet" href="css/css.css">
+    <script type="text/javascript" src="js/js.js"></script>
+    <!--fontawesome stuff-->
+    <!--script src="https://kit.fontawesome.com/ff71fc4b3c.js" crossorigin="anonymous"></script-->
+    <link rel="stylesheet" href="https://kit-free.fontawesome.com/releases/latest/css/free.min.css" media="all">
+    <!--link rel="stylesheet" href="https://kit-free.fontawesome.com/releases/latest/css/free-v4-font-face.min.css" media="all">
+    <link rel="stylesheet" href="https://kit-free.fontawesome.com/releases/latest/css/free-v4-shims.min.css" media="all"-->
+    <!--socket.io-->
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <!--tags used by js-->
+    <script id="yourscripttagID"></script>
+    <style type="text/css" id="chatt"></style>
+    <style type="text/css" id="typingg"></style>
+    <style type="text/css" id="patchh"></style>
+    <!--manuel js and css-->
     <script>
         var modal,chat,nofillter,patch;
         /*window.onload = function(){
@@ -59,11 +71,15 @@
             chat = document.getElementById("chatmodal");
             patch = document.getElementById("patch");
             //catch reader
-            const themec = localStorage.getItem("themec");
+            var themec = localStorage.getItem("themec");
+            if((themec == null)&&(window.matchMedia('(prefers-color-scheme: dark)').matches)){
+                localStorage.setItem("themec", "dark");
+                themec = "dark";
+            }
             if(themec == "dark") {
                 document.body.classList.remove("light");
                 document.body.classList.add("dark");
-                document.getElementById("checkbox").checked = true;nofillter
+                document.getElementById("checkbox").checked = true;
                 them = "d";
             }
             tut1 = localStorage.getItem("tut1");
@@ -116,47 +132,218 @@
 
         });
     </script>
-    <style>body{margin:0;color:var(--text);background:var(--bg);transition:background .5s ease-in-out,color 1s ease-in-out;overflow:hidden}button{padding:10px}td,tr{border-collapse:collapse;font-size:80px;width:100px;height:100px;text-align:center;outline:0}tr{border-bottom:10px solid var(--border);transition:border 1s ease-in-out}td{border-right:10px solid var(--border);transition:border 1s ease-in-out;-ms-user-select:None;-moz-user-select:None;-webkit-user-select:None;user-select:None;outline:0}table{border-collapse:collapse}td:last-child{border-right:none!important}tr:last-child{border-bottom:none!important}@media (max-width:540px){#reset,.back{width:46%}}@media (max-width:600px){#the{position:fixed;bottom:20px;display:block;left:50%;transform:translate(-50%)}.ingame{display:none!important}.hexhex{opacity:0!important}.timm{font-size:10vw}.uul{padding-left:calc(6vw + 20px)}}@media (min-width:600px){#the{position:fixed;top:5px;left:5px;z-index:10;display:block}h1{margin-top:55px}.hexhex:not(#the){opacity:0!important}}:root{--black:#2D3848;--white:#f1f1f1;--white-gray:#cfcfcf;--black-gray:#565f6d;--white50:rgba(255, 255, 255, 0.5);--black50:rgba(0, 0, 0, 0.5);--white20:rgba(255, 255, 255, 0.2);--black20:rgba(0, 0, 0, 0.2);--animationspeed:750ms;--animationspeed2:600ms}.light{--bg:var(--white);--text:var(--black);--border:var(--black);--bt-bg-color:var(--white-gray);--line:var(--black50);--button:var(--black20)}.dark{--bg:var(--black);--text:var(--white);--border:var(--white);--bt-bg-color:var(--black-gray);--line:var(--white50);--button:var(--white20)}</style>
+    <style>
+        body {
+            margin: 0;
+            color: var(--text);
+            background: var(--bg);
+            transition: background 500ms ease-in-out, color 1000ms ease-in-out;
+            overflow: hidden;
+        }
+
+        button {
+            padding: 10px;
+        }
+
+        tr, td {
+            border-collapse: collapse;
+            font-size: 80px;
+            width: 100px;
+            height: 100px;
+            text-align: center;
+            outline: 0;
+        }
+
+        tr {
+            border-bottom: 10px solid var(--border);
+            transition: border 1000ms ease-in-out;
+        }
+
+        td {
+            border-right: 10px solid var(--border);
+            transition: border 1000ms ease-in-out;
+            -ms-user-select: None;
+            -moz-user-select: None;
+            -webkit-user-select: None;
+            user-select: None;
+            outline: 0;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        td:last-child {
+            border-right: none !important;
+        }
+
+        tr:last-child {
+            border-bottom: none !important;
+        }
+
+        @media (max-width:540px) {
+            .back, #reset {
+                width: 46%;
+            }
+        }
+
+        @media (max-width:600px) {/*kleiner als*/
+            #the {
+                position: fixed;
+                bottom: 20px;
+                display: block;
+                left: 50%;
+                transform: translate(-50%);
+            }
+            .ingame {
+                display: none !important;
+            }
+
+            .hexhex{
+                opacity: 0 !important;
+            }
+
+            .timm{
+                font-size: 10vw;
+            }
+
+            .uul{
+                padding-left: calc(6vw + 20px);
+            }
+
+        }
+
+        @media (min-width:600px) {/*größer als*/
+            #the {
+                position: fixed;
+                top: 5px;
+                left: 5px;
+                z-index: 10;
+                display: block;
+            }
+            h1 {
+                margin-top: 55px;
+            }
+
+            .hexhex:not(#the){
+                opacity: 0 !important;
+            }
+
+        }
+
+        /*@media (max-width: 399px){
+            #noacc{
+                display: block;
+            }
+            #div0, #div2, #div1, #singel, #myModal, #chatmodal{
+                display: none !important;
+            }
+            #multiplayer{
+                z-index: 100;
+            }
+        }
+
+        @media (max-height: 599px){
+            @media (max-width: 499px){
+                #noacc{
+                    display: block;
+                }
+                #multiplayer{
+                z-index: 100;
+            }
+            }
+            @media (min-width: 600px){
+                #rota{
+                    display: block;
+                    width: 100%
+                }
+                #multiplayer{
+                    z-index: 100;
+                }
+            }
+        }*/
+
+        :root {
+            --black: #2D3848;
+            --white: #f1f1f1;
+            --white-gray: #cfcfcf;
+            --black-gray: #565f6d;
+            --white50: rgba(255, 255, 255, 0.5);
+            --black50: rgba(0, 0, 0, 0.5);
+            --white20: rgba(255, 255, 255, 0.2);
+            --black20: rgba(0, 0, 0, 0.2);
+            --animationspeed: 750ms;
+            --animationspeed2: 600ms;
+        }
+
+        .light {
+            --bg: var(--white);
+            --text: var(--black);
+            --border: var(--black);
+            --bt-bg-color: var(--white-gray);
+            --line: var(--black50);
+            --button: var(--black20);
+        }
+
+        .dark {
+            --bg: var(--black);
+            --text: var(--white);
+            --border: var(--white);
+            --bt-bg-color: var(--black-gray);
+            --line: var(--white50);
+            --button: var(--white20);
+        }
+    </style>
 </head>
-<body class=light>
-<div id=versio>
-    <span>Version:</span>
-    <span id=version>Buggy</span>
-</div>
-<div id=pin class=mvr style=display:none>
-    <span>Ping:</span>
-    <span id=ping>0</span>
-    <span id=defwq></span>
-</div>
-<div class="box chopa" id=the>
-    <div class=lider>
+<body class="light">
+<!--<button style="position:absolute" onclick="theme()">Theme</button>
+    <div id="the">
         <i class="fa fa-sun"></i>
-        <label class=switch>
-            <input type=checkbox id=checkbox onclick=theme()>
-            <span class=slider></span>
+        <label class="switch">
+            <input type="checkbox" id="checkbox" onclick="theme()">
+            <span class="slider"></span>
+        </label>
+        <i class="fa fa-moon"></i>
+    </div>-->
+<div id="versio">
+    <span>Version:</span>
+    <span id="version">Buggy</span>
+</div>
+<div id="pin" class="mvr" style="display:none">
+    <span>Ping:</span>
+    <span id="ping">0</span>
+    <span id="defwq"></span>
+</div>
+<div class="box chopa" id="the">
+    <div class="lider">
+        <i class="fa fa-sun"></i>
+        <label class="switch">
+            <input type="checkbox" id="checkbox" onclick="theme()">
+            <span class="slider"></span>
         </label>
         <i class="fa fa-moon"></i>
     </div>
     <br>
-    <div id=slid class=lider>
-        <input type=range name=slide min=0 max=5000 value=1500 step=2 onchange=changeanimationspeed(this.value) class=slide>
+    <div id="slid" class="lider">
+        <input type="range" name="slide" min="0" max="5000" value="1500" step="2" onchange="changeanimationspeed(this.value);" class="slide">
         <br>
-        <i class="fas fa-angle-double-right linkss" onclick='document.getElementsByClassName("slide")[0].value=0,changeanimationspeed(0)'></i>
-        <i class="fas fa-angle-right rechts" onclick='document.getElementsByClassName("slide")[0].value=5e3,changeanimationspeed(5e3)'></i>
+        <i class="fas fa-angle-double-right linkss" onclick="document.getElementsByClassName('slide')[0].value = 0; changeanimationspeed(0);"></i>
+        <i class="fas fa-angle-right rechts" onclick="document.getElementsByClassName('slide')[0].value = 5000; changeanimationspeed(5000);"></i>
+
     </div>
 </div>
-<div style=display:none id=help onclick=help()>
+<div style="display:none" id="help" onclick="help()">
     <h1>?</h1>
 </div>
-<div id=div0 class="main nop overhid">
+<div id="div0" class="main nop overhid">
     <center>
-        <h1 class=chopa>Tick Tack Toe</h1>
+        <h1 class="chopa">Tick Tack Toe</h1>
     </center>
     <br>
     <br>
-    <div id=wahl>
-        <div class=box>
-            <a href=#singel>
+    <div id="wahl">
+        <div class="box">
+            <a href="#singel">
                 <div class="btn mvl" onclick="async function fadeout(){fadebutton(true);await sleep(animationspeed);sing();await sleep(100);fadebutton(false);}fadeout();">
                     <span>Einzelspieler</span>
                 </div>
@@ -164,8 +351,8 @@
         </div>
         <br>
         <br>
-        <div class=box>
-            <a href=#experimental-local>
+        <div class="box">
+            <a href="#experimental-local">
                 <div class="btn mvr" onclick="async function fadeout(){fadebutton(true);await sleep(animationspeed);off();await sleep(100);fadebutton(false);}fadeout();">
                     <span>Lokaler Mehrspieler</span>
                 </div>
@@ -173,8 +360,8 @@
         </div>
         <br>
         <br>
-        <div class=box>
-            <a href=#multiplayer>
+        <div class="box">
+            <a href="#multiplayer">
                 <div class="btn mvl" onclick="async function fadeout(){fadebutton(true);await sleep(animationspeed);on();await sleep(100);fadebutton(false);}fadeout();">
                     <span>Online Mehrspieler</span>
                 </div>
@@ -182,26 +369,26 @@
         </div>
         <br>
         <br>
-        <div class=box>
-            <a href=#experimental-area>
+        <div class="box">
+            <a href="#experimental-area">
                 <div class="btn mvr" onclick="async function fadeout(){fadebutton(true);await sleep(animationspeed);experarea();await sleep(100);fadebutton(false);}fadeout();">
                     <span>Experimentaler Bereich</span>
                 </div>
             </a>
         </div>
-        <div class=chopa onclick=pat() id=note>
+        <div class="chopa" onclick="pat()" id="note">
             Patch Notes
         </div>
-        <div class=chopa id=datimp>
+        <div class="chopa" id="datimp">
             <center>
-                <div class=linkkk>
-                    <a href=/Datenschutz/ >
+                <div class="linkkk">
+                    <a href="/Datenschutz/">
                         Datenschutz
                     </a>
                 </div>
                 |
-                <div class=linkkk>
-                    <a href=/Impressum/ >
+                <div class="linkkk">
+                    <a href="/Impressum/">
                         Impressum
                     </a>
                 </div>
@@ -209,24 +396,24 @@
         </div>
     </div>
 </div>
-<div id=experimental-area class="nop overhid">
+<div id="experimental-area" class="nop overhid">
     <center>
-        <h1 class=chopa>Experimentaler Bereich</h1>
+        <h1 class="chopa">Experimentaler Bereich</h1>
     </center>
     <br>
     <br>
-    <div id=wahl>
-        <div class=box>
-            <a href=#experimental-area>
-                <div class="btn mvl">
+    <div id="wahl">
+        <div class="box">
+            <a href="#experimental-area">
+                <div class="btn mvl" onclick="">
                     <span>Einzelspieler (WiP)</span>
                 </div>
             </a>
         </div>
         <br>
         <br>
-        <div class=box>
-            <a href=#experimental-local>
+        <div class="box">
+            <a href="#experimental-local">
                 <div class="btn mvr" onclick="async function fadeout(){fadebutton(true);await sleep(animationspeed);experloc();await sleep(100);fadebutton(false);}fadeout();">
                     <span>Lokaler Mehrspieler</span>
                 </div>
@@ -234,48 +421,48 @@
         </div>
         <br>
         <br>
-        <div class=box>
-            <a href=#experimental-multiplayer>
+        <div class="box">
+            <a href="#experimental-multiplayer">
                 <div class="btn mvl" onclick="async function fadeout(){fadebutton(true);await sleep(animationspeed);expermp();await sleep(100);fadebutton(false);}fadeout();">
                     <span>Online Mehrspieler</span>
                 </div>
             </a>
         </div>
     </div>
-    <div class=box>
-        <a href=#>
-            <div class="back btn mvl" onclick=back()>
+    <div class="box">
+        <a href="#">
+            <div class="back btn mvl" onclick="back()">
                 <span>Zurück</span>
             </div>
         </a>
     </div>
 </div>
-<div id=multiplayer class="nop overhid">
+<div id="multiplayer" class="nop overhid">
     <center>
-        <h2 class=chopa>Online Mehrspieler</h2>
-        <input class=mvl id=inpu placeholder=Name maxlength=20>
+        <h2 class="chopa">Online Mehrspieler</h2>
+        <input class="mvl" id="inpu" type="text" placeholder="Name" maxlength="20">
     </center>
     <br>
     <br>
-    <div class=box>
-        <div class="btn mvr" onclick=neu()>
+    <div class="box">
+        <div class="btn mvr" onclick="neu()">
             <span>Los</span>
         </div>
     </div>
-    <div class=box>
-        <a href=#>
-            <div class="back btn mvl" onclick=back();try{dis()}catch(c){}>
+    <div class="box">
+        <a href="#">
+            <div class="back btn mvl" onclick="back(); try{dis()}catch(ef){}">
                 <span>Zurück</span>
             </div>
         </a>
     </div>
 </div>
-<div id=div2 class="nop overhid">
+<div id="div2" class="nop overhid">
     <center>
         <h2>Waiting for other Player</h2>
     </center>
     <div class="sk-div groser">
-        <div class=sk-circle>
+        <div class="sk-circle">
             <div class="sk-circle1 sk-child"></div>
             <div class="sk-circle2 sk-child"></div>
             <div class="sk-circle3 sk-child"></div>
@@ -290,65 +477,65 @@
             <div class="sk-circle12 sk-child"></div>
         </div>
     </div>
-    <div class=box>
-        <a href=#>
-            <div class="back btn mvl" onclick=back();try{dis()}catch(c){}>
+    <div class="box">
+        <a href="#">
+            <div class="back btn mvl" onclick="back(); try{dis()}catch(ef){};">
                 <span>Zurück</span>
             </div>
         </a>
     </div>
 </div>
-<div id=div1 class="nop overhid">
-    <center class=chopa>
-        <h2 id=youAre></h2>
+<div id="div1" class="nop overhid">
+    <center class="chopa">
+        <h2 id="youAre"></h2>
         <table>
             <tbody>
             <tr>
-                <td id=a0 role=button tabindex=0 onclick=los(0)></td>
-                <td id=a1 role=button tabindex=0 onclick=los(1)></td>
-                <td id=a2 role=button tabindex=0 onclick=los(2)></td>
+                <td id="a0" role="button" tabindex="0" onclick="los(0)"></td>
+                <td id="a1" role="button" tabindex="0" onclick="los(1)"></td>
+                <td id="a2" role="button" tabindex="0" onclick="los(2)"></td>
             </tr>
             <tr>
-                <td id=a3 role=button tabindex=1 onclick=los(3)></td>
-                <td id=a4 role=button tabindex=1 onclick=los(4)></td>
-                <td id=a5 role=button tabindex=1 onclick=los(5)></td>
+                <td id="a3" role="button" tabindex="1" onclick="los(3)"></td>
+                <td id="a4" role="button" tabindex="1" onclick="los(4)"></td>
+                <td id="a5" role="button" tabindex="1" onclick="los(5)"></td>
             </tr>
             <tr>
-                <td id=a6 role=button tabindex=2 onclick=los(6)></td>
-                <td id=a7 role=button tabindex=2 onclick=los(7)></td>
-                <td id=a8 role=button tabindex=2 onclick=los(8)></td>
+                <td id="a6" role="button" tabindex="2" onclick="los(6)"></td>
+                <td id="a7" role="button" tabindex="2" onclick="los(7)"></td>
+                <td id="a8" role="button" tabindex="2" onclick="los(8)"></td>
             </tr>
             </tbody>
         </table>
-        <h1 id=turn>Turn: O</h1>
+        <h1 id="turn">Turn: O</h1>
         <h3>Score:</h3>
-        <h4 id=score>X: 0 vs. O: 0</h4>
+        <h4 id="score">X: 0 vs. O: 0</h4>
     </center>
-    <div class=box>
-        <a href=#>
-            <div class="back btn mvl" onclick=back();try{dis()}catch(c){}>
+    <div class="box">
+        <a href="#">
+            <div class="back btn mvl" onclick="back(); try{dis()}catch(ef){};">
                 <span>Zurück</span>
             </div>
         </a>
     </div>
-    <div class=box>
-        <div class="btn mvr" id=reset onclick=rematch()>
+    <div class="box">
+        <div class="btn mvr" id="reset" onclick="rematch()">
             <span>Rematch</span>
         </div>
-        <div class="btn nop mvr" id=chat onclick=chating()>
-            <i class="far fa-comment" id=cha></i>
+        <div class="btn nop mvr" id="chat" onclick="chating()">
+            <i class="far fa-comment" id="cha"></i>
         </div>
     </div>
 </div>
-<div id=singel class="nop overhid">
+<div id="singel" class="nop overhid">
     <center>
-        <h1 class=chopa>Einzelspieler</h1>
+        <h1 class="chopa">Einzelspieler</h1>
     </center>
     <br>
     <br>
-    <div id=wahl>
-        <div class=box>
-            <a href=#einfach>
+    <div id="wahl">
+        <div class="box">
+            <a href="#einfach">
                 <div class="btn mvl" onclick="async function fadeout(){fadebutton(true);await sleep(animationspeed);ein();await sleep(100);fadebutton(false);}fadeout();">
                     <span>Einfach</span>
                 </div>
@@ -356,8 +543,8 @@
         </div>
         <br>
         <br>
-        <div class=box>
-            <a href=#mittel>
+        <div class="box">
+            <a href="#mittel">
                 <div class="btn mvr" onclick="async function fadeout(){fadebutton(true);await sleep(animationspeed);mit();await sleep(100);fadebutton(false);}fadeout();">
                     <span>Mittel</span>
                 </div>
@@ -365,8 +552,8 @@
         </div>
         <br>
         <br>
-        <div class=box>
-            <a href=#schwer>
+        <div class="box">
+            <a href="#schwer">
                 <div class="btn mvl" onclick="async function fadeout(){fadebutton(true);await sleep(animationspeed);schw();await sleep(100);fadebutton(false);}fadeout();">
                     <span>Schwer/Unmöglich</span>
                 </div>
@@ -375,47 +562,67 @@
         <br>
         <br>
     </div>
-    <div class=box>
-        <a href=#>
-            <div class="back btn mvl" onclick=back()>
+    <div class="box">
+        <a href="#">
+            <div class="back btn mvl" onclick="back()">
                 <span>Zurück</span>
             </div>
         </a>
     </div>
 </div>
-<div id=myModal class="modal nop">
-    <div class=modal-content>
-        <span class=close onclick=sp()>&times;</span>
+<div id="myModal" class="modal nop">
+    <div class="modal-content">
+        <span class="close" onclick="sp()">&times;</span>
         <center>
-            <h2 id=mote></h2>
+            <h2 id="mote"></h2>
         </center>
     </div>
 </div>
-<div id=chatmodal class="modal nop">
-    <div class=chat-window>
-        <span class=close2 onclick=closechat()>&times;</span>
-        <span id=chat-content><center><b>Du bist nicht Online!</b><br><br>Du solltest den Chat gar nicht sehen!</center></span>
-        <div id=chatinput>
-            <input id=chatinputbox name=chatinput onblur=try{blu()}catch(c){} onfocus=try{foc()}catch(c){}>
-            <i onclick=try{sen()}catch(c){} id=sendd class="fas fa-location-arrow"></i>
+<div id="chatmodal" class="modal nop">
+    <div class="chat-window">
+        <span class="close2" onclick="closechat()">&times;</span>
+        <span id="chat-content"><center><b>Du bist nicht Online!</b><br><br>Du solltest den Chat gar nicht sehen!</b></center></span>
+        <div id="chatinput">
+            <input type="text" id="chatinputbox" name="chatinput" onblur="try{blu()}catch(ef){}" onfocus="try{foc()}catch(ef){}">
+            <i onclick="try{sen()}catch(ef){}" id="sendd" class="fas fa-location-arrow" ></i>
         </div>
     </div>
 </div>
-<div class=nop id=noacc>
+<div class="nop" id="noacc">
     <center><h1>Dein Gerät ist zu klein.<br>Es unterschreitet die Mindesgröße von 400&nbsp;x&nbsp;600&nbsp;(px).<br>Bitte verwenden Sie ein anderes Gerät, um auf die Website zuzugreifen.</h1></center>
 </div>
-<div class=nop id=rota>
+<div class="nop" id="rota">
     <center><h1>Bitte drehen Sie ihr Gerät um 90°</h1></center>
 </div>
-<div id=patch class="modal nop">
-    <div class=patch-window>
-        <span class="close2 timm" onclick=closepatch()>&times;</span>
+<div id="patch" class="modal nop">
+    <div class="patch-window" style="max-width: 900px">
+        <span class="close2 timm" onclick="closepatch()">&times;</span>
         <center>
             <h3>Patch Notes:</h3>
         </center>
-        <ul class=uul>
+        <ul class="uul">
             <li>
-                4.0.1
+                4.0.1.5<!--23.02.2021-->
+                <ul>
+                    <li>
+                        New:
+                        <ul>
+                            <li>
+                                When you visit the website for the first time, the light/dark theme is matched to that of the browser
+                            </li>
+                        </ul>
+                        Fixes:
+                        <ul>
+                            <li>
+                                Improved support for Firefox
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <br>
+            <li>
+                4.0.1<!--16.01.2021-->
                 <ul>
                     <li>
                         New:
@@ -424,7 +631,7 @@
                                 Additional tags for a better presentation of the website on social media
                             </li>
                             <li>
-                                Small changes that should shorten the response time of the server and allow the website to load faster.
+                                Small changes that should shorten the response time of the server and allow the website to load faster
                             </li>
                         </ul>
                     </li>
@@ -432,7 +639,7 @@
             </li>
             <br>
             <li>
-                4.0.0
+                4.0.0<!--27.12.2020-->
                 <ul>
                     <li>
                         New:
@@ -454,7 +661,7 @@
             </li>
             <br>
             <li>
-                3.3.1
+                3.3.1<!--05.12.2020-->
                 <ul>
                     <li>
                         New:
@@ -479,7 +686,7 @@
             </li>
             <br>
             <li>
-                3.3.0
+                3.3.0<!--29.11.2020-->
                 <ul>
                     <li>
                         Fixes:
@@ -529,6 +736,7 @@
                 </ul>
             </li>
         </ul>
+
     </div>
 </div>
 </body>
