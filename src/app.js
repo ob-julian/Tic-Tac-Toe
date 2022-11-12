@@ -1,4 +1,4 @@
-consolelog("starting up");
+consolelog("starting up","green");
 "use strict";
 const express = require("express");
 const app = express();
@@ -18,7 +18,7 @@ const options = {
     key: fs.readFileSync("/etc/letsencrypt/live/karlsgymnasium.ddns.net/privkey.pem"),
     cert: fs.readFileSync("/etc/letsencrypt/live/karlsgymnasium.ddns.net/fullchain.pem")
 };
-consolelog("Keys Initialised");
+consolelog("Keys Initialised", "green");
 
 app.get("/",function(req, res) {
     res.sendFile(__dirname+"/client/index.html");
@@ -31,20 +31,34 @@ app.use(secure);
 
 const server = serv.createServer(options, app)
 server.listen(2001);
-consolelog("start from TTT succsesful");
+consolelog("start from TTT succsesful","green");
 
 
 
-var app1 = express();
-var serv1 = require("http").Server(app1);
+const app1 = express();
+const serv1 = require("http").Server(app1);
 app1.get("/",function(req, res) {
     res.sendFile(__dirname+"/client1/index.html");
 })
 app1.use("/client1",express.static(__dirname + "/client1"));
 
 serv1.listen(2000);
-consolelog("start from subserver succsesful");
+consolelog("start from subserver succsesful","green");
 
+
+const app2 = express();
+const serv2 = require("http").Server(app2);
+const auth = require('./auth');
+
+app2.use(auth);
+
+app2.get("/",function(req, res) {
+    res.sendFile(__dirname+"/log/log.log");
+})
+app2.use("/log",express.static(__dirname + "/log"));
+
+//serv2.listen(2002);
+//consolelog("Start from log Servre succsesful");
 
 
 var socket_list={};
@@ -53,7 +67,7 @@ var playerIn = 0
 
 var serverId=Math.random();
 
-consolelog("variablen inizialisiert");
+consolelog("variablen inizialisiert","green");
 
 var io = require("socket.io")(server,{});
 io.sockets.on("connection",function(socket){
@@ -219,22 +233,42 @@ io.sockets.on("connection",function(socket){
             socket.aa=[false,false,false,false,false,false,false,false,false];
             socket.otherPlayer.aa=[false,false,false,false,false,false,false,false,false];
             socket.point="0";
+            socket.emit("startChat");
+            socket.otherPlayer.emit("startChat");
             consolelog("Match betwen:"+socket_list[playerInQ[0]].name+" and "+socket_list[playerInQ[1]].name);
             playerInQ = {};
             playerIn = 0;
         }
         else socket.emit("erro");
     }
+
+    socket.on("sendMessage",function(ff){
+        socket.emit("receiveMessage","me",ff);
+        socket.otherPlayer.emit("receiveMessage","other",ff);
+        console.log(socket.name + " schreibt an " + socket.otherPlayer.name + ": " + ff);
+    });
+
+    socket.on("foc1",function(){
+        socket.otherPlayer.emit("foc2");
+    });
+
+    socket.on("blu1",function(){
+        socket.otherPlayer.emit("blu2");
+    });
+
+
+
     socket.on("man",function(){for(var i in socket_list)consolelog("llll");})
 
     socket.emit("serverRestart",serverId);
 });
 
-consolelog("sockel initialiesiert");
+consolelog("sockel initialiesiert","green");
 
-function consolelog(gg){
+function consolelog(gg,hh){
     let aa=new Date;
-    console.log("["+aa.getDate()+"."+(aa.getMonth()+1)+"-"+aa.getHours()+":"+aa.getMinutes()+"] "+gg);
+    if(hh) console.log("["+aa.getDate()+"."+(aa.getMonth()+1)+"-"+aa.getHours()+":"+aa.getMinutes()+"] <span style='color:"+hh+"'>"+gg+"</span>");
+    else console.log("["+aa.getDate()+"."+(aa.getMonth()+1)+"-"+aa.getHours()+":"+aa.getMinutes()+"] "+gg);
 }
 
-consolelog("Start finished");
+consolelog("Start finished","green");
