@@ -1,0 +1,21 @@
+{
+  "name": "ttt",
+  "version": "4.0.1.3",
+  "description": "Just ordinary Tick Tack Toe",
+  "main": "app.js",
+  "dependencies": {
+    "basic-auth": "^2.0.1",
+    "express": "^4.17.1",
+    "express-force-https": "^1.0.0",
+    "express-htaccess-middleware": "^0.1.0",
+    "forever": "^2.0.0",
+    "php-node": "0.0.2",
+    "socket.io": "^2.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
