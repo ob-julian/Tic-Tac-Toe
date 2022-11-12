@@ -5,7 +5,7 @@
     <title>Tick Tack Toe</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="version" content="2.2.0"></version>
+    <meta name="version" content="2.2.1"></version>
     <script src="https://kit.fontawesome.com/ff71fc4b3c.js" crossorigin="anonymous"></script><link rel="stylesheet" href="https://kit-free.fontawesome.com/releases/latest/css/free.min.css" media="all"><link rel="stylesheet" href="https://kit-free.fontawesome.com/releases/latest/css/free-v4-font-face.min.css" media="all"><link rel="stylesheet" href="https://kit-free.fontawesome.com/releases/latest/css/free-v4-shims.min.css" media="all">
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
     <script id="yourscripttagID"></script>
@@ -1093,7 +1093,7 @@
 
     }*/
 
-        var experiment = 'var hh,awe,jj=!0,jkl=0,p1=0,p2=0;aa=[!1,!1,!1,!1,!1,!1,!1,!1,!1];var tem,durch="1";function los(e){!1===aa[e]&&jkl<6?(jj?(document.getElementById("a"+e).innerHTML="O",document.getElementById("turn").innerHTML="Turn: X",aa[e]="2"):(document.getElementById("a"+e).innerHTML="X",document.getElementById("turn").innerHTML="Turn: O",aa[e]="1"),jj=!jj,win(),jkl++):jkl>=6&&("1"==durch&&!1!==aa[e]?jj||"1"!=aa[e]?jj&&"2"==aa[e]&&(document.getElementById("a"+e).style.color="red",tem=e,durch="2"):(document.getElementById("a"+e).style.color="red",tem=e,durch="2"):"2"==durch&&e==tem?(document.getElementById("a"+e).style.color="null",durch="1"):"2"==durch&&!1===aa[e]?(jj?(document.getElementById("a"+e).innerHTML="O",document.getElementById("a"+tem).innerHTML=" ",document.getElementById("turn").innerHTML="Turn: X",document.getElementById("a"+e).style.color="null",aa[e]="2",aa[tem]=!1):(document.getElementById("a"+e).innerHTML="X",document.getElementById("a"+tem).innerHTML=" ",document.getElementById("turn").innerHTML="Turn: O",document.getElementById("a"+e).style.color="null",aa[e]="1",aa[tem]=!1),jj=!jj,win(),durch="1"):"2"==durch&&!1!==aa[e]&&(jj||"1"!=aa[e]?jj&&"2"==aa[e]&&(document.getElementById("a"+e).style.color="red",document.getElementById("a"+tem).style.color="null",tem=e):(document.getElementById("a"+e).style.color="red",document.getElementById("a"+tem).style.color="null",tem=e)))}function win(){for(var e=1;e<=2;e++){1==e&&(awe="1"),2==e&&(awe="2");for(var n=0;n<9;n+=3)if(aa[n]==aa[n+1]&&aa[n+1]==aa[n+2]&&aa[n+2]==awe)return void winner(awe);for(var a=0;a<=3;a++)if(aa[a]==aa[a+3]&&aa[a+3]==aa[a+6]&&aa[a+6]==awe)return void winner(awe);if(aa[0]==aa[4]&&aa[4]==aa[8]&&aa[8]==awe)return void winner(awe);if(aa[2]==aa[4]&&aa[4]==aa[6]&&aa[6]==awe)return void winner(awe)}}function rese(){document.getElementById("reset").style="visibility:visible",jkl=0,aa=[3,3,3,3,3,3,3,3,3]}function rematch(){aa=[!1,!1,!1,!1,!1,!1,!1,!1,!1];for(var e=0;e<9;e++)document.getElementById("a"+e).innerHTML="";document.getElementById("reset").style="visibility:hidden"}function winner(e){1==e?(p1++,aler("Winner: X")):2==e&&(p2++,aler("Winner: O")),rese(),document.getElementById("score").innerHTML="X: "+p1+" vs. O: "+p2}';
+        var experiment = 'var hh,awe,jj=!0,jkl=0,p1=0,p2=0;aa=[!1,!1,!1,!1,!1,!1,!1,!1,!1];var tem,durch="1";function los(e){!1===aa[e]&&jkl<6?(jj?(document.getElementById("a"+e).innerHTML="O",document.getElementById("turn").innerHTML="Turn: X",aa[e]="2"):(document.getElementById("a"+e).innerHTML="X",document.getElementById("turn").innerHTML="Turn: O",aa[e]="1"),jj=!jj,win(),jkl++):jkl>=6&&("1"==durch&&!1!==aa[e]?jj||"1"!=aa[e]?jj&&"2"==aa[e]&&(document.getElementById("a"+e).style.color="red",tem=e,durch="2"):(document.getElementById("a"+e).style.color="red",tem=e,durch="2"):"2"==durch&&e==tem?(document.getElementById("a"+tem).style.color="null",durch="1"):"2"==durch&&!1===aa[e]?(jj?(document.getElementById("a"+e).innerHTML="O",document.getElementById("a"+tem).innerHTML=" ",document.getElementById("turn").innerHTML="Turn: X",document.getElementById("a"+tem).style.color="null",aa[e]="2",aa[tem]=!1):(document.getElementById("a"+e).innerHTML="X",document.getElementById("a"+tem).innerHTML=" ",document.getElementById("turn").innerHTML="Turn: O",document.getElementById("a"+tem).style.color="null",aa[e]="1",aa[tem]=!1),jj=!jj,win(),durch="1"):"2"==durch&&!1!==aa[e]&&(jj||"1"!=aa[e]?jj&&"2"==aa[e]&&(document.getElementById("a"+e).style.color="red",document.getElementById("a"+tem).style.color="null",tem=e):(document.getElementById("a"+e).style.color="red",document.getElementById("a"+tem).style.color="null",tem=e)))}function win(){for(var e=1;e<=2;e++){1==e&&(awe="1"),2==e&&(awe="2");for(var n=0;n<9;n+=3)if(aa[n]==aa[n+1]&&aa[n+1]==aa[n+2]&&aa[n+2]==awe)return void winner(awe);for(var t=0;t<=3;t++)if(aa[t]==aa[t+3]&&aa[t+3]==aa[t+6]&&aa[t+6]==awe)return void winner(awe);if(aa[0]==aa[4]&&aa[4]==aa[8]&&aa[8]==awe)return void winner(awe);if(aa[2]==aa[4]&&aa[4]==aa[6]&&aa[6]==awe)return void winner(awe)}}function rese(){document.getElementById("reset").style="visibility:visible",jkl=0,aa=[3,3,3,3,3,3,3,3,3]}function rematch(){aa=[!1,!1,!1,!1,!1,!1,!1,!1,!1];for(var e=0;e<9;e++)document.getElementById("a"+e).innerHTML="";document.getElementById("reset").style="visibility:hidden"}function winner(e){1==e?(p1++,aler("Winner: X")):2==e&&(p2++,aler("Winner: O")),rese(),document.getElementById("score").innerHTML="X: "+p1+" vs. O: "+p2}';
 
         /*var  hh,jj=true;
             var awe,jkl=0;
@@ -1136,7 +1136,7 @@
                         }
                     }
                     else if((durch=="2")&&(hh==tem)){
-                        document.getElementById("a"+hh).style.color="null";
+                        document.getElementById("a"+tem).style.color="null";
                         durch="1";
                     }
                     else if((durch=="2")&&(aa[hh]===false)){
@@ -1145,7 +1145,7 @@
                             document.getElementById("a"+hh).innerHTML="X";
                             document.getElementById("a"+tem).innerHTML=" ";
                             document.getElementById("turn").innerHTML="Turn: O";
-                            document.getElementById("a"+hh).style.color="null";
+                            document.getElementById("a"+tem).style.color="null";
                             aa[hh]="1";
                             aa[tem]=false;
 
@@ -1155,7 +1155,7 @@
                              document.getElementById("a"+hh).innerHTML="O";
                              document.getElementById("a"+tem).innerHTML=" ";
                              document.getElementById("turn").innerHTML="Turn: X";
-                             document.getElementById("a"+hh).style.color="null";
+                             document.getElementById("a"+tem).style.color="null";
                              aa[hh]="2";
                              aa[tem]=false;
                         }
