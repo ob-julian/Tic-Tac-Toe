@@ -1,15 +1,51 @@
+consolelog("starting up");
 "use strict";
-var express = require("express");
-var app = express();
-var serv = require("http").Server(app);
+const express = require("express");
+const app = express();
+const serv = require("https");
+const fs = require("fs");
+const path = require('path');
+const RewriteMiddleware = require('express-htaccess-middleware');
+const secure = require('express-force-https');
+
+const RewriteOptions = {
+    file: path.resolve(__dirname, '.htaccess'),
+    verbose: (process.env.ENV_NODE == 'development'),
+    watch: (process.env.ENV_NODE == 'development')
+};
+
+const options = {
+    key: fs.readFileSync("/etc/letsencrypt/live/karlsgymnasium.ddns.net/privkey.pem"),
+    cert: fs.readFileSync("/etc/letsencrypt/live/karlsgymnasium.ddns.net/fullchain.pem")
+};
+consolelog("Keys Initialised");
 
 app.get("/",function(req, res) {
     res.sendFile(__dirname+"/client/index.html");
 })
 app.use("/client",express.static(__dirname + "/client"));
 
-serv.listen(2000);
-console.log("start from TTT succsesful");
+app.use(RewriteMiddleware(RewriteOptions));
+
+app.use(secure);
+
+const server = serv.createServer(options, app)
+server.listen(2001);
+consolelog("start from TTT succsesful");
+
+
+
+var app1 = express();
+var serv1 = require("http").Server(app1);
+app1.get("/",function(req, res) {
+    res.sendFile(__dirname+"/client1/index.html");
+})
+app1.use("/client1",express.static(__dirname + "/client1"));
+
+serv1.listen(2000);
+consolelog("start from subserver succsesful");
+
+
 
 var socket_list={};
 var playerInQ = {};
@@ -17,12 +53,12 @@ var playerIn = 0
 
 var serverId=Math.random();
 
-console.log("variablen inizialisiert");
+consolelog("variablen inizialisiert");
 
-var io = require("socket.io")(serv,{});
+var io = require("socket.io")(server,{});
 io.sockets.on("connection",function(socket){
     socket.id = Math.random();
-    console.log("socket connection from id:" + socket.id);
+    consolelog("socket connection from id:" + socket.id);
     socket_list[socket.id] = socket;
     socket.otherPlayer;
     socket.online = false;
@@ -40,7 +76,7 @@ io.sockets.on("connection",function(socket){
 
     function disc() {
         if(fuck==false){
-            console.log("socket disconnection from id:" + socket.id);
+            consolelog("socket disconnection from id:" + socket.id);
             if(socket.online===true){
                 socket.otherPlayer.online=false;
                 socket.otherPlayer.queu=false;
@@ -51,22 +87,22 @@ io.sockets.on("connection",function(socket){
                 socket.emit("resett");
                 socket.emit("turnreset");
                 socket.otherPlayer.queueM();
-                console.log("online");
+                consolelog("online");
             }
             else if(socket.queu===true){
                 socket.online=false;
                 socket.queu=false;
                 playerInQ = {};
                 playerIn = 0;
-                console.log("queue");
+                consolelog("queue");
             }
-            else console.log("Login")
+            else consolelog("Login")
         }
     }
 
     socket.on("conn",function(valu){
         socket.name = valu;
-        console.log(socket.id+" has canged the name to "+socket.name);
+        consolelog(socket.id+" has canged the name to "+socket.name);
         socket.queueM();
     });
 
@@ -183,13 +219,22 @@ io.sockets.on("connection",function(socket){
             socket.aa=[false,false,false,false,false,false,false,false,false];
             socket.otherPlayer.aa=[false,false,false,false,false,false,false,false,false];
             socket.point="0";
-            console.log("Match betwen:"+socket_list[playerInQ[0]].name+" and "+socket_list[playerInQ[1]].name);
+            consolelog("Match betwen:"+socket_list[playerInQ[0]].name+" and "+socket_list[playerInQ[1]].name);
             playerInQ = {};
             playerIn = 0;
         }
         else socket.emit("erro");
     }
-    socket.on("man",function(){for(var i in socket_list)console.log("llll");})
+    socket.on("man",function(){for(var i in socket_list)consolelog("llll");})
 
     socket.emit("serverRestart",serverId);
 });
+
+consolelog("sockel initialiesiert");
+
+function consolelog(gg){
+    let aa=new Date;
+    console.log("["+aa.getDate()+"."+(aa.getMonth()+1)+"-"+aa.getHours()+":"+aa.getMinutes()+"] "+gg);
+}
+
+consolelog("Start finished");
