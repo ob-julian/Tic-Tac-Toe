@@ -23,7 +23,19 @@ consolelog("Keys Initialised", "green");
 app.get("/",function(req, res) {
     res.sendFile(__dirname+"/client/index.html");
 })
-app.use("/client",express.static(__dirname + "/client"));
+app.get("/sitemap.xml",function(req, res) {
+    res.sendFile(__dirname+"/client/sitemap.xml");
+})
+app.get("/Datenschutz",function(req, res) {
+    res.sendFile(__dirname+"/client/datenschutz.html");
+})
+app.get("/Impressum",function(req, res) {
+    res.sendFile(__dirname+"/client/impressum.html");
+})
+/*app.use("/icon",express.static(__dirname + "/client/icon"));
+app.use("/js",express.static(__dirname + "/client/js"));
+app.use("/css",express.static(__dirname + "/client/css"));*/
+app.use("/ttt",express.static(__dirname + "/client/ttt"));
 
 app.use(RewriteMiddleware(RewriteOptions));
 
