@@ -8,14 +8,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="robots" content="index, follow">
-    <meta name="version" content="4.0.1.5">
+    <meta name="version" content="4.0.1.3">
     <meta name="author" content="Julian Oberhofer">
     <!--Twitter stuff-->
     <meta name="twitter:card" content="player">
     <!--meta name="twitter:site" content="@"-->
     <meta name="twitter:title" content="Tic Tac Toe">
     <meta name="twitter:description" content="Eine kleine Seite zum Singel- und Multiplayer spielen von Tic-Tac-Toe. Adfree!">
-    <meta name="twitter:image" content="https://karlsgymnasium.ddns.net:2001/icon/apple-icon-180x180.png">
+    <meta name="twitter:image" content="https://karlsgymnasium.ddns.net:2001/ttt/icon/apple-icon-180x180.png">
     <meta name="twitter:player" content="https://karlsgymnasium.ddns.net/ttt-schwer/index.html">
     <meta name="twitter:player:height" content="326">
     <meta name="twitter:player:width" content="326">
@@ -24,30 +24,45 @@
     <meta property="og:type" content="website.gaming" />
     <meta property="og:title" content="Tic Tac Toe" />
     <meta property="og:description" content="Eine kleine Seite zum Singel- und Multiplayer spielen von Tic-Tac-Toe. Adfree!" />
-    <meta property="og:image" content="https://karlsgymnasium.ddns.net:2001/icon/apple-icon-180x180.png" />
+    <meta property="og:image" content="https://karlsgymnasium.ddns.net:2001/ttt/icon/apple-icon-180x180.png" />
     <meta property="og:url" content="https://karlsgymnasium.ddns.net:2001/" />
     <meta property="og:site_name" content="Tic Tac Toe" />
     <!--favicon stuff-->
-    <link rel="apple-touch-icon" sizes="57x57" href="/icon/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="/icon/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/icon/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="/icon/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/icon/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="/icon/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="/icon/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/icon/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/icon/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192"  href="/icon/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/icon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="/icon/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/icon/favicon-16x16.png">
-    <link rel="manifest" href="/icon/manifest.json">
+    <link rel="apple-touch-icon" sizes="57x57" href="/ttt/icon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/ttt/icon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/ttt/icon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/ttt/icon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/ttt/icon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/ttt/icon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/ttt/icon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/ttt/icon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/ttt/icon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/ttt/icon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/ttt/icon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/ttt/icon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/ttt/icon/favicon-16x16.png">
+    <link rel="manifest" href="/ttt/icon/manifest.json">
     <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="/icon/ms-icon-144x144.png">
+    <meta name="msapplication-TileImage" content="/ttt/icon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
-    <link rel="stylesheet" href="css/css.css">
-    <script type="text/javascript" src="js/js.js"></script>
+    <script type="text/javascript">
+        window.addEventListener('DOMContentLoaded', function() {
+            if(false || !!document.documentMode){
+                document.body.innerHTML = "<center><h1>Fang bitte an einen Modernen Browser zu Benutzen!</h1></center>";
+            }
+        });
+    </script>
+    <script type="text/javascript">
+        window.onload = function(){
+            if(false || !!document.documentMode){
+                document.body.innerHTML = "<center><h1>Fang bitte an einen Modernen Browser zu Benutzen!</h1></center>";
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" href="ttt/css/css.css">
+    <script type="text/javascript" src="ttt/js/js.js"></script>
     <!--fontawesome stuff-->
     <!--script src="https://kit.fontawesome.com/ff71fc4b3c.js" crossorigin="anonymous"></script-->
     <link rel="stylesheet" href="https://kit-free.fontawesome.com/releases/latest/css/free.min.css" media="all">
@@ -62,10 +77,47 @@
     <style type="text/css" id="patchh"></style>
     <!--manuel js and css-->
     <script>
-        var modal,chat,nofillter,patch;
-        /*window.onload = function(){
+        document.onmouseover = function() {
+            //User's mouse is inside the page.
+            window.innerDocClick = true;
+        }
 
-        }*/
+        document.onmouseleave = function() {
+            //User's mouse has left the page.
+            window.innerDocClick = false;
+        }
+
+        if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
+            document.onmouseout = function() {
+                //User's mouse has left the page.
+                window.innerDocClick = false;
+            }
+        }
+
+        window.onhashchange = function() {
+            if (window.innerDocClick) {
+                //Your own in-page mechanism triggered the hash change
+            } else {
+                //Browser back button was clicked
+                console.log("out");
+                var kl = window.location;
+                var lk = String(kl);
+                llk = lk.split("#");
+                if((llk[1] == '') || (llk[1] == undefined)){back(); try{dis()}catch(ef){}}
+                else if(llk[1] == "1v1"){async function fadeout(){fadebutton(true);await sleep(animationspeed);off();await sleep(100);fadebutton(false);}fadeout();}
+                else if(llk[1] == "multiplayer") {async function fadeout(){fadebutton(true);await sleep(animationspeed);on();await sleep(100);fadebutton(false);}fadeout();}
+                else if(llk[1] == "einfach"){async function fadeout(){fadebutton(true);await sleep(animationspeed);ein();await sleep(100);fadebutton(false);}fadeout();}
+                else if(llk[1] == "mittel"){async function fadeout(){fadebutton(true);await sleep(animationspeed);mit();await sleep(100);fadebutton(false);}fadeout();}
+                else if(llk[1] == "schwer"){async function fadeout(){fadebutton(true);await sleep(animationspeed);schw();await sleep(100);fadebutton(false);}fadeout();}
+                else if(llk[1] == "experimental-local"){async function fadeout(){fadebutton(true);await sleep(animationspeed);experloc();await sleep(100);fadebutton(false);}fadeout();}
+                else if(llk[1] == "experimental-area"){async function fadeout(){fadebutton(true);await sleep(animationspeed);experarea();await sleep(100);fadebutton(false);}fadeout();}
+                else if(llk[1] == "experimental-multiplayer"){async function fadeout(){fadebutton(true);await sleep(animationspeed);expermp();await sleep(100);fadebutton(false);}fadeout();}
+                else if((llk[1] == "singel")){async function fadeout(){fadebutton(true);await sleep(animationspeed);sing();await sleep(100);fadebutton(false);}fadeout();}
+            }
+        }
+
+        var modal,chat,nofillter,patch;
+
         window.addEventListener('DOMContentLoaded', function() {
             modal = document.getElementById("myModal");
             chat = document.getElementById("chatmodal");
@@ -595,14 +647,43 @@
     <center><h1>Bitte drehen Sie ihr Gerät um 90°</h1></center>
 </div>
 <div id="patch" class="modal nop">
-    <div class="patch-window" style="max-width: 900px">
+    <div class="patch-window">
         <span class="close2 timm" onclick="closepatch()">&times;</span>
         <center>
             <h3>Patch Notes:</h3>
         </center>
         <ul class="uul">
             <li>
-                4.0.1.5<!--23.02.2021-->
+                4.0.1.3<!--07.10.2021-->
+                <ul>
+                    <li>
+                        Fixes:
+                        <ul>
+                            <li>
+                                A Chrome Update changed the way it dealt with errors. Therefore some browser-specific functions were not working properly, most noticeable on Chrome Mobile. Those bugs should be fixed now.
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <br>
+            <li>
+                4.0.1.2<!--27.02.2021-->
+                <ul>
+                    <li>
+                        Fixes:
+                        <ul>
+                            <li>
+                                If you now use the browser's back button, the website will continue to work instead of displaying multiple subpages at once as before.<br>
+                                After some tweaking, it even works for Firefox...
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <br>
+            <li>
+                4.0.1.1<!--23.02.2021-->
                 <ul>
                     <li>
                         New:
