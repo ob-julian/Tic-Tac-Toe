@@ -6,7 +6,7 @@
     <title>Tick Tack Toe</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="version" content="3.2.2">
+    <meta name="version" content="3.2.3">
     <link rel="apple-touch-icon" sizes="57x57" href="/client/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/client/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="/client/apple-icon-72x72.png">
@@ -1340,6 +1340,17 @@
         function mit() {
             resett();
             reloadSript(mittel);
+            document.getElementById("div0").style = "display:none !important";
+            document.getElementById("div1").style = "display:block !important";
+            document.getElementById("div2").style = "display:none !important";
+            document.getElementById("the").classList.add("ingame");
+            document.getElementById("help").style.display = "block";
+            modus = 1;
+        }
+
+        function schw() {
+            resett();
+            reloadSript(schwer);
             document.getElementById("div0").style = "display:none !important";
             document.getElementById("div1").style = "display:block !important";
             document.getElementById("div2").style = "display:none !important";
