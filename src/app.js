@@ -15,6 +15,8 @@ var socket_list={};
 var playerInQ = {};
 var playerIn = 0
 
+var serverId=Math.random();
+
 console.log("variablen inizialisiert");
 
 var io = require("socket.io")(serv,{});
@@ -164,7 +166,7 @@ io.sockets.on("connection",function(socket){
         }
         else if((playerIn==2)&&(socket.online==false)&&(socket.queu==false)) {
             socket.otherPlayer=socket_list[playerInQ[0]];
-            socket.otherPlayer.otherPlayer=socket_list[playerInQ[1]];//or = socket bit im fancy =)
+            socket.otherPlayer.otherPlayer=socket_list[playerInQ[1]];//or = socket but im fancy =)
             socket.type="X";
             socket.otherPlayer.type="O";
             socket.emit("que",2,socket.type,socket.otherPlayer.type,socket.otherPlayer.name);
@@ -188,5 +190,6 @@ io.sockets.on("connection",function(socket){
         else socket.emit("erro");
     }
     socket.on("man",function(){for(var i in socket_list)console.log("llll");})
-});
 
+    socket.emit("serverRestart",serverId);
+});
