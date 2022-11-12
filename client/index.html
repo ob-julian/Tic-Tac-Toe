@@ -3,7 +3,9 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Tick Tack Toe</title>
-    <meta name="version" content="2.1.4"></version>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="version" content="2.2.0"></version>
     <script src="https://kit.fontawesome.com/ff71fc4b3c.js" crossorigin="anonymous"></script><link rel="stylesheet" href="https://kit-free.fontawesome.com/releases/latest/css/free.min.css" media="all"><link rel="stylesheet" href="https://kit-free.fontawesome.com/releases/latest/css/free-v4-font-face.min.css" media="all"><link rel="stylesheet" href="https://kit-free.fontawesome.com/releases/latest/css/free-v4-shims.min.css" media="all">
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
     <script id="yourscripttagID"></script>
@@ -1091,6 +1093,163 @@
 
     }*/
 
+        var experiment = 'var hh,awe,jj=!0,jkl=0,p1=0,p2=0;aa=[!1,!1,!1,!1,!1,!1,!1,!1,!1];var tem,durch="1";function los(e){!1===aa[e]&&jkl<6?(jj?(document.getElementById("a"+e).innerHTML="O",document.getElementById("turn").innerHTML="Turn: X",aa[e]="2"):(document.getElementById("a"+e).innerHTML="X",document.getElementById("turn").innerHTML="Turn: O",aa[e]="1"),jj=!jj,win(),jkl++):jkl>=6&&("1"==durch&&!1!==aa[e]?jj||"1"!=aa[e]?jj&&"2"==aa[e]&&(document.getElementById("a"+e).style.color="red",tem=e,durch="2"):(document.getElementById("a"+e).style.color="red",tem=e,durch="2"):"2"==durch&&e==tem?(document.getElementById("a"+e).style.color="null",durch="1"):"2"==durch&&!1===aa[e]?(jj?(document.getElementById("a"+e).innerHTML="O",document.getElementById("a"+tem).innerHTML=" ",document.getElementById("turn").innerHTML="Turn: X",document.getElementById("a"+e).style.color="null",aa[e]="2",aa[tem]=!1):(document.getElementById("a"+e).innerHTML="X",document.getElementById("a"+tem).innerHTML=" ",document.getElementById("turn").innerHTML="Turn: O",document.getElementById("a"+e).style.color="null",aa[e]="1",aa[tem]=!1),jj=!jj,win(),durch="1"):"2"==durch&&!1!==aa[e]&&(jj||"1"!=aa[e]?jj&&"2"==aa[e]&&(document.getElementById("a"+e).style.color="red",document.getElementById("a"+tem).style.color="null",tem=e):(document.getElementById("a"+e).style.color="red",document.getElementById("a"+tem).style.color="null",tem=e)))}function win(){for(var e=1;e<=2;e++){1==e&&(awe="1"),2==e&&(awe="2");for(var n=0;n<9;n+=3)if(aa[n]==aa[n+1]&&aa[n+1]==aa[n+2]&&aa[n+2]==awe)return void winner(awe);for(var a=0;a<=3;a++)if(aa[a]==aa[a+3]&&aa[a+3]==aa[a+6]&&aa[a+6]==awe)return void winner(awe);if(aa[0]==aa[4]&&aa[4]==aa[8]&&aa[8]==awe)return void winner(awe);if(aa[2]==aa[4]&&aa[4]==aa[6]&&aa[6]==awe)return void winner(awe)}}function rese(){document.getElementById("reset").style="visibility:visible",jkl=0,aa=[3,3,3,3,3,3,3,3,3]}function rematch(){aa=[!1,!1,!1,!1,!1,!1,!1,!1,!1];for(var e=0;e<9;e++)document.getElementById("a"+e).innerHTML="";document.getElementById("reset").style="visibility:hidden"}function winner(e){1==e?(p1++,aler("Winner: X")):2==e&&(p2++,aler("Winner: O")),rese(),document.getElementById("score").innerHTML="X: "+p1+" vs. O: "+p2}';
+
+        /*var  hh,jj=true;
+            var awe,jkl=0;
+            var p1=0,p2=0; aa=[false,false,false,false,false,false,false,false,false];
+            var tem,durch="1";
+
+            function los(hh) {
+                if((aa[hh]===false)&&(jkl<6))
+                {
+                    if(!jj)
+                    {
+                        document.getElementById("a"+hh).innerHTML="X";
+                        document.getElementById("turn").innerHTML="Turn: O";
+                        aa[hh]="1";
+
+                    }
+                    else
+                    {
+                         document.getElementById("a"+hh).innerHTML="O";
+                         document.getElementById("turn").innerHTML="Turn: X";
+                         aa[hh]="2";
+                    }
+                    jj=!jj;
+                    win();
+
+                    jkl++;
+
+                }
+                else if((jkl>=6)){
+                    if((durch=="1")&&(aa[hh]!==false)){
+                        if((!jj)&&(aa[hh]=="1")){
+                            document.getElementById("a"+hh).style.color="red";
+                            tem=hh;
+                            durch="2";
+                        }
+                        else if((jj)&&(aa[hh]=="2")){
+                            document.getElementById("a"+hh).style.color="red";
+                            tem=hh;
+                            durch="2";
+                        }
+                    }
+                    else if((durch=="2")&&(hh==tem)){
+                        document.getElementById("a"+hh).style.color="null";
+                        durch="1";
+                    }
+                    else if((durch=="2")&&(aa[hh]===false)){
+                        if(!jj){
+
+                            document.getElementById("a"+hh).innerHTML="X";
+                            document.getElementById("a"+tem).innerHTML=" ";
+                            document.getElementById("turn").innerHTML="Turn: O";
+                            document.getElementById("a"+hh).style.color="null";
+                            aa[hh]="1";
+                            aa[tem]=false;
+
+                        }
+                        else
+                        {
+                             document.getElementById("a"+hh).innerHTML="O";
+                             document.getElementById("a"+tem).innerHTML=" ";
+                             document.getElementById("turn").innerHTML="Turn: X";
+                             document.getElementById("a"+hh).style.color="null";
+                             aa[hh]="2";
+                             aa[tem]=false;
+                        }
+                        jj=!jj;
+                        win();
+
+                        durch="1";
+
+                    }
+                    else if((durch=="2")&&((aa[hh]!==false))){
+                        if((!jj)&&(aa[hh]=="1")){
+                            document.getElementById("a"+hh).style.color="red";
+                            document.getElementById("a"+tem).style.color="null";
+                            tem=hh;
+                        }
+                        else if((jj)&&(aa[hh]=="2")){
+                            document.getElementById("a"+hh).style.color="red";
+                            document.getElementById("a"+tem).style.color="null";
+                            tem=hh;
+                        }
+                    }
+                }
+            }
+
+        function win(){
+            for(var hhh=1;hhh<=2;hhh++)
+                {
+                if(hhh==1)
+                {
+                    awe="1";
+                }
+                if(hhh==2)
+                {
+                    awe="2";
+                }
+
+                for(var fo=0;fo<9;fo=fo+3)
+                {
+                    if((aa[fo]==aa[fo+1])&&(aa[fo+1]==aa[fo+2])&&(aa[fo+2]==awe))
+                    {
+                        winner(awe);
+                        return;
+                    }
+                }
+                for(var fa=0;fa<=3;fa++)
+                {
+                    if((aa[fa]==aa[fa+3])&&(aa[fa+3]==aa[fa+6])&&(aa[fa+6]==awe))
+                    {
+                        winner(awe);
+                        return;
+                    }
+                }
+
+                if((aa[0]==aa[4])&&(aa[4]==aa[8])&&(aa[8]==awe))
+                {
+                     winner(awe);
+                     return;
+                }
+                if((aa[2]==aa[4])&&(aa[4]==aa[6])&&(aa[6]==awe))
+                {
+                     winner(awe);
+                     return;
+                }
+            }
+        }
+
+            function rese(){
+                  document.getElementById("reset").style="visibility:visible";
+                jkl=0;
+                aa=[3,3,3,3,3,3,3,3,3];
+                }
+
+
+            function rematch(){
+                        aa=[false,false,false,false,false,false,false,false,false];
+                for(var www = 0;www<9;www++){
+                document.getElementById("a"+www).innerHTML="";}
+                document.getElementById("reset").style="visibility:hidden";
+            }
+
+            function winner(ji){
+                if(ji==1){
+                    p1++;
+                    aler("Winner: X");
+                }
+                else if(ji==2){
+                    p2++;
+                    aler("Winner: O");
+                }
+                rese();
+                document.getElementById("score").innerHTML="X: "+p1+" vs. O: "+p2;
+            }*/
+
+
         function on(){
             resett();
             var yourscripttag = document.getElementById('yourscripttagID');
@@ -1188,22 +1347,28 @@
 
         }
 
+        function exper(){
+            resett();
+            var yourscripttag = document.getElementById('yourscripttagID');
+            yourscripttag.remove();
+            var newscript=document.createElement('script');
+            newscript.type='text/javascript';
+            newscript.id='yourscripttagID';
+            newscript.appendChild(document.createTextNode(experiment));
+            document.getElementsByTagName('head').item(0).appendChild(newscript);
+            document.getElementById("div0").style="display:none !important";
+            document.getElementById("div1").style="display:block !important";
+            document.getElementById("div2").style="display:none !important";
+            document.getElementById("the").classList.add("ingame");
+
+        }
+
         var modal;
 
         window.onload = function(){
             modal = document.getElementById("myModal");
 
-            var kl = window.location;
-            var lk = String(kl);
-            llk = lk.split("#");
-            if ((llk[1] != '')||(llk[1]!=undefined)){
-                if(llk[1]=="1v1") off();
-                else if(llk[1]=="multiplayer") on();
-                else if(llk[1]=="einfach") ein();
-                else if(llk[1]=="mittel") mit();
-                else if(llk[1]=="schwer") schw();
-                if((llk[1]=="singel")) document.getElementById("div0").classList.remove("main");
-            }
+
 
             //catch
 
@@ -1235,7 +1400,18 @@
                 }
             }
 
-
+            var kl = window.location;
+            var lk = String(kl);
+            llk = lk.split("#");
+            if ((llk[1] != '')||(llk[1]!=undefined)){
+                if(llk[1]=="1v1") off();
+                else if(llk[1]=="multiplayer") on();
+                else if(llk[1]=="einfach") ein();
+                else if(llk[1]=="mittel") mit();
+                else if(llk[1]=="schwer") schw();
+                else if(llk[1]=="experimental") exper();
+                if((llk[1]=="singel")) document.getElementById("div0").classList.remove("main");
+            }
         });
 
         function sp() {
@@ -1296,6 +1472,7 @@
             width:100px;
             height:100px;
             text-align:center;
+            outline:0;
         }
 
         tr{
@@ -1306,6 +1483,10 @@
         td{
             border-right: 10px solid var(--border);
             transition: border 1000ms ease-in-out;
+            -ms-user-select: None;
+            -moz-user-select: None;
+            -webkit-user-select: None;
+            user-select: None;
             outline:0;
         }
         table {
@@ -1314,8 +1495,6 @@
 
         td:last-child{
             border-right:none !important;
-
-        :;
         }
 
         tr:last-child{
@@ -1694,6 +1873,7 @@
             line-height: 37px !important;
             vertical-align: bottom;
             text-decoration: none;
+            width: 30px;
         }
 
         #versio{
@@ -1790,6 +1970,14 @@
                 <a href="#multiplayer">
                     <div class="btn" onclick="on()">
                         <span >Online Mehrspieler</span>
+                    </div>
+                </a>
+            </div>
+            <br><br>
+            <div class="box">
+                <a href="#experimental">
+                    <div class="btn" onclick="exper()">
+                        <span >Experimentaler Bereich</span>
                     </div>
                 </a>
             </div>
