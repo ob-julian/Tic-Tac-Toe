@@ -5,7 +5,7 @@
     <title>Tick Tack Toe</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="version" content="3.3.1">
+    <meta name="version" content="4.0.0">
     <link rel="apple-touch-icon" sizes="57x57" href="/client/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/client/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="/client/apple-icon-72x72.png">
@@ -35,7 +35,7 @@
     <script>
         var animationspeed,intervall;
         document.cookie="SameSite=Strict";
-        var online = 'var youAreP,enemyAre,n,opponent,serverId,socket=io(),remake=!1,onlinem=!1,o=0,aa=[!1,!1,!1,!1,!1,!1,!1,!1,!1];function los(e){socket.emit("turn",e)}function rematch(){0==remake?(socket.emit("rematch"),document.getElementById("reset").disabled=!0):1==remake&&socket.emit("rematchakkept")}function reset(){socket.emit("resee");for(var e=0;e<9;e++)document.getElementById("a"+e).innerHTML="";document.getElementById("reset").style="visibility:hidden",aa=[!1,!1,!1,!1,!1,!1,!1,!1,!1]}async function neu(){fadebutton(!0),await sleep(animationspeed),onlinem=!0,b=document.getElementById("inpu").value,socket.emit("conn",b),localStorage.setItem("nameonline",b)}function dis(){socket.emit("dis"),document.getElementById("pin").style.display="none",document.getElementById("help").style.display="none",document.getElementById("chat").style.display="none",clearInterval(intervall)}function ping1(){var e=new Date;n=e.getTime(),socket.emit("ping1")}function lo(e){document.getElementById("ping").innerHTML=Math.round(o+e),o+=e}function typing(e){e?(document.getElementById("cha").classList.remove("fa-comment"),document.getElementById("cha").classList.add("fa-comment-dots")):(document.getElementById("cha").classList.remove("fa-comment-dots"),document.getElementById("cha").classList.add("fa-comment")),typingin(e)}socket.on("que",async function(e,t,n,o){if(1==e)fadebutton(!0),await sleep(animationspeed),document.getElementById("div0").style="display:none",document.getElementById("div1").style="display:none",document.getElementById("div2").style="display:block",document.getElementById("multiplayer").style="display:none","Notification"in window&&"denied"!==Notification.permission&&Notification.requestPermission(function(e){}),document.getElementById("help").style.display="none",closechat(),document.getElementById("chat-content").innerHTML="<center><b>Du solltest noch nicht hier sein!</b></center>",typing(!1),await sleep(100),fadebutton(!1);else if(2==e){if(fadebutton(!0),await sleep(animationspeed),document.getElementById("div0").style="display:none",document.getElementById("div1").style="display:block",document.getElementById("div2").style="display:none",document.getElementById("multiplayer").style="display:none",document.getElementById("youAre").innerHTML="You are "+t,youAreP=t,opponent=o,enemyAre=n,"granted"===Notification.permission)new Notification("Gegner "+o+" will gegen dich spielen");document.getElementById("score").innerHTML=youAreP+": 0 vs. "+enemyAre+": 0",aler("Gegner: "+o),document.getElementById("help").style.display="block",document.getElementById("chat").style.display="block",await sleep(100),fadebutton(!1)}}),socket.on("turned",function(e,t,n){document.getElementById("a"+n).innerHTML=e,document.getElementById("turn").innerHTML="Turn: "+t,"X"==e&&(aa[n]="1"),"O"==e&&(aa[n]="2")}),socket.on("win",function(e,t,n,o){e==youAreP?(document.getElementById("score").innerHTML=youAreP+": "+t+" vs. "+enemyAre+": "+n,aler("Du hast gewonnen"),chatwrite("system","Du hast gewonnen")):(document.getElementById("score").innerHTML=youAreP+": "+n+" vs. "+enemyAre+": "+t,aler("Du hast verloren"),chatwrite("system","Du hast verloren"))}),socket.on("rese",function(){document.getElementById("reset").style="visibility:visible"}),socket.on("rematchask",function(){document.getElementById("reset").innerHTML="Accept Rematch",remake=!0}),socket.on("resett",function(){document.getElementById("reset").innerHTML="Rematch",remake=!1,document.getElementById("reset").disabled=!1,reset()}),socket.on("turnreset",function(){document.getElementById("turn").innerHTML="Turn: O"}),document.onkeydown=function(e){13===e.keyCode&&(0==onlinem?neu():inchat&&sen())},socket.on("erro",function(){aler("Error:<br>Bitte starte dein Spiel neu","hid"),err()}),socket.on("ping2",function(){var e=new Date;m=e.getTime();for(var t=(m-n-o)/10,i=0;i<10;i++)setTimeout(function(){lo(t)},99*i)}),intervall=setInterval(ping1,1e3),document.getElementById("pin").style.display="block",socket.on("serverRestart",async function(e){serverId!=e&&null!=serverId?(aler("Bitte starte dein Spiel neu.<br>Es gab einen Server Neustart","hid"),err()):serverId=e});var inchat=!1,inopenchat=!1,unrea=0;async function chating(){nofillter?(chat.style.display="block",await sleep(100),document.getElementsByClassName("chat-window")[0].classList.add("movechat"),document.getElementById("chatmodal").classList.add("chatopa"),unread(0),unrea=0,inopenchat=!0):chatwarning()}async function closechat(){document.getElementsByClassName("chat-window")[0].classList.remove("movechat"),document.getElementById("chatmodal").classList.remove("chatopa"),inchat=!1,inopenchat=!1,await sleep(animationspeed),chat.style.display="none"}function sen(){let e=document.getElementById("chatinputbox").value;""!=(e=e.trim())&&(e=htmlSpecialChars(e),socket.emit("sendMessage",e)),document.getElementById("chatinputbox").value=""}function nachrichtplus(e){inopenchat||(unrea+=e,unread(unrea))}function foc(){socket.emit("foc1"),inchat=!0}function blu(){socket.emit("blu1"),inchat=!1}socket.on("foc2",function(){typing(!0)}),socket.on("blu2",function(){typing(!1)}),socket.on("startChat",function(){document.getElementById("chat-content").innerHTML="",chatwrite("system","Dies ist der Anfang deines Chats mit "+opponent)}),socket.on("receiveMessage",function(e,t){chatwrite(e,t)});';
+        var online = 'var youAreP,enemyAre,n,opponent,serverId,socket=io(),remake=!1,onlinem=!1,o=0,aa=[!1,!1,!1,!1,!1,!1,!1,!1,!1];function los(e){socket.emit("turn",e)}function rematch(){0==remake?(socket.emit("rematch"),document.getElementById("reset").disabled=!0):1==remake&&socket.emit("rematchakkept")}function reset(){socket.emit("resee");for(var e=0;e<9;e++)document.getElementById("a"+e).innerHTML="";document.getElementById("reset").style="visibility:hidden",aa=[!1,!1,!1,!1,!1,!1,!1,!1,!1]}async function neu(){fadebutton(!0),await sleep(animationspeed),onlinem=!0,b=document.getElementById("inpu").value,socket.emit("conn",b,1),localStorage.setItem("nameonline",b)}function dis(){socket.emit("dis"),document.getElementById("pin").style.display="none",document.getElementById("help").style.display="none",document.getElementById("chat").style.display="none",clearInterval(intervall)}function ping1(){var e=new Date;n=e.getTime(),socket.emit("ping1")}function lo(e){document.getElementById("ping").innerHTML=Math.round(o+e),o+=e}function typing(e){e?(document.getElementById("cha").classList.remove("fa-comment"),document.getElementById("cha").classList.add("fa-comment-dots")):(document.getElementById("cha").classList.remove("fa-comment-dots"),document.getElementById("cha").classList.add("fa-comment")),typingin(e)}socket.on("que",async function(e,t,n,o){if(1==e)fadebutton(!0),await sleep(animationspeed),document.getElementById("div0").style="display:none",document.getElementById("div1").style="display:none",document.getElementById("div2").style="display:block",document.getElementById("multiplayer").style="display:none","Notification"in window&&"denied"!==Notification.permission&&Notification.requestPermission(function(e){}),document.getElementById("help").style.display="none",closechat(),document.getElementById("chat-content").innerHTML="<center><b>Du solltest noch nicht hier sein!</b></center>",typing(!1),await sleep(100),fadebutton(!1);else if(2==e){if(fadebutton(!0),await sleep(animationspeed),document.getElementById("div0").style="display:none",document.getElementById("div1").style="display:block",document.getElementById("div2").style="display:none",document.getElementById("multiplayer").style="display:none",document.getElementById("youAre").innerHTML="You are "+t,youAreP=t,opponent=o,enemyAre=n,"granted"===Notification.permission)new Notification("Gegner "+o+" will gegen dich spielen");document.getElementById("score").innerHTML=youAreP+": 0 vs. "+enemyAre+": 0",aler("Gegner: "+o),document.getElementById("help").style.display="block",document.getElementById("chat").style.display="block",await sleep(100),fadebutton(!1)}}),socket.on("turned",function(e,t,n){document.getElementById("a"+n).innerHTML=e,document.getElementById("turn").innerHTML="Turn: "+t,"X"==e&&(aa[n]="1"),"O"==e&&(aa[n]="2")}),socket.on("win",function(e,t,n,o){e==youAreP?(document.getElementById("score").innerHTML=youAreP+": "+t+" vs. "+enemyAre+": "+n,aler("Du hast gewonnen"),chatwrite("system","Du hast gewonnen")):(document.getElementById("score").innerHTML=youAreP+": "+n+" vs. "+enemyAre+": "+t,aler("Du hast verloren"),chatwrite("system","Du hast verloren"))}),socket.on("rese",function(){document.getElementById("reset").style="visibility:visible"}),socket.on("rematchask",function(){document.getElementById("reset").innerHTML="Accept Rematch",remake=!0}),socket.on("resett",function(){document.getElementById("reset").innerHTML="Rematch",remake=!1,document.getElementById("reset").disabled=!1,reset()}),socket.on("turnreset",function(){document.getElementById("turn").innerHTML="Turn: O"}),document.onkeydown=function(e){13===e.keyCode&&(0==onlinem?neu():inchat&&sen())},socket.on("erro",function(){aler("Error:<br>Bitte starte dein Spiel neu","hid"),err()}),socket.on("ping2",function(){var e=new Date;m=e.getTime();for(var t=(m-n-o)/10,i=0;i<10;i++)setTimeout(function(){lo(t)},99*i)}),intervall=setInterval(ping1,1e3),document.getElementById("pin").style.display="block",socket.on("serverRestart",async function(e){serverId!=e&&null!=serverId?(aler("Bitte starte dein Spiel neu.<br>Es gab einen Server Neustart","hid"),err()):serverId=e});var inchat=!1,inopenchat=!1,unrea=0;async function chating(){nofillter?(chat.style.display="block",await sleep(100),document.getElementsByClassName("chat-window")[0].classList.add("movechat"),document.getElementById("chatmodal").classList.add("chatopa"),unread(0),unrea=0,inopenchat=!0):chatwarning()}async function closechat(){document.getElementsByClassName("chat-window")[0].classList.remove("movechat"),document.getElementById("chatmodal").classList.remove("chatopa"),inchat=!1,inopenchat=!1,await sleep(animationspeed),chat.style.display="none"}function sen(){let e=document.getElementById("chatinputbox").value;""!=(e=e.trim())&&(e=htmlSpecialChars(e),socket.emit("sendMessage",e)),document.getElementById("chatinputbox").value=""}function nachrichtplus(e){inopenchat||(unrea+=e,unread(unrea))}function foc(){socket.emit("foc1"),inchat=!0}function blu(){socket.emit("blu1"),inchat=!1}socket.on("foc2",function(){typing(!0)}),socket.on("blu2",function(){typing(!1)}),socket.on("startChat",function(){document.getElementById("chat-content").innerHTML="",chatwrite("system","Dies ist der Anfang deines Chats mit "+opponent)}),socket.on("receiveMessage",function(e,t){chatwrite(e,t)});';
 
         /*  var socket = io();
             var youAreP,enemyAre;
@@ -73,7 +73,7 @@
                 await sleep(animationspeed);
                 onlinem=true;
                 b = document.getElementById("inpu").value;
-                socket.emit("conn",b);
+                socket.emit("conn",b,1);
                 localStorage.setItem("nameonline", b);
             };
 
@@ -124,6 +124,295 @@
                 document.getElementById("turn").innerHTML="Turn: "+enemy;
                 if(player=="X") aa[pos]="1";
                 if(player=="O") aa[pos]="2";
+            });
+
+            socket.on("win",function(winer,punkteSelf,punkteEnemy,winner){
+                if(winer==youAreP){
+                    document.getElementById("score").innerHTML = youAreP+": "+punkteSelf+" vs. "+enemyAre+": "+punkteEnemy;
+                    aler("Du hast gewonnen");
+                    chatwrite("system","Du hast gewonnen");
+                }
+                else{
+                    document.getElementById("score").innerHTML = youAreP+": "+punkteEnemy+" vs. "+enemyAre+": "+punkteSelf;
+                    aler("Du hast verloren");
+                    chatwrite("system","Du hast verloren");
+                }
+            });
+
+            socket.on("rese",function(){
+                document.getElementById("reset").style="visibility:visible";
+            });
+
+            socket.on("rematchask",function(){
+                document.getElementById("reset").innerHTML="Accept Rematch";
+                remake=true;
+            });
+
+            socket.on("resett",function(){
+                document.getElementById("reset").innerHTML="Rematch";
+                remake=false;
+                document.getElementById("reset").disabled = false;
+                reset();
+            });
+
+            socket.on("turnreset",function(){
+                document.getElementById("turn").innerHTML="Turn: O";
+            });
+
+
+            document.onkeydown = function(event){
+                if(event.keyCode===13){
+                    if(onlinem==false){
+                        neu();
+                    }
+                    else if(inchat){
+                        sen();
+                    }
+                }
+            };
+
+            function dis(){
+                socket.emit("dis");
+                document.getElementById("pin").style.display="none";
+                document.getElementById("help").style.display="none";
+                document.getElementById("chat").style.display="none";
+                clearInterval(intervall);
+            }
+
+            socket.on("erro",function(){aler("Error:<br>Bitte starte dein Spiel neu","hid");err()});
+
+            function ping1(){
+                var d = new Date();
+                n = d.getTime();
+                socket.emit("ping1");
+            }
+
+            socket.on("ping2",function(){
+                var d = new Date();
+                m = d.getTime();
+
+                var p=((m-n)-o)/10;
+                for(var i=0;i<10;i++){
+                    setTimeout(function(){lo(p)},i*99);
+                }
+
+            });
+
+            intervall = setInterval(ping1,1000);
+
+            function lo(a){
+                document.getElementById("ping").innerHTML = Math.round(o+a);
+                o += a;
+            }
+
+            document.getElementById("pin").style.display="block";
+
+            var serverId;
+
+            socket.on("serverRestart",async function(server){
+                if((serverId!=server)&&(serverId!=undefined)){
+                    aler("Bitte starte dein Spiel neu.<br>Es gab einen Server Neustart","hid");err();
+
+                }
+            else{serverId=server}
+            });
+
+
+
+            function typing(ff){
+                if(ff){
+                    document.getElementById("cha").classList.remove("fa-comment");
+                    document.getElementById("cha").classList.add("fa-comment-dots");
+                }
+                else{
+                    document.getElementById("cha").classList.remove("fa-comment-dots");
+                    document.getElementById("cha").classList.add("fa-comment");
+                }
+                typingin(ff);
+            }
+
+            var inchat = false, inopenchat = false,unrea = 0;
+
+            async function chating(){
+                if(nofillter){
+                    chat.style.display = "block";
+                    await sleep(100);
+                    document.getElementsByClassName("chat-window")[0].classList.add("movechat");
+                    document.getElementById("chatmodal").classList.add("chatopa");
+                    unread(0);
+                    unrea = 0;
+                    inopenchat = true;
+                }
+                else{
+                    chatwarning();
+                }
+            }
+
+            async function closechat(){
+                document.getElementsByClassName("chat-window")[0].classList.remove("movechat");
+                document.getElementById("chatmodal").classList.remove("chatopa");
+                inchat = false;
+                inopenchat = false;
+                await sleep(animationspeed);
+                chat.style.display = "none";
+            }
+
+            function sen(){
+                let message = document.getElementById("chatinputbox").value;
+                message = message.trim();
+                if(message!=""){
+                    message = htmlSpecialChars(message);
+                    socket.emit("sendMessage",message);
+                }
+                document.getElementById("chatinputbox").value = "";
+            }
+
+            function nachrichtplus(ff){
+                if(!inopenchat){
+                    unrea += ff;
+                    unread(unrea);
+                }
+            }
+
+            function foc(){
+                socket.emit("foc1");
+                inchat = true;
+            }
+            socket.on("foc2",function(){
+                typing(true);
+            });
+
+            function blu(){
+                socket.emit("blu1");
+                inchat = false;
+            }
+            socket.on("blu2",function(){
+                typing(false);
+            });
+
+            socket.on("startChat",function(){
+                document.getElementById("chat-content").innerHTML = "";
+                chatwrite("system","Dies ist der Anfang deines Chats mit " + opponent);
+            });
+
+            socket.on("receiveMessage",function(ff,gg){
+                chatwrite(ff,gg);
+            });*/
+
+        var experimentmp = 'var youAreP,enemyAre,n,opponent,serverId,socket=io(),remake=!1,onlinem=!1,o=0,aa=[!1,!1,!1,!1,!1,!1,!1,!1,!1];function los(e){socket.emit("turn",e)}function rematch(){0==remake?(socket.emit("rematch"),document.getElementById("reset").disabled=!0):1==remake&&socket.emit("rematchakkept")}function reset(){socket.emit("resee");for(var e=0;e<9;e++)document.getElementById("a"+e).innerHTML="";document.getElementById("reset").style="visibility:hidden",aa=[!1,!1,!1,!1,!1,!1,!1,!1,!1]}async function neu(){fadebutton(!0),await sleep(animationspeed),onlinem=!0,b=document.getElementById("inpu").value,socket.emit("conn",b,2),localStorage.setItem("nameonline",b)}function dis(){socket.emit("dis"),document.getElementById("pin").style.display="none",document.getElementById("help").style.display="none",document.getElementById("chat").style.display="none",clearInterval(intervall)}function ping1(){var e=new Date;n=e.getTime(),socket.emit("ping1")}function lo(e){document.getElementById("ping").innerHTML=Math.round(o+e),o+=e}function typing(e){e?(document.getElementById("cha").classList.remove("fa-comment"),document.getElementById("cha").classList.add("fa-comment-dots")):(document.getElementById("cha").classList.remove("fa-comment-dots"),document.getElementById("cha").classList.add("fa-comment")),typingin(e)}socket.on("que",async function(e,t,n,o){if(1==e)fadebutton(!0),await sleep(animationspeed),document.getElementById("div0").style="display:none",document.getElementById("div1").style="display:none",document.getElementById("div2").style="display:block",document.getElementById("multiplayer").style="display:none","Notification"in window&&"denied"!==Notification.permission&&Notification.requestPermission(function(e){}),document.getElementById("help").style.display="none",closechat(),document.getElementById("chat-content").innerHTML="<center><b>Du solltest noch nicht hier sein!</b></center>",typing(!1),await sleep(100),fadebutton(!1);else if(2==e){if(fadebutton(!0),await sleep(animationspeed),document.getElementById("div0").style="display:none",document.getElementById("div1").style="display:block",document.getElementById("div2").style="display:none",document.getElementById("multiplayer").style="display:none",document.getElementById("youAre").innerHTML="You are "+t,youAreP=t,opponent=o,enemyAre=n,"granted"===Notification.permission)new Notification("Gegner "+o+" will gegen dich spielen");document.getElementById("score").innerHTML=youAreP+": 0 vs. "+enemyAre+": 0",aler("Gegner: "+o),"false"!=tut1?nochnichtgespielt():document.getElementById("help").style.display="block",document.getElementById("chat").style.display="block",await sleep(100),fadebutton(!1)}}),socket.on("turned",function(e,t,n,o,i){"move"==i?(document.getElementById("a"+n).innerHTML=e,document.getElementById("turn").innerHTML="Turn: "+t,"X"==e?aa[n]="1":"O"==e&&(aa[n]="2")):"red"==i?document.getElementById("a"+n).style.color="red":"rem"==i?document.getElementById("a"+o).removeAttribute("style"):"chan"==i?(document.getElementById("a"+n).style.color="red",document.getElementById("a"+o).removeAttribute("style")):"fin"==i&&(document.getElementById("a"+n).innerHTML=e,document.getElementById("a"+o).innerHTML=" ",document.getElementById("a"+o).removeAttribute("style"),document.getElementById("turn").innerHTML="Turn: "+t,"X"==e?aa[n]="1":"O"==e&&(aa[n]="2"),aa[o]=!1)}),socket.on("win",function(e,t,n,o){e==youAreP?(document.getElementById("score").innerHTML=youAreP+": "+t+" vs. "+enemyAre+": "+n,aler("Du hast gewonnen"),chatwrite("system","Du hast gewonnen")):(document.getElementById("score").innerHTML=youAreP+": "+n+" vs. "+enemyAre+": "+t,aler("Du hast verloren"),chatwrite("system","Du hast verloren"))}),socket.on("rese",function(){document.getElementById("reset").style="visibility:visible"}),socket.on("rematchask",function(){document.getElementById("reset").innerHTML="Accept Rematch",remake=!0}),socket.on("resett",function(){document.getElementById("reset").innerHTML="Rematch",remake=!1,document.getElementById("reset").disabled=!1,reset()}),socket.on("turnreset",function(){document.getElementById("turn").innerHTML="Turn: O"}),document.onkeydown=function(e){13===e.keyCode&&(0==onlinem?neu():inchat&&sen())},socket.on("erro",function(){aler("Error:<br>Bitte starte dein Spiel neu","hid"),err()}),socket.on("ping2",function(){var e=new Date;m=e.getTime();for(var t=(m-n-o)/10,i=0;i<10;i++)setTimeout(function(){lo(t)},99*i)}),intervall=setInterval(ping1,1e3),document.getElementById("pin").style.display="block",socket.on("serverRestart",async function(e){serverId!=e&&null!=serverId?(aler("Bitte starte dein Spiel neu.<br>Es gab einen Server Neustart","hid"),err()):serverId=e});var inchat=!1,inopenchat=!1,unrea=0;async function chating(){nofillter?(chat.style.display="block",await sleep(100),document.getElementsByClassName("chat-window")[0].classList.add("movechat"),document.getElementById("chatmodal").classList.add("chatopa"),unread(0),unrea=0,inopenchat=!0):chatwarning()}async function closechat(){document.getElementsByClassName("chat-window")[0].classList.remove("movechat"),document.getElementById("chatmodal").classList.remove("chatopa"),inchat=!1,inopenchat=!1,await sleep(animationspeed),chat.style.display="none"}function sen(){let e=document.getElementById("chatinputbox").value;""!=(e=e.trim())&&(e=htmlSpecialChars(e),socket.emit("sendMessage",e)),document.getElementById("chatinputbox").value=""}function nachrichtplus(e){inopenchat||(unrea+=e,unread(unrea))}function foc(){socket.emit("foc1"),inchat=!0}function blu(){socket.emit("blu1"),inchat=!1}socket.on("foc2",function(){typing(!0)}),socket.on("blu2",function(){typing(!1)}),socket.on("startChat",function(){document.getElementById("chat-content").innerHTML="",chatwrite("system","Dies ist der Anfang deines Chats mit "+opponent)}),socket.on("receiveMessage",function(e,t){chatwrite(e,t)});';
+
+        /*var socket = io();
+            var youAreP,enemyAre;
+            var remake = false;
+            var onlinem = false;
+            var n,o=0;
+            var aa=[false,false,false,false,false,false,false,false,false];
+            var opponent;
+
+            function los(hh){
+                socket.emit("turn",hh);
+            };
+
+            function rematch(){
+                if(remake==false) {
+                    socket.emit("rematch");
+                    document.getElementById("reset").disabled = true;
+                }
+
+                else if(remake==true) socket.emit("rematchakkept");
+            }
+
+            function reset(){
+                socket.emit("resee");
+                for(var www = 0;www<9;www++){
+                    document.getElementById("a"+www).innerHTML="";
+                }
+                document.getElementById("reset").style="visibility:hidden";
+                aa=[false,false,false,false,false,false,false,false,false];
+            };
+
+
+            async function neu(){
+                fadebutton(true);
+                await sleep(animationspeed);
+                onlinem=true;
+                b = document.getElementById("inpu").value;
+                socket.emit("conn",b,2);
+                localStorage.setItem("nameonline", b);
+            };
+
+            socket.on("que",async function(data,player,enem,name){
+                if(data==1){
+                    fadebutton(true);
+                    await sleep(animationspeed);
+                    document.getElementById("div0").style="display:none";
+                    document.getElementById("div1").style="display:none";
+                    document.getElementById("div2").style="display:block";
+                    document.getElementById("multiplayer").style="display:none";
+                         if (!("Notification" in window)){}
+                         else if (Notification.permission !== "denied") {
+                             Notification.requestPermission(function (permission){});
+                         }
+                    document.getElementById("help").style.display="none";
+                    closechat();
+                    document.getElementById("chat-content").innerHTML="<center><b>Du solltest noch nicht hier sein!</b></center>";
+                    typing(false);
+                    await sleep(100);
+                    fadebutton(false);
+                }
+                else if(data==2){
+                    fadebutton(true);
+                    await sleep(animationspeed);
+                    document.getElementById("div0").style="display:none";
+                    document.getElementById("div1").style="display:block";
+                    document.getElementById("div2").style="display:none";
+                    document.getElementById("multiplayer").style="display:none";
+                    document.getElementById("youAre").innerHTML = "You are "+player;
+                    youAreP = player
+                    opponent = name;
+                    enemyAre = enem;
+                             if(Notification.permission === "granted") {
+                                 var notification = new Notification("Gegner "+name+" will gegen dich spielen");
+                             }
+                    document.getElementById("score").innerHTML = youAreP+": 0 vs. "+enemyAre+": 0";
+                    aler("Gegner: "+name);
+                    if(tut1 != "false") {
+                        nochnichtgespielt();
+                    } else {
+                        document.getElementById("help").style.display = "block";
+                    }
+                    document.getElementById("chat").style.display="block";
+                    await sleep(100);
+                    fadebutton(false);
+                }
+            });
+
+            socket.on("turned",function(player,enemy,pos,tem,fin){
+                if(fin == "move"){
+                    document.getElementById("a"+pos).innerHTML=player;
+                    document.getElementById("turn").innerHTML="Turn: "+enemy;
+                    if(player=="X") aa[pos]="1";
+                    else if(player=="O") aa[pos]="2";
+                }
+                else if(fin == "red"){
+                    document.getElementById("a"+pos).style.color="red";
+                }
+                else if(fin == "rem"){
+                    document.getElementById("a"+tem).removeAttribute("style");
+                }
+                else if(fin == "chan"){
+                    document.getElementById("a"+pos).style.color="red";
+                    document.getElementById("a"+tem).removeAttribute("style");
+                }
+                else if(fin == "fin"){
+                    document.getElementById("a"+pos).innerHTML=player;
+                    document.getElementById("a"+tem).innerHTML=" ";
+                    document.getElementById("a"+tem).removeAttribute("style");
+                    document.getElementById("turn").innerHTML="Turn: "+enemy;
+                    if(player=="X") aa[pos]="1";
+                    else if(player=="O") aa[pos]="2";
+                    aa[tem]=false;
+                }
             });
 
             socket.on("win",function(winer,punkteSelf,punkteEnemy,winner){
@@ -1286,7 +1575,7 @@
 
 
             }*/
-        var experiment = 'var awe,jj=!0,jkl=0,p1=0,p2=0;aa=[!1,!1,!1,!1,!1,!1,!1,!1,!1];var tem,durch="1";function los(e){!1===aa[e]&&jkl<6?(jj?(document.getElementById("a"+e).innerHTML="O",document.getElementById("turn").innerHTML="Turn: X",aa[e]="2"):(document.getElementById("a"+e).innerHTML="X",document.getElementById("turn").innerHTML="Turn: O",aa[e]="1"),jj=!jj,win(),jkl++):jkl>=6&&("1"==durch&&!1!==aa[e]?jj||"1"!=aa[e]?jj&&"2"==aa[e]&&(document.getElementById("a"+e).style.color="red",tem=e,durch="2"):(document.getElementById("a"+e).style.color="red",tem=e,durch="2"):"2"==durch&&e==tem?(document.getElementById("a"+tem).removeAttribute("style"),durch="1"):"2"==durch&&!1===aa[e]?(jj?(document.getElementById("a"+e).innerHTML="O",document.getElementById("a"+tem).innerHTML=" ",document.getElementById("turn").innerHTML="Turn: X",document.getElementById("a"+tem).removeAttribute("style"),aa[e]="2",aa[tem]=!1):(document.getElementById("a"+e).innerHTML="X",document.getElementById("a"+tem).innerHTML=" ",document.getElementById("turn").innerHTML="Turn: O",document.getElementById("a"+tem).removeAttribute("style"),aa[e]="1",aa[tem]=!1),jj=!jj,win(),durch="1"):"2"==durch&&!1!==aa[e]&&(jj||"1"!=aa[e]?jj&&"2"==aa[e]&&(document.getElementById("a"+e).style.color="red",document.getElementById("a"+tem).removeAttribute("style"),tem=e):(document.getElementById("a"+e).style.color="red",document.getElementById("a"+tem).removeAttribute("style"),tem=e)))}function win(){for(var e=1;e<=2;e++){1==e&&(awe="1"),2==e&&(awe="2");for(var t=0;t<9;t+=3)if(aa[t]==aa[t+1]&&aa[t+1]==aa[t+2]&&aa[t+2]==awe)return void winner(awe);for(var a=0;a<=3;a++)if(aa[a]==aa[a+3]&&aa[a+3]==aa[a+6]&&aa[a+6]==awe)return void winner(awe);if(aa[0]==aa[4]&&aa[4]==aa[8]&&aa[8]==awe)return void winner(awe);if(aa[2]==aa[4]&&aa[4]==aa[6]&&aa[6]==awe)return void winner(awe)}}function rese(){aa=[3,3,3,3,3,3,3,3,3],document.getElementById("reset").style="visibility:visible"}function rematch(){aa=[!1,!1,!1,!1,!1,!1,!1,!1,!1];for(var e=0;e<9;e++)document.getElementById("a"+e).innerHTML="";jkl=0,document.getElementById("reset").style="visibility:hidden",jj=!0,awe=void 0,tem=void 0,durch="1"}function winner(e){1==e?(p1++,aler("Winner: X")):2==e&&(p2++,aler("Winner: O")),rese(),document.getElementById("score").innerHTML="X: "+p1+" vs. O: "+p2}';
+        var experimentloc = 'var awe,jj=!0,jkl=0,p1=0,p2=0;aa=[!1,!1,!1,!1,!1,!1,!1,!1,!1];var tem,durch="1";function los(e){!1===aa[e]&&jkl<6?(jj?(document.getElementById("a"+e).innerHTML="O",document.getElementById("turn").innerHTML="Turn: X",aa[e]="2"):(document.getElementById("a"+e).innerHTML="X",document.getElementById("turn").innerHTML="Turn: O",aa[e]="1"),jj=!jj,win(),jkl++):jkl>=6&&("1"==durch&&!1!==aa[e]?jj||"1"!=aa[e]?jj&&"2"==aa[e]&&(document.getElementById("a"+e).style.color="red",tem=e,durch="2"):(document.getElementById("a"+e).style.color="red",tem=e,durch="2"):"2"==durch&&e==tem?(document.getElementById("a"+tem).removeAttribute("style"),durch="1"):"2"==durch&&!1===aa[e]?(jj?(document.getElementById("a"+e).innerHTML="O",document.getElementById("a"+tem).innerHTML=" ",document.getElementById("turn").innerHTML="Turn: X",document.getElementById("a"+tem).removeAttribute("style"),aa[e]="2",aa[tem]=!1):(document.getElementById("a"+e).innerHTML="X",document.getElementById("a"+tem).innerHTML=" ",document.getElementById("turn").innerHTML="Turn: O",document.getElementById("a"+tem).removeAttribute("style"),aa[e]="1",aa[tem]=!1),jj=!jj,win(),durch="1"):"2"==durch&&!1!==aa[e]&&(jj||"1"!=aa[e]?jj&&"2"==aa[e]&&(document.getElementById("a"+e).style.color="red",document.getElementById("a"+tem).removeAttribute("style"),tem=e):(document.getElementById("a"+e).style.color="red",document.getElementById("a"+tem).removeAttribute("style"),tem=e)))}function win(){for(var e=1;e<=2;e++){1==e&&(awe="1"),2==e&&(awe="2");for(var t=0;t<9;t+=3)if(aa[t]==aa[t+1]&&aa[t+1]==aa[t+2]&&aa[t+2]==awe)return void winner(awe);for(var a=0;a<=3;a++)if(aa[a]==aa[a+3]&&aa[a+3]==aa[a+6]&&aa[a+6]==awe)return void winner(awe);if(aa[0]==aa[4]&&aa[4]==aa[8]&&aa[8]==awe)return void winner(awe);if(aa[2]==aa[4]&&aa[4]==aa[6]&&aa[6]==awe)return void winner(awe)}}function rese(){aa=[3,3,3,3,3,3,3,3,3],document.getElementById("reset").style="visibility:visible"}function rematch(){aa=[!1,!1,!1,!1,!1,!1,!1,!1,!1];for(var e=0;e<9;e++)document.getElementById("a"+e).innerHTML="";jkl=0,document.getElementById("reset").style="visibility:hidden",jj=!0,awe=void 0,tem=void 0,durch="1"}function winner(e){1==e?(p1++,aler("Winner: X")):2==e&&(p2++,aler("Winner: O")),rese(),document.getElementById("score").innerHTML="X: "+p1+" vs. O: "+p2}';
         /*  var jj=true;
             var awe,jkl=0;
             var p1=0,p2=0; aa=[false,false,false,false,false,false,false,false,false];
@@ -1540,6 +1829,11 @@
             inopenchat = true;
         }
 
+        function nochnichtgespielt(){
+            //document.getElementById("tut1").style.display="block";
+            aler("Sieht so aus als würdest du das erste mal diesen Modus spielen. <br>Willst du ein Tutorial?<br><div  align='left' style='float:left;'><button onclick='ja(), tut1fals()'>Ja</button></div><div  align='right' style='margin-bottom: -18px;'><button onclick='nein(), tut1fals()'>Nein</button></div>", "hid");
+        }
+
         //Ende Extrawurtst Funktionen.
 
         function sleep(ms) {
@@ -1556,14 +1850,20 @@
             document.getElementsByTagName('head').item(0).appendChild(newscript);
         }
 
-        function on() {
-            resett();
-            reloadSript(online);
+        function show(contain){
             document.getElementById("div0").style = "display:none !important";
             document.getElementById("div1").style = "display:none !important";
             document.getElementById("div2").style = "display:none !important";
             document.getElementById("singel").style = "display:none !important";
-            document.getElementById("multiplayer").style = "display:block !important";
+            document.getElementById("multiplayer").style = "display:none !important";
+            document.getElementById("experimental-area").style = "display:none !important";
+            document.getElementById(contain).style = "display:block !important";
+        }
+
+        function on() {
+            resett();
+            reloadSript(online);
+            show("multiplayer");
             document.getElementById("the").classList.add("ingame");
             document.getElementById("help").style.display = "none";
             modus = 1;
@@ -1572,11 +1872,7 @@
         function off() {
             resett();
             reloadSript(offline);
-            document.getElementById("div0").style = "display:none !important";
-            document.getElementById("div1").style = "display:block !important";
-            document.getElementById("div2").style = "display:none !important";
-            document.getElementById("singel").style = "display:none !important";
-            document.getElementById("multiplayer").style = "display:none !important";
+            show("div1");
             document.getElementById("the").classList.add("ingame");
             document.getElementById("help").style.display = "block";
             modus = 1;
@@ -1586,11 +1882,7 @@
             fadebutton(true);
             await sleep(animationspeed);
             reloadSript("");
-            document.getElementById("div0").style = "display:block !important";
-            document.getElementById("div1").style = "display:none !important";
-            document.getElementById("div2").style = "display:none !important";
-            document.getElementById("singel").style = "display:none !important";
-            document.getElementById("multiplayer").style = "display:none !important";
+            show("div0");
             document.getElementById("the").classList.remove("ingame");
             document.getElementById("help").style.display = "none";
             modus = 0;
@@ -1599,11 +1891,7 @@
         }
 
         function sing() {
-            document.getElementById("div0").style = "display:none !important";
-            document.getElementById("div1").style = "display:none !important";
-            document.getElementById("div2").style = "display:none !important";
-            document.getElementById("singel").style = "display:block !important";
-            document.getElementById("multiplayer").style = "display:none !important";
+            show("singel");
             document.getElementById("the").classList.add("ingame");
             modus = 0;
         }
@@ -1611,11 +1899,7 @@
         function ein() {
             resett();
             reloadSript(easy);
-            document.getElementById("div0").style = "display:none !important";
-            document.getElementById("div1").style = "display:block !important";
-            document.getElementById("div2").style = "display:none !important";
-            document.getElementById("singel").style = "display:none !important";
-            document.getElementById("multiplayer").style = "display:none !important";
+            show("div1");
             document.getElementById("the").classList.add("ingame");
             document.getElementById("help").style.display = "block";
             modus = 1;
@@ -1624,11 +1908,7 @@
         function mit() {
             resett();
             reloadSript(mittel);
-            document.getElementById("div0").style = "display:none !important";
-            document.getElementById("div1").style = "display:block !important";
-            document.getElementById("div2").style = "display:none !important";
-            document.getElementById("singel").style = "display:none !important";
-            document.getElementById("multiplayer").style = "display:none !important";
+            show("div1");
             document.getElementById("the").classList.add("ingame");
             document.getElementById("help").style.display = "block";
             modus = 1;
@@ -1637,25 +1917,17 @@
         function schw() {
             resett();
             reloadSript(schwer);
-            document.getElementById("div0").style = "display:none !important";
-            document.getElementById("div1").style = "display:block !important";
-            document.getElementById("div2").style = "display:none !important";
-            document.getElementById("singel").style = "display:none !important";
-            document.getElementById("multiplayer").style = "display:none !important";
+            show("div1");
             document.getElementById("the").classList.add("ingame");
             document.getElementById("help").style.display = "block";
             modus = 1;
         }
 
 
-        function exper() {
+        function experloc() {
             resett();
-            reloadSript(experiment);
-            document.getElementById("div0").style = "display:none !important";
-            document.getElementById("div1").style = "display:block !important";
-            document.getElementById("div2").style = "display:none !important";
-            document.getElementById("singel").style = "display:none !important";
-            document.getElementById("multiplayer").style = "display:none !important";
+            reloadSript(experimentloc);
+            show("div1");
             document.getElementById("the").classList.add("ingame");
             modus = 2;
             if(tut1 != "false") {
@@ -1664,6 +1936,21 @@
             } else {
                 document.getElementById("help").style.display = "block";
             }
+        }
+
+        function expermp() {
+            resett();
+            reloadSript(experimentmp);
+            show("multiplayer");
+            document.getElementById("the").classList.add("ingame");
+            modus = 2;
+            document.getElementById("help").style.display = "none";
+        }
+
+        function experarea() {
+            show("experimental-area");
+            document.getElementById("the").classList.add("ingame");
+            modus = 0;
         }
 
         function nein() {
@@ -1842,7 +2129,9 @@
                 else if(llk[1] == "einfach") ein();
                 else if(llk[1] == "mittel") mit();
                 else if(llk[1] == "schwer") schw();
-                else if(llk[1] == "experimental") exper();
+                else if(llk[1] == "experimental-local") experloc();
+                else if(llk[1] == "experimental-area") experarea();
+                else if(llk[1] == "experimental-multiplayer") expermp();
                 else if((llk[1] == "singel")) sing();
             }
 
@@ -2858,48 +3147,92 @@
 <div id="div0" class="main nop overhid">
     <center>
         <h1 class="chopa">Tick Tack Toe</h1>
-        <br>
-        <br>
-        <div id="wahl">
-            <div class="box">
-                <a href="#singel">
-                    <div class="btn mvl" onclick="async function fadeout(){fadebutton(true);await sleep(animationspeed);sing();await sleep(100);fadebutton(false);}fadeout();">
-                        <span>Einzelspieler</span>
-                    </div>
-                </a>
-            </div>
-            <br>
-            <br>
-            <div class="box">
-                <a href="#1v1">
-                    <div class="btn mvr" onclick="async function fadeout(){fadebutton(true);await sleep(animationspeed);off();await sleep(100);fadebutton(false);}fadeout();">
-                        <span>Lokaler Mehrspieler</span>
-                    </div>
-                </a>
-            </div>
-            <br>
-            <br>
-            <div class="box">
-                <a href="#multiplayer">
-                    <div class="btn mvl" onclick="async function fadeout(){fadebutton(true);await sleep(animationspeed);on();await sleep(100);fadebutton(false);}fadeout();">
-                        <span>Online Mehrspieler</span>
-                    </div>
-                </a>
-            </div>
-            <br>
-            <br>
-            <div class="box">
-                <a href="#experimental">
-                    <div class="btn mvr" onclick="async function fadeout(){fadebutton(true);await sleep(animationspeed);exper();await sleep(100);fadebutton(false);}fadeout();">
-                        <span>Experimentaler Bereich</span>
-                    </div>
-                </a>
-            </div>
-            <div class="chopa" onclick="pat()" id="note">
-                Patch Notes
-            </div>
-        </div>
     </center>
+    <br>
+    <br>
+    <div id="wahl">
+        <div class="box">
+            <a href="#singel">
+                <div class="btn mvl" onclick="async function fadeout(){fadebutton(true);await sleep(animationspeed);sing();await sleep(100);fadebutton(false);}fadeout();">
+                    <span>Einzelspieler</span>
+                </div>
+            </a>
+        </div>
+        <br>
+        <br>
+        <div class="box">
+            <a href="#experimental-local">
+                <div class="btn mvr" onclick="async function fadeout(){fadebutton(true);await sleep(animationspeed);off();await sleep(100);fadebutton(false);}fadeout();">
+                    <span>Lokaler Mehrspieler</span>
+                </div>
+            </a>
+        </div>
+        <br>
+        <br>
+        <div class="box">
+            <a href="#multiplayer">
+                <div class="btn mvl" onclick="async function fadeout(){fadebutton(true);await sleep(animationspeed);on();await sleep(100);fadebutton(false);}fadeout();">
+                    <span>Online Mehrspieler</span>
+                </div>
+            </a>
+        </div>
+        <br>
+        <br>
+        <div class="box">
+            <a href="#experimental-area">
+                <div class="btn mvr" onclick="async function fadeout(){fadebutton(true);await sleep(animationspeed);experarea();await sleep(100);fadebutton(false);}fadeout();">
+                    <span>Experimentaler Bereich</span>
+                </div>
+            </a>
+        </div>
+        <div class="chopa" onclick="pat()" id="note">
+            Patch Notes
+        </div>
+    </div>
+</div>
+<div id="experimental-area" class="nop overhid">
+    <center>
+        <h1 class="chopa">Experimentaler Bereich</h1>
+    </center>
+    <br>
+    <br>
+    <div id="wahl">
+        <div class="box">
+            <a href="#experimental-area">
+                <div class="btn mvl" onclick="">
+                    <span>Einzelspieler (WiP)</span>
+                </div>
+            </a>
+        </div>
+        <br>
+        <br>
+        <div class="box">
+            <a href="#experimental-local">
+                <div class="btn mvr" onclick="async function fadeout(){fadebutton(true);await sleep(animationspeed);experloc();await sleep(100);fadebutton(false);}fadeout();">
+                    <span>Lokaler Mehrspieler</span>
+                </div>
+            </a>
+        </div>
+        <br>
+        <br>
+        <div class="box">
+            <a href="#experimental-multiplayer">
+                <div class="btn mvl" onclick="async function fadeout(){fadebutton(true);await sleep(animationspeed);expermp();await sleep(100);fadebutton(false);}fadeout();">
+                    <span>Online Mehrspieler</span>
+                </div>
+            </a>
+        </div>
+        <div class="chopa" onclick="pat()" id="note">
+            Patch Notes
+        </div>
+    </div>
+    <div class="box">
+        <a href="#">
+            <div class="back btn mvl" onclick="back()">
+                <span>Zurück</span>
+            </div>
+        </a>
+    </div>
 </div>
 <div id="multiplayer" class="nop overhid">
     <center>
@@ -3066,6 +3399,28 @@
         </center>
         <ul class="uul">
             <li>
+                4.0.0<!--27.12.2020-->
+                <ul>
+                    <li>
+                        New:
+                        <ul>
+                            <li>
+                                Online multiplayer for experimental mode
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        Changes:
+                        <ul>
+                            <li>
+                                Reorganization of the experimantal area
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <br>
+            <li>
                 3.3.1<!--05.12.2020-->
                 <ul>
                     <li>
@@ -3126,9 +3481,6 @@
                 <ul>
                     <li>
                         Integration of English and German
-                    </li>
-                    <li>
-                        Multiplayer for "Experimenteller Bereich"
                     </li>
                     <li>
                         Rework of the medium Bot
