@@ -3,126 +3,157 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Tick Tack Toe</title>
+    <meta name="version" content="2.1.3"></version>
+    <script src="https://kit.fontawesome.com/ff71fc4b3c.js" crossorigin="anonymous"></script><link rel="stylesheet" href="https://kit-free.fontawesome.com/releases/latest/css/free.min.css" media="all"><link rel="stylesheet" href="https://kit-free.fontawesome.com/releases/latest/css/free-v4-font-face.min.css" media="all"><link rel="stylesheet" href="https://kit-free.fontawesome.com/releases/latest/css/free-v4-shims.min.css" media="all">
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
     <script id="yourscripttagID"></script>
     <script>
-        var online='var youAreP,enemyAre,socket=io(),remake=!1,online=!1;function los(e){socket.emit("turn",e)}function rematch(){0==remake?(socket.emit("rematch"),document.getElementById("reset").disabled=!0):1==remake&&socket.emit("rematchakkept")}function reset(){socket.emit("resee");for(var e=0;e<9;e++)document.getElementById("a"+e).innerHTML="";document.getElementById("reset").style="visibility:hidden"}function neu(){b=document.getElementById("inpu").value,socket.emit("conn",b)}function dis(){socket.emit("dis")}socket.on("que",function(e,n,t,o){if(1==e)document.getElementById("div0").style="display:none",document.getElementById("div1").style="display:none",document.getElementById("div2").style="display:block",document.getElementById("multiplayer").style="display:none","Notification"in window&&"denied"!==Notification.permission&&Notification.requestPermission(function(e){});else if(2==e){if(document.getElementById("div0").style="display:none",document.getElementById("div1").style="display:block",document.getElementById("div2").style="display:none",document.getElementById("multiplayer").style="display:none",document.getElementById("youAre").innerHTML="You are "+n,youAreP=n,enemyAre=t,"granted"===Notification.permission)new Notification("Gegner "+o+" will gegen dich spielen");document.getElementById("score").innerHTML=youAreP+": 0 vs. "+enemyAre+": 0",aler("Gegner: "+o)}}),socket.on("turned",function(e,n,t){document.getElementById("a"+t).innerHTML=e,document.getElementById("turn").innerHTML="Turn: "+n}),socket.on("win",function(e,n,t,o){e==youAreP?(document.getElementById("score").innerHTML=youAreP+": "+n+" vs. "+enemyAre+": "+t,aler("Du hast gewonnen")):(document.getElementById("score").innerHTML=youAreP+": "+t+" vs. "+enemyAre+": "+n,aler("Du hast verloren"))}),socket.on("rese",function(){document.getElementById("reset").style="visibility:visible"}),socket.on("rematchask",function(){document.getElementById("reset").innerHTML="Accept Rematch",remake=!0}),socket.on("resett",function(){document.getElementById("reset").innerHTML="Rematch",remake=!1,document.getElementById("reset").disabled=!1,reset()}),socket.on("turnreset",function(){document.getElementById("turn").innerHTML="Turn: O"}),document.onkeydown=function(e){0==online&&13===e.keyCode&&(neu(),online=!0)},socket.on("erro",function(){for(;;)aler("Error: Bitte starte dein Spiel neu")});';
+        var online='var youAreP,enemyAre,socket=io(),remake=!1,online=!1;const d=new Date;var n;function los(e){socket.emit("turn",e)}function rematch(){0==remake?(socket.emit("rematch"),document.getElementById("reset").disabled=!0):1==remake&&socket.emit("rematchakkept")}function reset(){socket.emit("resee");for(var e=0;e<9;e++)document.getElementById("a"+e).innerHTML="";document.getElementById("reset").style="visibility:hidden"}function neu(){b=document.getElementById("inpu").value,socket.emit("conn",b)}function dis(){socket.emit("dis")}function ping(){n=d.getMilliseconds(),socket.emit("ping")}socket.on("que",function(e,n,t,o){if(1==e)document.getElementById("div0").style="display:none",document.getElementById("div1").style="display:none",document.getElementById("div2").style="display:block",document.getElementById("multiplayer").style="display:none","Notification"in window&&"denied"!==Notification.permission&&Notification.requestPermission(function(e){});else if(2==e){if(document.getElementById("div0").style="display:none",document.getElementById("div1").style="display:block",document.getElementById("div2").style="display:none",document.getElementById("multiplayer").style="display:none",document.getElementById("youAre").innerHTML="You are "+n,youAreP=n,enemyAre=t,"granted"===Notification.permission)new Notification("Gegner "+o+" will gegen dich spielen");document.getElementById("score").innerHTML=youAreP+": 0 vs. "+enemyAre+": 0",aler("Gegner: "+o)}}),socket.on("turned",function(e,n,t){document.getElementById("a"+t).innerHTML=e,document.getElementById("turn").innerHTML="Turn: "+n}),socket.on("win",function(e,n,t,o){e==youAreP?(document.getElementById("score").innerHTML=youAreP+": "+n+" vs. "+enemyAre+": "+t,aler("Du hast gewonnen")):(document.getElementById("score").innerHTML=youAreP+": "+t+" vs. "+enemyAre+": "+n,aler("Du hast verloren"))}),socket.on("rese",function(){document.getElementById("reset").style="visibility:visible"}),socket.on("rematchask",function(){document.getElementById("reset").innerHTML="Accept Rematch",remake=!0}),socket.on("resett",function(){document.getElementById("reset").innerHTML="Rematch",remake=!1,document.getElementById("reset").disabled=!1,reset()}),socket.on("turnreset",function(){document.getElementById("turn").innerHTML="Turn: O"}),document.onkeydown=function(e){0==online&&13===e.keyCode&&(neu(),online=!0)},socket.on("erro",function(){for(;;)aler("Error: Bitte starte dein Spiel neu")}),socket.on("ping2",function(){m=d.getMilliseconds(),document.getElementById("ping").innerHTML=m-n}),ping();';
 
-
-        /*var socket = io();
+        /**/var socket = io();
         var youAreP,enemyAre;
         var remake = false;
         var online = false;
+        var n,o=0;
 
-            function los(hh){
-                socket.emit("turn",hh);
-            };
+        function los(hh){
+            socket.emit("turn",hh);
+        };
 
-            function rematch(){
-                if(remake==false) {
-                    socket.emit("rematch");
-                    document.getElementById("reset").disabled = true;
-                }
-
-                else if(remake==true) socket.emit("rematchakkept");
+        function rematch(){
+            if(remake==false) {
+                socket.emit("rematch");
+                document.getElementById("reset").disabled = true;
             }
 
-            function reset(){
-                socket.emit("resee");
-                for(var www = 0;www<9;www++){
-                    document.getElementById("a"+www).innerHTML="";
+            else if(remake==true) socket.emit("rematchakkept");
+        }
+
+        function reset(){
+            socket.emit("resee");
+            for(var www = 0;www<9;www++){
+                document.getElementById("a"+www).innerHTML="";
+            }
+            document.getElementById("reset").style="visibility:hidden";
+        };
+
+
+        function neu(){
+            b = document.getElementById("inpu").value;
+            socket.emit("conn",b);
+        };
+
+        socket.on("que",function(data,player,enem,name){
+            if(data==1){
+                document.getElementById("div0").style="display:none";
+                document.getElementById("div1").style="display:none";
+                document.getElementById("div2").style="display:block";
+                document.getElementById("multiplayer").style="display:none";
+                if (!("Notification" in window)){}
+                else if (Notification.permission !== 'denied') {
+                    Notification.requestPermission(function (permission){});
                 }
-                document.getElementById("reset").style="visibility:hidden";
-            };
-
-
-            function neu(){
-                b = document.getElementById("inpu").value;
-                socket.emit("conn",b);
-            };
-
-            socket.on("que",function(data,player,enem,name){
-                if(data==1){
-                    document.getElementById("div0").style="display:none";
-                    document.getElementById("div1").style="display:none";
-                    document.getElementById("div2").style="display:block";
-                    document.getElementById("multiplayer").style="display:none";
-                    if (!("Notification" in window)){}
-                    else if (Notification.permission !== 'denied') {
-                        Notification.requestPermission(function (permission){});
-                    }
+            }
+            else if(data==2){
+                document.getElementById("div0").style="display:none";
+                document.getElementById("div1").style="display:block";
+                document.getElementById("div2").style="display:none";
+                document.getElementById("multiplayer").style="display:none";
+                document.getElementById("youAre").innerHTML = "You are "+player;
+                youAreP=player
+                enemyAre = enem;
+                if(Notification.permission === "granted") {
+                    var notification = new Notification("Gegner "+name+" will gegen dich spielen");
                 }
-                else if(data==2){
-                    document.getElementById("div0").style="display:none";
-                    document.getElementById("div1").style="display:block";
-                    document.getElementById("div2").style="display:none";
-                    document.getElementById("multiplayer").style="display:none";
-                    document.getElementById("youAre").innerHTML = "You are "+player;
-                    youAreP=player
-                    enemyAre = enem;
-                    if(Notification.permission === "granted") {
-                        var notification = new Notification("Gegner "+name+" will gegen dich spielen");
-                    }
-                    document.getElementById("score").innerHTML = youAreP+": 0 vs. "+enemyAre+": 0";
-                    aler("Gegner: "+name);
+                document.getElementById("score").innerHTML = youAreP+": 0 vs. "+enemyAre+": 0";
+                aler("Gegner: "+name);
+            }
+        });
+
+        socket.on("turned",function(player,enemy,pos){
+            document.getElementById("a"+pos).innerHTML=player;
+            document.getElementById("turn").innerHTML="Turn: "+enemy;
+        });
+
+        socket.on("win",function(winer,punkteSelf,punkteEnemy,winner){
+            if(winer==youAreP){
+                document.getElementById("score").innerHTML = youAreP+": "+punkteSelf+" vs. "+enemyAre+": "+punkteEnemy;
+                aler("Du hast gewonnen");}
+            else{
+                document.getElementById("score").innerHTML = youAreP+": "+punkteEnemy+" vs. "+enemyAre+": "+punkteSelf;
+                aler("Du hast verloren");}
+        });
+
+        socket.on("rese",function(){
+            document.getElementById("reset").style="visibility:visible";
+        });
+
+        socket.on("rematchask",function(){
+            document.getElementById("reset").innerHTML="Accept Rematch";
+            remake=true;
+        });
+
+        socket.on("resett",function(){
+            document.getElementById("reset").innerHTML="Rematch";
+            remake=false;
+            document.getElementById("reset").disabled = false;
+            reset();
+        });
+
+        socket.on("turnreset",function(){
+            document.getElementById("turn").innerHTML="Turn: O";
+        });
+
+
+        /**/
+        /*window.onload = function(){
+            document.getElementById("div3").style.height=div3.clientHeight;
+            document.getElementById("div3").style.length=div3.clientLength;
+        }*//**/
+
+        document.onkeydown = function(event){
+
+            if(online==false){
+                if(event.keyCode===13){
+                    neu();
+                    online=true;
                 }
-            });
+            }
+        };
 
-            socket.on("turned",function(player,enemy,pos){
-                document.getElementById("a"+pos).innerHTML=player;
-                document.getElementById("turn").innerHTML="Turn: "+enemy;
-            });
+        function dis(){
+            socket.emit("dis");
+        }
 
-            socket.on("win",function(winer,punkteSelf,punkteEnemy,winner){
-                if(winer==youAreP){
-                    document.getElementById("score").innerHTML = youAreP+": "+punkteSelf+" vs. "+enemyAre+": "+punkteEnemy;
-                    aler("Du hast gewonnen");}
-                    else{
-                        document.getElementById("score").innerHTML = youAreP+": "+punkteEnemy+" vs. "+enemyAre+": "+punkteSelf;
-                        aler("Du hast verloren");}
-            });
+        socket.on("erro",function(){while(true)aler("Error: Bitte starte dein Spiel neu")});
 
-            socket.on("rese",function(){
-                document.getElementById("reset").style="visibility:visible";
-            });
+        function ping1(){
+            var d = new Date();
+            n = d.getTime();
+            socket.emit("ping1");
+        }
 
-            socket.on("rematchask",function(){
-                document.getElementById("reset").innerHTML="Accept Rematch";
-                remake=true;
-            });
+        socket.on("ping2",function(){
+            var d = new Date();
+            m = d.getTime();
 
-            socket.on("resett",function(){
-                document.getElementById("reset").innerHTML="Rematch";
-                remake=false;
-                document.getElementById("reset").disabled = false;
-                reset();
-            });
+            var p=((m-n)-o)/20;
+            for(var i=1;i<=10;i++){
+                setTimeout(function(){lo(p)},i*99);
+            }
 
-            socket.on("turnreset",function(){
-                document.getElementById("turn").innerHTML="Turn: O";
-            });
+        });
 
-            /*window.onload = function(){
-                document.getElementById("div3").style.height=div3.clientHeight;
-                document.getElementById("div3").style.length=div3.clientLength;
-            }*//*
+        window.setInterval(ping1,1000);
 
-				document.onkeydown = function(event){
+        function lo(a){
+            a = Math.round(a);
+            document.getElementById("ping").innerHTML = o+a;
+            o += a;
+            console.log(o);
+        }
+        /**/
 
-					if(online==false){
-						if(event.keyCode===13){
-							neu();
-							online=true;
-						}
-					}
-				};
-
-				function dis(){
-					socket.emit("dis");
-				}
-
-				socket.on("erro",function(){while(true)aler("Error: Bitte starte dein Spiel neu")});
-				*/
         var offline='var hh,awe,jj=!0,jkl=0,p1=0,p2=0;function los(e){if(!1===aa[e]){jj?(document.getElementById("a"+e).innerHTML="O",document.getElementById("turn").innerHTML="Turn: X",aa[e]="2"):(document.getElementById("a"+e).innerHTML="X",document.getElementById("turn").innerHTML="Turn: O",aa[e]="1"),jj=!jj;for(var a=1;a<=2;a++){1==a&&(awe="1"),2==a&&(awe="2");for(var n=0;n<9;n+=3)if(aa[n]==aa[n+1]&&aa[n+1]==aa[n+2]&&aa[n+2]==awe)return void winner(awe);for(var r=0;r<=3;r++)if(aa[r]==aa[r+3]&&aa[r+3]==aa[r+6]&&aa[r+6]==awe)return void winner(awe);if(aa[0]==aa[4]&&aa[4]==aa[8]&&aa[8]==awe)return void winner(awe);if(aa[2]==aa[4]&&aa[4]==aa[6]&&aa[6]==awe)return void winner(awe)}9==++jkl&&rese()}}function rese(){document.getElementById("reset").style="visibility:visible",jkl=0,aa=[3,3,3,3,3,3,3,3,3]}function rematch(){aa=[!1,!1,!1,!1,!1,!1,!1,!1,!1];for(var e=0;e<9;e++)document.getElementById("a"+e).innerHTML="";document.getElementById("reset").style="visibility:hidden"}function winner(e){1==e?(p1++,aler("Gewinner: X")):2==e&&(p2++,aler("Gewinner: O")),rese(),document.getElementById("score").innerHTML="X: "+p1+" vs. O: "+p2}aa=[!1,!1,!1,!1,!1,!1,!1,!1,!1];'
         /*var  hh,jj=true;
         var awe,jkl=0;
@@ -618,428 +649,444 @@
 
         //aler(isNaN(Math.abs(Math.round(2))));*/
 
-        var schwer = 'var hh,awe,jj=!0,win=!1,jkl=0,p1=0,p2=0;aa=[!1,!1,!1,!1,!1,!1,!1,!1,!1];var bb=[[void 0,void 0,void 0],[void 0,void 0,void 0],[void 0,void 0,void 0]];function los(b){jj&&!1===aa[b]&&(zug(b),!1===win&&bot(b))}function zug(b){if(!1===aa[b]){jj?(document.getElementById("a"+b).innerHTML="O",document.getElementById("turn").innerHTML="Turn: X",aa[b]="2"):(document.getElementById("a"+b).innerHTML="X",document.getElementById("turn").innerHTML="Turn: O",aa[b]="1"),jj=!jj;for(var e=1;e<=2;e++){1==e&&(awe="1"),2==e&&(awe="2");for(var t=0;t<9;t+=3)if(aa[t]==aa[t+1]&&aa[t+1]==aa[t+2]&&aa[t+2]==awe)return void winner(awe);for(var a=0;a<=3;a++)if(aa[a]==aa[a+3]&&aa[a+3]==aa[a+6]&&aa[a+6]==awe)return void winner(awe);if(aa[0]==aa[4]&&aa[4]==aa[8]&&aa[8]==awe)return void winner(awe);if(aa[2]==aa[4]&&aa[4]==aa[6]&&aa[6]==awe)return void winner(awe)}9==++jkl&&rese()}}function rese(){win=!0,document.getElementById("reset").style="visibility:visible",jkl=0,aa=[3,3,3,3,3,3,3,3,3]}function rematch(){aa=[!1,!1,!1,!1,!1,!1,!1,!1,!1];for(var b=0;b<9;b++)document.getElementById("a"+b).innerHTML="";document.getElementById("reset").style="visibility:hidden",jj=!0,win=!1,bb=[[void 0,void 0,void 0],[void 0,void 0,void 0],[void 0,void 0,void 0]]}function winner(b){1==b?(p1++,aler("Winner: X")):2==b&&(p2++,aler("Winner: O")),rese(),document.getElementById("score").innerHTML="X: "+p1+" vs. O: "+p2}function bot(b){var e,t,a;if(mov=!1,write(b,1),jkl>=3){if(!1===mov)for(t in bb)!0===test(bb[t][0],bb[t][1],bb[t][2])&&!1!==(a=test3(bb[t][0],bb[t][1],bb[t][2]))&&(mov=!0,e=3*t+1*a);if(!1===mov)for(t in bb)!0===test(bb[0][t],bb[1][t],bb[2][t])&&!1!==(a=test3(bb[0][t],bb[1][t],bb[2][t]))&&(mov=!0,e=3*a+1*t);if(!1===mov&&!0===test(bb[0][0],bb[1][1],bb[2][2])&&!1!==(a=test3(bb[0][0],bb[1][1],bb[2][2]))&&(mov=!0,e=4*a),!1===mov&&!0===test(bb[0][2],bb[1][1],bb[2][0])&&!1!==(a=test3(bb[0][2],bb[1][1],bb[2][0]))&&(mov=!0,e=2*a+2),0==mov)for(t in bb)!0===test(bb[t][0],bb[t][1],bb[t][2])&&!1!==(a=test2(bb[t][0],bb[t][1],bb[t][2]))&&(mov=!0,e=3*t+a);if(!1===mov)for(t in bb)!0===test(bb[0][t],bb[1][t],bb[2][t])&&!1!==(a=test2(bb[0][t],bb[1][t],bb[2][t]))&&(mov=!0,e=3*a+1*t);!1===mov&&!0===test(bb[0][0],bb[1][1],bb[2][2])&&!1!==(a=test2(bb[0][0],bb[1][1],bb[2][2]))&&(mov=!0,e=4*a),!1===mov&&!0===test(bb[0][2],bb[1][1],bb[2][0])&&!1!==(a=test2(bb[0][2],bb[1][1],bb[2][0]))&&(mov=!0,e=2*a+2)}if(!1===mov){var o;if(1==jkl){switch(b){case 0:e=4;break;case 1:e=7;break;case 2:e=4;break;case 3:e=5;break;case 4:e=6;break;case 5:e=3;break;case 6:e=4;break;case 7:e=1;break;case 8:e=4}4==e&&(o=!0),mov=!0}else 0==mov&&!0===test4(bb[0][1],bb[1][0],bb[0][0],bb[0][2],bb[2][0])&&(mov=!0,e=0),0==mov&&!0===test4(bb[0][1],bb[1][2],bb[0][2],bb[0][0],bb[2][2])&&(mov=!0,e=2),0==mov&&!0===test4(bb[2][1],bb[1][0],bb[2][0],bb[0][0],bb[2][2])&&(mov=!0,e=6),0==mov&&!0===test4(bb[2][1],bb[1][2],bb[2][2],bb[0][2],bb[2][0])&&(mov=!0,e=8),0==mov&&!0===test4(bb[2][0],bb[0][2],bb[1][0],bb[0][0],bb[0][1])&&(mov=!0,e=1),0==mov&&!0===test4(bb[2][0],bb[0][2],bb[2][1],bb[2][2],bb[1][2])&&(mov=!0,e=3),0==mov&&!0===test4(bb[0][0],bb[2][2],bb[0][1],bb[0][2],bb[1][2])&&(mov=!0,e=5),0==mov&&!0===test4(bb[0][0],bb[2][2],bb[1][0],bb[2][0],bb[2][1])&&(mov=!0,e=7),0==mov&&!0===test4(bb[0][0],bb[2][1],bb[2][0],bb[2][2],bb[1][0])&&(mov=!0,e=!0===o?3:8),0==mov&&!0===test4(bb[0][2],bb[2][1],bb[2][0],bb[2][2],bb[1][2])&&(mov=!0,e=!0===o?5:6),0==mov&&!0===test4(bb[0][2],bb[1][0],bb[0][0],bb[2][0],bb[0][1])&&(mov=!0,e=!0===o?1:6),0==mov&&!0===test4(bb[2][2],bb[1][0],bb[0][0],bb[2][0],bb[2][1])&&(mov=!0,e=!0===o?7:0),0==mov&&!0===test4(bb[2][0],bb[0][1],bb[0][0],bb[0][2],bb[1][0])&&(mov=!0,e=!0===o?3:2),0==mov&&!0===test4(bb[2][2],bb[0][1],bb[0][0],bb[0][2],bb[1][2])&&(mov=!0,e=!0===o?5:0),0==mov&&!0===test4(bb[0][0],bb[1][2],bb[0][2],bb[2][2],bb[0][1])&&(mov=!0,e=!0===o?1:8),0==mov&&!0===test4(bb[2][0],bb[1][2],bb[0][2],bb[2][2],bb[2][1])&&(mov=!0,e=!0===o?7:2);if(!1===mov){do{e=Math.floor(9*Math.random())}while(!1!==aa[e]);mov=!0}}!0===mov&&(zug(e),write(e,2))}function write(b,e){switch(b){case 0:bb[0][0]=e;break;case 1:bb[0][1]=e;break;case 2:bb[0][2]=e;break;case 3:bb[1][0]=e;break;case 4:bb[1][1]=e;break;case 5:bb[1][2]=e;break;case 6:bb[2][0]=e;break;case 7:bb[2][1]=e;break;case 8:bb[2][2]=e}}function test(b,e,t){return(void 0===b||void 0===e||void 0===t)&&((b!=e||b!=t)&&(b==e||b==t||e==t))}function test2(b,e,t){return b=Math.abs(Math.round(b)),e=Math.abs(Math.round(e)),t=Math.abs(Math.round(t)),(1==b||1==e||1==t)&&(1==b&&1==e&&isNaN(t)?2:1==b&&1==t&&isNaN(e)?1:!(1!=t||1!=e||!isNaN(b))&&0)}function test3(b,e,t){return b=Math.abs(Math.round(b)),e=Math.abs(Math.round(e)),t=Math.abs(Math.round(t)),(2==b||2==e||2==t)&&(2==b&&2==e&&isNaN(t)?2:2==b&&2==t&&isNaN(e)?1:!(2!=t||2!=e||!isNaN(b))&&0)}function test4(b,e,t,a,o){return 1==b&&1==e&&void 0===t&&void 0===a&&void 0===o}';
+        var schwer = 'var hh,awe,jj=!0,win=!1,jkl=0,p1=0,p2=0;aa=[!1,!1,!1,!1,!1,!1,!1,!1,!1];var moo,mii,bb=[[void 0,void 0,void 0],[void 0,void 0,void 0],[void 0,void 0,void 0]];function los(b){jj&&!1===aa[b]&&(zug(b),!1===win&&bot(b))}function zug(b){if(!1===aa[b]){jj?(document.getElementById("a"+b).innerHTML="O",document.getElementById("turn").innerHTML="Turn: X",aa[b]="2"):(document.getElementById("a"+b).innerHTML="X",document.getElementById("turn").innerHTML="Turn: O",aa[b]="1"),jj=!jj;for(var e=1;e<=2;e++){1==e&&(awe="1"),2==e&&(awe="2");for(var o=0;o<9;o+=3)if(aa[o]==aa[o+1]&&aa[o+1]==aa[o+2]&&aa[o+2]==awe)return void winner(awe);for(var t=0;t<=3;t++)if(aa[t]==aa[t+3]&&aa[t+3]==aa[t+6]&&aa[t+6]==awe)return void winner(awe);if(aa[0]==aa[4]&&aa[4]==aa[8]&&aa[8]==awe)return void winner(awe);if(aa[2]==aa[4]&&aa[4]==aa[6]&&aa[6]==awe)return void winner(awe)}9==++jkl&&rese()}}function rese(){win=!0,document.getElementById("reset").style="visibility:visible",jkl=0,aa=[3,3,3,3,3,3,3,3,3]}function rematch(){aa=[!1,!1,!1,!1,!1,!1,!1,!1,!1];for(var b=0;b<9;b++)document.getElementById("a"+b).innerHTML="";document.getElementById("reset").style="visibility:hidden",jj=!0,win=!1,bb=[[void 0,void 0,void 0],[void 0,void 0,void 0],[void 0,void 0,void 0]]}function winner(b){1==b?(p1++,aler("Winner: X")):2==b&&(p2++,aler("Winner: O")),rese(),document.getElementById("score").innerHTML="X: "+p1+" vs. O: "+p2}function bot(b){var e,o,t;if(mov=!1,write(b,1),jkl>=3){if(!1===mov)for(o in bb)!0===test(bb[o][0],bb[o][1],bb[o][2])&&!1!==(t=test3(bb[o][0],bb[o][1],bb[o][2]))&&(mov=!0,e=3*o+1*t);if(!1===mov)for(o in bb)!0===test(bb[0][o],bb[1][o],bb[2][o])&&!1!==(t=test3(bb[0][o],bb[1][o],bb[2][o]))&&(mov=!0,e=3*t+1*o);if(!1===mov&&!0===test(bb[0][0],bb[1][1],bb[2][2])&&!1!==(t=test3(bb[0][0],bb[1][1],bb[2][2]))&&(mov=!0,e=4*t),!1===mov&&!0===test(bb[0][2],bb[1][1],bb[2][0])&&!1!==(t=test3(bb[0][2],bb[1][1],bb[2][0]))&&(mov=!0,e=2*t+2),0==mov)for(o in bb)!0===test(bb[o][0],bb[o][1],bb[o][2])&&!1!==(t=test2(bb[o][0],bb[o][1],bb[o][2]))&&(mov=!0,e=3*o+t);if(!1===mov)for(o in bb)!0===test(bb[0][o],bb[1][o],bb[2][o])&&!1!==(t=test2(bb[0][o],bb[1][o],bb[2][o]))&&(mov=!0,e=3*t+1*o);!1===mov&&!0===test(bb[0][0],bb[1][1],bb[2][2])&&!1!==(t=test2(bb[0][0],bb[1][1],bb[2][2]))&&(mov=!0,e=4*t),!1===mov&&!0===test(bb[0][2],bb[1][1],bb[2][0])&&!1!==(t=test2(bb[0][2],bb[1][1],bb[2][0]))&&(mov=!0,e=2*t+2)}if(!1===mov){if(1==jkl){switch(b){case 0:e=4;break;case 1:e=7,mii=6;break;case 2:e=4;break;case 3:e=5,mii=8;break;case 4:e=6,mii=!0;break;case 5:e=3,mii=0;break;case 6:e=4;break;case 7:e=1,mii=2;break;case 8:e=4}4==e&&(moo=!0),mov=!0}else 0==mov&&!0===mii&&2==b&&3==jkl&&(e=0,mov=!0),0==mov&&4==b&&3==jkl&&(mov=!0,e=Math.abs(Math.round(mii))),0==mov&&!0===test4(bb[0][1],bb[1][0],bb[0][0],bb[0][2],bb[2][0])&&(mov=!0,e=0),0==mov&&!0===test4(bb[0][1],bb[1][2],bb[0][2],bb[0][0],bb[2][2])&&(mov=!0,e=2),0==mov&&!0===test4(bb[2][1],bb[1][0],bb[2][0],bb[0][0],bb[2][2])&&(mov=!0,e=6),0==mov&&!0===test4(bb[2][1],bb[1][2],bb[2][2],bb[0][2],bb[2][0])&&(mov=!0,e=8),0==mov&&!0===test4(bb[2][0],bb[0][2],bb[1][0],bb[0][0],bb[0][1])&&(mov=!0,e=1),0==mov&&!0===test4(bb[2][0],bb[0][2],bb[2][1],bb[2][2],bb[1][2])&&(mov=!0,e=3),0==mov&&!0===test4(bb[0][0],bb[2][2],bb[0][1],bb[0][2],bb[1][2])&&(mov=!0,e=5),0==mov&&!0===test4(bb[0][0],bb[2][2],bb[1][0],bb[2][0],bb[2][1])&&(mov=!0,e=7),0==mov&&!0===test4(bb[0][0],bb[2][1],bb[2][0],bb[2][2],bb[1][0])&&(mov=!0,e=!0===moo?3:8),0==mov&&!0===test4(bb[0][2],bb[2][1],bb[2][0],bb[2][2],bb[1][2])&&(mov=!0,e=!0===moo?5:6),0==mov&&!0===test4(bb[0][2],bb[1][0],bb[0][0],bb[2][0],bb[0][1])&&(mov=!0,e=!0===moo?1:6),0==mov&&!0===test4(bb[2][2],bb[1][0],bb[0][0],bb[2][0],bb[2][1])&&(mov=!0,e=!0===moo?7:0),0==mov&&!0===test4(bb[2][0],bb[0][1],bb[0][0],bb[0][2],bb[1][0])&&(mov=!0,e=!0===moo?3:2),0==mov&&!0===test4(bb[2][2],bb[0][1],bb[0][0],bb[0][2],bb[1][2])&&(mov=!0,e=!0===moo?5:0),0==mov&&!0===test4(bb[0][0],bb[1][2],bb[0][2],bb[2][2],bb[0][1])&&(mov=!0,e=!0===moo?1:8),0==mov&&!0===test4(bb[2][0],bb[1][2],bb[0][2],bb[2][2],bb[2][1])&&(mov=!0,e=!0===moo?7:2);if(!1===mov){do{e=Math.floor(9*Math.random())}while(!1!==aa[e]);mov=!0}}!0===mov&&(zug(e),write(e,2))}function write(b,e){switch(b){case 0:bb[0][0]=e;break;case 1:bb[0][1]=e;break;case 2:bb[0][2]=e;break;case 3:bb[1][0]=e;break;case 4:bb[1][1]=e;break;case 5:bb[1][2]=e;break;case 6:bb[2][0]=e;break;case 7:bb[2][1]=e;break;case 8:bb[2][2]=e}}function test(b,e,o){return(void 0===b||void 0===e||void 0===o)&&((b!=e||b!=o)&&(b==e||b==o||e==o))}function test2(b,e,o){return b=Math.abs(Math.round(b)),e=Math.abs(Math.round(e)),o=Math.abs(Math.round(o)),(1==b||1==e||1==o)&&(1==b&&1==e&&isNaN(o)?2:1==b&&1==o&&isNaN(e)?1:!(1!=o||1!=e||!isNaN(b))&&0)}function test3(b,e,o){return b=Math.abs(Math.round(b)),e=Math.abs(Math.round(e)),o=Math.abs(Math.round(o)),(2==b||2==e||2==o)&&(2==b&&2==e&&isNaN(o)?2:2==b&&2==o&&isNaN(e)?1:!(2!=o||2!=e||!isNaN(b))&&0)}function test4(b,e,o,t,a){return 1==b&&1==e&&void 0===o&&void 0===t&&void 0===a}';
 
         /*var  hh,jj=true,win=false;
-        var awe,jkl=0;
-        var p1=0,p2=0; aa=[false,false,false,false,false,false,false,false,false];
-        var bb=[[undefined,undefined,undefined],[undefined,undefined,undefined],[undefined,undefined,undefined]];
+    var awe,jkl=0;
+    var p1=0,p2=0; aa=[false,false,false,false,false,false,false,false,false];
+    var bb=[[undefined,undefined,undefined],[undefined,undefined,undefined],[undefined,undefined,undefined]];
+    var moo, mii;
 
-        function los(hh){
-            if((jj)&&(aa[hh]===false)){zug(hh);
-            if(win===false){bot(hh);}}
-        }
+    function los(hh){
+        if((jj)&&(aa[hh]===false)){zug(hh);
+        if(win===false){bot(hh);}}
+    }
 
-        function zug(hh)
+    function zug(hh)
 
+    {
+        if(aa[hh]===false)
         {
-            if(aa[hh]===false)
+            if(!jj)
             {
-                if(!jj)
-                {
-                    document.getElementById("a"+hh).innerHTML="X";
-                    document.getElementById("turn").innerHTML="Turn: O";
-                    aa[hh]="1";
+                document.getElementById("a"+hh).innerHTML="X";
+                document.getElementById("turn").innerHTML="Turn: O";
+                aa[hh]="1";
 
+            }
+            else
+            {
+                 document.getElementById("a"+hh).innerHTML="O";
+                 document.getElementById("turn").innerHTML="Turn: X";
+                 aa[hh]="2";
+            }
+            jj=!jj;
+
+            for(var hhh=1;hhh<=2;hhh++)
+            {
+                if(hhh==1)
+                {
+                    awe="1";
                 }
-                else
+                if(hhh==2)
                 {
-                     document.getElementById("a"+hh).innerHTML="O";
-                     document.getElementById("turn").innerHTML="Turn: X";
-                     aa[hh]="2";
+                    awe="2";
                 }
-                jj=!jj;
 
-                for(var hhh=1;hhh<=2;hhh++)
+                for(var fo=0;fo<9;fo=fo+3)
                 {
-                    if(hhh==1)
+                    if((aa[fo]==aa[fo+1])&&(aa[fo+1]==aa[fo+2])&&(aa[fo+2]==awe))
                     {
-                        awe="1";
-                    }
-                    if(hhh==2)
-                    {
-                        awe="2";
-                    }
-
-                    for(var fo=0;fo<9;fo=fo+3)
-                    {
-                        if((aa[fo]==aa[fo+1])&&(aa[fo+1]==aa[fo+2])&&(aa[fo+2]==awe))
-                        {
-                            winner(awe);
-                            return;
-                        }
-                    }
-                    for(var fa=0;fa<=3;fa++)
-                    {
-                        if((aa[fa]==aa[fa+3])&&(aa[fa+3]==aa[fa+6])&&(aa[fa+6]==awe))
-                        {
-                            winner(awe);
-                            return;
-                        }
-                    }
-
-                if((aa[0]==aa[4])&&(aa[4]==aa[8])&&(aa[8]==awe))
-                    {
-                         winner(awe);
-                         return;
-                    }
-                    if((aa[2]==aa[4])&&(aa[4]==aa[6])&&(aa[6]==awe))
-                    {
-                         winner(awe);
-                         return;
+                        winner(awe);
+                        return;
                     }
                 }
-                jkl++;
-                if(jkl==9)
+                for(var fa=0;fa<=3;fa++)
                 {
-                     rese();
+                    if((aa[fa]==aa[fa+3])&&(aa[fa+3]==aa[fa+6])&&(aa[fa+6]==awe))
+                    {
+                        winner(awe);
+                        return;
+                    }
                 }
+
+            if((aa[0]==aa[4])&&(aa[4]==aa[8])&&(aa[8]==awe))
+                {
+                     winner(awe);
+                     return;
+                }
+                if((aa[2]==aa[4])&&(aa[4]==aa[6])&&(aa[6]==awe))
+                {
+                     winner(awe);
+                     return;
+                }
+            }
+            jkl++;
+            if(jkl==9)
+            {
+                 rese();
             }
         }
+    }
 
-        function rese(){
-            win=true;
-              document.getElementById("reset").style="visibility:visible";
-            jkl=0;
-            aa=[3,3,3,3,3,3,3,3,3];
-            }
-
-
-            function rematch(){
-            aa=[false,false,false,false,false,false,false,false,false];
-            for(var www = 0;www<9;www++){
-            document.getElementById("a"+www).innerHTML="";}
-            document.getElementById("reset").style="visibility:hidden";
-            jj=true;
-            win=false;
-            bb=[[undefined,undefined,undefined],[undefined,undefined,undefined],[undefined,undefined,undefined]];
-        }
-
-        function winner(ji){
-            if(ji==1){
-                p1++;
-                aler("Winner: X");
-            }
-            else if(ji==2){
-
-                p2++;
-                aler("Winner: O");
-            }
-            rese();
-            document.getElementById("score").innerHTML="X: "+p1+" vs. O: "+p2;
+    function rese(){
+        win=true;
+          document.getElementById("reset").style="visibility:visible";
+        jkl=0;
+        aa=[3,3,3,3,3,3,3,3,3];
         }
 
 
-        function bot(hh){
-            var ran,i,tes;
-            mov=false;
-            write(hh,1);//1=other Player 2=bot
-            //testing own winning opertunity
-            if(jkl>=3){
-                if(mov===false){
-                    for(i in bb) {//horizontal
-                        if(test(bb[i][0],bb[i][1],bb[i][2])===true){
-                            tes = test3(bb[i][0],bb[i][1],bb[i][2]);
-                            //alert(i+" + "+tes);
-                            if(tes!==false){
-                                mov=true;
-                                ran = 3*i+tes*1;
-                            }
-                        }
-                    }
-                }
-                if(mov===false){//vertical
-                    for(i in bb) {
-                        if(test(bb[0][i],bb[1][i],bb[2][i])===true){
-                            tes = test3(bb[0][i],bb[1][i],bb[2][i]);
-                            if(tes!==false){
-                                mov=true;
-                                ran = 3*tes+i*1;
-                            }
-                        }
-                    }
-                }
-                if(mov===false){//diagonal \
-                    if(test(bb[0][0],bb[1][1],bb[2][2])===true){
-                        tes = test3(bb[0][0],bb[1][1],bb[2][2]);
+        function rematch(){
+        aa=[false,false,false,false,false,false,false,false,false];
+        for(var www = 0;www<9;www++){
+        document.getElementById("a"+www).innerHTML="";}
+        document.getElementById("reset").style="visibility:hidden";
+        jj=true;
+        win=false;
+        bb=[[undefined,undefined,undefined],[undefined,undefined,undefined],[undefined,undefined,undefined]];
+    }
+
+    function winner(ji){
+        if(ji==1){
+            p1++;
+            aler("Winner: X");
+        }
+        else if(ji==2){
+
+            p2++;
+            aler("Winner: O");
+        }
+        rese();
+        document.getElementById("score").innerHTML="X: "+p1+" vs. O: "+p2;
+    }
+
+
+    function bot(hh){
+        var ran,i,tes;
+        mov=false;
+        write(hh,1);//1=other Player 2=bot
+        //testing own winning opertunity
+        if(jkl>=3){
+            if(mov===false){
+                for(i in bb) {//horizontal
+                    if(test(bb[i][0],bb[i][1],bb[i][2])===true){
+                        tes = test3(bb[i][0],bb[i][1],bb[i][2]);
+                        //alert(i+" + "+tes);
                         if(tes!==false){
                             mov=true;
-                            ran = 4*tes;
+                            ran = 3*i+tes*1;
                         }
                     }
                 }
-                if(mov===false){//diagonal /
-                    if(test(bb[0][2],bb[1][1],bb[2][0])===true){
-                        tes = test3(bb[0][2],bb[1][1],bb[2][0]);
+            }
+            if(mov===false){//vertical
+                for(i in bb) {
+                    if(test(bb[0][i],bb[1][i],bb[2][i])===true){
+                        tes = test3(bb[0][i],bb[1][i],bb[2][i]);
                         if(tes!==false){
                             mov=true;
-                            ran = 2*tes+2;
+                            ran = 3*tes+i*1;
                         }
                     }
                 }
-                //checking win opertynity other player
+            }
+            if(mov===false){//diagonal \
+                if(test(bb[0][0],bb[1][1],bb[2][2])===true){
+                    tes = test3(bb[0][0],bb[1][1],bb[2][2]);
+                    if(tes!==false){
+                        mov=true;
+                        ran = 4*tes;
+                    }
+                }
+            }
+            if(mov===false){//diagonal /
+                if(test(bb[0][2],bb[1][1],bb[2][0])===true){
+                    tes = test3(bb[0][2],bb[1][1],bb[2][0]);
+                    if(tes!==false){
+                        mov=true;
+                        ran = 2*tes+2;
+                    }
+                }
+            }
+            //checking win opertynity other player
+            if(mov==false){
+                for(i in bb) {//horizontal
+                    if(test(bb[i][0],bb[i][1],bb[i][2])===true){
+                        tes = test2(bb[i][0],bb[i][1],bb[i][2]);
+                        if(tes!==false){
+                            mov=true;
+                            ran = 3*i+tes;
+                        }
+                    }
+                }
+            }
+            if(mov===false){//vertical
+                for(i in bb) {
+                    if(test(bb[0][i],bb[1][i],bb[2][i])===true){
+                        tes = test2(bb[0][i],bb[1][i],bb[2][i]);
+                        if(tes!==false){
+                            mov=true;
+                            ran = 3*tes+i*1;
+                        }
+                    }
+                }
+            }
+            if(mov===false){//diagonal \
+                if(test(bb[0][0],bb[1][1],bb[2][2])===true){
+                    tes = test2(bb[0][0],bb[1][1],bb[2][2]);
+                    if(tes!==false){
+                        mov=true;
+                        ran = 4*tes;
+                    }
+                }
+            }
+            if(mov===false){//diagonal /
+                if(test(bb[0][2],bb[1][1],bb[2][0])===true){
+                    tes = test2(bb[0][2],bb[1][1],bb[2][0]);
+                    if(tes!==false){
+                        mov=true;
+                        ran = 2*tes+2;
+                    }
+                }
+            }
+        }
+
+        if(mov===false){//kjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkj
+            if(jkl==1){
+                switch (hh){
+                    case 0: ran=4;break;
+                    case 1: ran=7;mii=6;break;
+                    case 2: ran=4;break;
+                    case 3: ran=5;mii=8;break;
+                    case 4: ran=6;mii=true;break;
+                    case 5: ran=3;mii=0;break;
+                    case 6: ran=4;break;
+                    case 7: ran=1;mii=2;break;
+                    case 8: ran=4;break;
+                }
+                if(ran==4)moo=true;
+                mov=true;
+            }
+            else{
+                //	???
+                //	?X?
+                //	0??
+                if((mov==false)&&(mii===true)&&(hh==2)&&(jkl==3)){
+                    ran = 0;
+                    mov=true;
+                }
+
+                //?0?
+                //?0?
+                //oX?
+                if((mov==false)&&(hh==4)&&(jkl==3)){
+                    mov=true;
+                    ran = Math.abs(Math.round(mii));
+                }
+
+                //	0X0
+                //	??X
+                //	??0
                 if(mov==false){
-                    for(i in bb) {//horizontal
-                        if(test(bb[i][0],bb[i][1],bb[i][2])===true){
-                            tes = test2(bb[i][0],bb[i][1],bb[i][2]);
-                            if(tes!==false){
-                                mov=true;
-                                ran = 3*i+tes;
-                            }
-                        }
+                    if(test4(bb[0][1],bb[1][0],bb[0][0],bb[0][2],bb[2][0])===true){
+                        mov=true;
+                        ran = 0;
                     }
                 }
-                if(mov===false){//vertical
-                    for(i in bb) {
-                        if(test(bb[0][i],bb[1][i],bb[2][i])===true){
-                            tes = test2(bb[0][i],bb[1][i],bb[2][i]);
-                            if(tes!==false){
-                                mov=true;
-                                ran = 3*tes+i*1;
-                            }
-                        }
+                if(mov==false){
+                    if(test4(bb[0][1],bb[1][2],bb[0][2],bb[0][0],bb[2][2])===true){
+                        mov=true;
+                        ran = 2;
                     }
                 }
-                if(mov===false){//diagonal \
-                    if(test(bb[0][0],bb[1][1],bb[2][2])===true){
-                        tes = test2(bb[0][0],bb[1][1],bb[2][2]);
-                        if(tes!==false){
-                            mov=true;
-                            ran = 4*tes;
-                        }
+                if(mov==false){
+                    if(test4(bb[2][1],bb[1][0],bb[2][0],bb[0][0],bb[2][2])===true){
+                        mov=true;
+                        ran = 6;
                     }
                 }
-                if(mov===false){//diagonal /
-                    if(test(bb[0][2],bb[1][1],bb[2][0])===true){
-                        tes = test2(bb[0][2],bb[1][1],bb[2][0]);
-                        if(tes!==false){
-                            mov=true;
-                            ran = 2*tes+2;
-                        }
+                if(mov==false){
+                    if(test4(bb[2][1],bb[1][2],bb[2][2],bb[0][2],bb[2][0])===true){
+                        mov=true;
+                        ran = 8;
+                    }
+                }
+                //	X00
+                //	??0
+                //	??X
+                if(mov==false){
+                    if(test4(bb[2][0],bb[0][2],bb[1][0],bb[0][0],bb[0][1])===true){
+                        mov=true;
+                        ran = 1;
+                    }
+                }
+                if(mov==false){
+                    if(test4(bb[2][0],bb[0][2],bb[2][1],bb[2][2],bb[1][2])===true){
+                        mov=true;
+                        ran = 3;
+                    }
+                }
+                if(mov==false){
+                    if(test4(bb[0][0],bb[2][2],bb[0][1],bb[0][2],bb[1][2])===true){
+                        mov=true;
+                        ran =5;
+                    }
+                }
+                if(mov==false){
+                    if(test4(bb[0][0],bb[2][2],bb[1][0],bb[2][0],bb[2][1])===true){
+                        mov=true;
+                        ran = 7;
+                    }
+                }
+                //	X00
+                //	??X
+                //	??0
+                if(mov==false){
+                    if(test4(bb[0][0],bb[2][1],bb[2][0],bb[2][2],bb[1][0])===true){
+                        mov=true;
+                        if(moo===true) ran=3;
+                        else ran=8;
+                    }
+                }
+                if(mov==false){
+                    if(test4(bb[0][2],bb[2][1],bb[2][0],bb[2][2],bb[1][2])===true){
+                        mov=true;
+                        if(moo===true) ran=5;
+                        else ran=6;
+                    }
+                }
+
+                if(mov==false){
+                    if(test4(bb[0][2],bb[1][0],bb[0][0],bb[2][0],bb[0][1])===true){
+                        mov=true;
+                        if(moo===true) ran=1;
+                        else ran=6;
+                    }
+                }
+                if(mov==false){
+                    if(test4(bb[2][2],bb[1][0],bb[0][0],bb[2][0],bb[2][1])===true){
+                        mov=true;
+                        if(moo===true) ran=7;
+                        else ran=0;
+                    }
+                }
+
+                if(mov==false){
+                    if(test4(bb[2][0],bb[0][1],bb[0][0],bb[0][2],bb[1][0])===true){
+                        mov=true;
+                        if(moo===true) ran=3;
+                        else ran=2;
+                    }
+                }if(mov==false){
+                    if(test4(bb[2][2],bb[0][1],bb[0][0],bb[0][2],bb[1][2])===true){
+                        mov=true;
+                        if(moo===true) ran=5;
+                        else ran=0;
+                    }
+                }
+
+                if(mov==false){
+                    if(test4(bb[0][0],bb[1][2],bb[0][2],bb[2][2],bb[0][1])===true){
+                        mov=true;
+                        if(moo===true) ran=1;
+                        else ran=8;
+                    }
+                }if(mov==false){
+                    if(test4(bb[2][0],bb[1][2],bb[0][2],bb[2][2],bb[2][1])===true){
+                        mov=true;
+                        if(moo===true) ran=7;
+                        else ran=2;
                     }
                 }
             }
 
-            if(mov===false){//kjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkj
-                var moo;
-                if(jkl==1){
-                    switch (hh){
-                        case 0: ran=4;break;
-                        case 1: ran=7;break;
-                        case 2: ran=4;break;
-                        case 3: ran=5;break;
-                        case 4: ran=6;break;
-                        case 5: ran=3;break;
-                        case 6: ran=4;break;
-                        case 7: ran=1;break;
-                        case 8: ran=4;break;
-                    }
-                    if(ran==4)moo=true;
-                    mov=true;
-                }
-                else{
-                    //	0X0
-                    //	??X
-                    //	??0
-                    if(mov==false){
-                        if(test4(bb[0][1],bb[1][0],bb[0][0],bb[0][2],bb[2][0])===true){
-                            mov=true;
-                            ran = 0;
-                        }
-                    }
-                    if(mov==false){
-                        if(test4(bb[0][1],bb[1][2],bb[0][2],bb[0][0],bb[2][2])===true){
-                            mov=true;
-                            ran = 2;
-                        }
-                    }
-                    if(mov==false){
-                        if(test4(bb[2][1],bb[1][0],bb[2][0],bb[0][0],bb[2][2])===true){
-                            mov=true;
-                            ran = 6;
-                        }
-                    }
-                    if(mov==false){
-                        if(test4(bb[2][1],bb[1][2],bb[2][2],bb[0][2],bb[2][0])===true){
-                            mov=true;
-                            ran = 8;
-                        }
-                    }
-                    //	X00
-                    //	??0
-                    //	??X
-                    if(mov==false){
-                        if(test4(bb[2][0],bb[0][2],bb[1][0],bb[0][0],bb[0][1])===true){
-                            mov=true;
-                            ran = 1;
-                        }
-                    }
-                    if(mov==false){
-                        if(test4(bb[2][0],bb[0][2],bb[2][1],bb[2][2],bb[1][2])===true){
-                            mov=true;
-                            ran = 3;
-                        }
-                    }
-                    if(mov==false){
-                        if(test4(bb[0][0],bb[2][2],bb[0][1],bb[0][2],bb[1][2])===true){
-                            mov=true;
-                            ran =5;
-                        }
-                    }
-                    if(mov==false){
-                        if(test4(bb[0][0],bb[2][2],bb[1][0],bb[2][0],bb[2][1])===true){
-                            mov=true;
-                            ran = 7;
-                        }
-                    }
-                    //	X00
-                    //	??X
-                    //	??0
-                    if(mov==false){
-                        if(test4(bb[0][0],bb[2][1],bb[2][0],bb[2][2],bb[1][0])===true){
-                            mov=true;
-                            if(moo===true) ran=3;
-                            else ran=8;
-                        }
-                    }
-                    if(mov==false){
-                        if(test4(bb[0][2],bb[2][1],bb[2][0],bb[2][2],bb[1][2])===true){
-                            mov=true;
-                            if(moo===true) ran=5;
-                            else ran=6;
-                        }
-                    }
 
-                    if(mov==false){
-                        if(test4(bb[0][2],bb[1][0],bb[0][0],bb[2][0],bb[0][1])===true){
-                            mov=true;
-                            if(moo===true) ran=1;
-                            else ran=6;
-                        }
-                    }
-                    if(mov==false){
-                        if(test4(bb[2][2],bb[1][0],bb[0][0],bb[2][0],bb[2][1])===true){
-                            mov=true;
-                            if(moo===true) ran=7;
-                            else ran=0;
-                        }
-                    }
-
-                    if(mov==false){
-                        if(test4(bb[2][0],bb[0][1],bb[0][0],bb[0][2],bb[1][0])===true){
-                            mov=true;
-                            if(moo===true) ran=3;
-                            else ran=2;
-                        }
-                    }if(mov==false){
-                        if(test4(bb[2][2],bb[0][1],bb[0][0],bb[0][2],bb[1][2])===true){
-                            mov=true;
-                            if(moo===true) ran=5;
-                            else ran=0;
-                        }
-                    }
-
-                    if(mov==false){
-                        if(test4(bb[0][0],bb[1][2],bb[0][2],bb[2][2],bb[0][1])===true){
-                            mov=true;
-                            if(moo===true) ran=1;
-                            else ran=8;
-                        }
-                    }if(mov==false){
-                        if(test4(bb[2][0],bb[1][2],bb[0][2],bb[2][2],bb[2][1])===true){
-                            mov=true;
-                            if(moo===true) ran=7;
-                            else ran=2;
-                        }
-                    }
-                }
-
-
-                if(mov===false) {
-                    do{ran = Math.floor(Math.random() * (9));}
-                    while(aa[ran]!==false);
-                    //do{ran =  Math.abs(Math.round(prompt()))-1;}
-                    //while(aa[ran]!==false);
-                    mov=true;
-                }
-
-            }
-            if(mov===true){
-                zug(ran);
-                write(ran,2);
-                //alert(bb);
+            if(mov===false) {
+                do{ran = Math.floor(Math.random() * (9));}
+                while(aa[ran]!==false);
+                //do{ran =  Math.abs(Math.round(prompt()))-1;}
+                //while(aa[ran]!==false);
+                mov=true;
             }
 
-
+        }
+        if(mov===true){
+            zug(ran);
+            write(ran,2);
+            //alert(bb);
         }
 
 
-        function write(hh,inp){
-            switch (hh){
-                case 0:bb[0][0]=inp;break;
-                case 1:bb[0][1]=inp;break;
-                case 2:bb[0][2]=inp;break;
-                case 3:bb[1][0]=inp;break;
-                case 4:bb[1][1]=inp;break;
-                case 5:bb[1][2]=inp;break;
-                case 6:bb[2][0]=inp;break;
-                case 7:bb[2][1]=inp;break;
-                case 8:bb[2][2]=inp;break;
-                default:break;
-            }
+    }
+
+
+    function write(hh,inp){
+        switch (hh){
+            case 0:bb[0][0]=inp;break;
+            case 1:bb[0][1]=inp;break;
+            case 2:bb[0][2]=inp;break;
+            case 3:bb[1][0]=inp;break;
+            case 4:bb[1][1]=inp;break;
+            case 5:bb[1][2]=inp;break;
+            case 6:bb[2][0]=inp;break;
+            case 7:bb[2][1]=inp;break;
+            case 8:bb[2][2]=inp;break;
+            default:break;
         }
+    }
 
 
 
-        function test(a,b,c){
-            if((a===undefined)||(b===undefined)||(c===undefined)){
-                if((a==b)&&(a==c)){
-                    return false;
-                }
-                else if((a==b)||(a==c)||(b==c)){
-                    return true;
-                }
-                else {
-                    return false;
-                }
+    function test(a,b,c){
+        if((a===undefined)||(b===undefined)||(c===undefined)){
+            if((a==b)&&(a==c)){
+                return false;
+            }
+            else if((a==b)||(a==c)||(b==c)){
+                return true;
             }
             else {
                 return false;
             }
         }
+        else {
+            return false;
+        }
+    }
 
-        function test2(a,b,c){
-            a = Math.abs(Math.round(a));
-            b = Math.abs(Math.round(b));
-            c = Math.abs(Math.round(c));
-            if((a==1)||(b==1)||(c==1)){
-                if((a==1)&&(b==1)&&(isNaN(c)))return 2;
-                else if((a==1)&&(c==1)&&(isNaN(b)))return 1;
-                else if((c==1)&&(b==1)&&(isNaN(a)))return 0;
-                else return false;
-            }
+    function test2(a,b,c){
+        a = Math.abs(Math.round(a));
+        b = Math.abs(Math.round(b));
+        c = Math.abs(Math.round(c));
+        if((a==1)||(b==1)||(c==1)){
+            if((a==1)&&(b==1)&&(isNaN(c)))return 2;
+            else if((a==1)&&(c==1)&&(isNaN(b)))return 1;
+            else if((c==1)&&(b==1)&&(isNaN(a)))return 0;
             else return false;
         }
+        else return false;
+    }
 
-        function test3(a,b,c){
-            a = Math.abs(Math.round(a));
-            b = Math.abs(Math.round(b));
-            c = Math.abs(Math.round(c));
-            if((a==2)||(b==2)||(c==2)){
-                if((a==2)&&(b==2)&&(isNaN(c)))return 2;
-                else if((a==2)&&(c==2)&&(isNaN(b)))return 1;
-                else if((c==2)&&(b==2)&&(isNaN(a)))return 0;
-                else return false;
-            }
+    function test3(a,b,c){
+        a = Math.abs(Math.round(a));
+        b = Math.abs(Math.round(b));
+        c = Math.abs(Math.round(c));
+        if((a==2)||(b==2)||(c==2)){
+            if((a==2)&&(b==2)&&(isNaN(c)))return 2;
+            else if((a==2)&&(c==2)&&(isNaN(b)))return 1;
+            else if((c==2)&&(b==2)&&(isNaN(a)))return 0;
             else return false;
         }
+        else return false;
+    }
 
-        function test4(a,b,c,d,e){
-            if((a==1)&&(b==1)&&(c===undefined)&&(d===undefined)&&(e===undefined)) return true;
-            else return false;
+    function test4(a,b,c,d,e){
+        if((a==1)&&(b==1)&&(c===undefined)&&(d===undefined)&&(e===undefined)) return true;
+        else return false;
 
 
-        }*/
+    }*/
 
         function on(){
             resett();
@@ -1053,6 +1100,7 @@
             document.getElementById("div0").style="display:none !important";
             document.getElementById("div1").style="display:none !important";
             document.getElementById("div2").style="display:none !important";
+            document.getElementById("the").classList.add("ingame");
         }
         function off(){
             resett();
@@ -1066,6 +1114,7 @@
             document.getElementById("div0").style="display:none !important";
             document.getElementById("div1").style="display:block !important";
             document.getElementById("div2").style="display:none !important";
+            document.getElementById("the").classList.add("ingame");
         }
 
         function back(){
@@ -1079,6 +1128,7 @@
             document.getElementById("div0").style="display:block !important";
             document.getElementById("div1").style="display:none !important";
             document.getElementById("div2").style="display:none !important";
+            document.getElementById("the").classList.remove("ingame");
         }
 
         function sing(){
@@ -1099,6 +1149,7 @@
             document.getElementById("div0").style="display:none !important";
             document.getElementById("div1").style="display:block !important";
             document.getElementById("div2").style="display:none !important";
+            document.getElementById("the").classList.add("ingame");
 
         }
 
@@ -1114,6 +1165,7 @@
             document.getElementById("div0").style="display:none !important";
             document.getElementById("div1").style="display:block !important";
             document.getElementById("div2").style="display:none !important";
+            document.getElementById("the").classList.add("ingame");
 
         }
 
@@ -1129,6 +1181,7 @@
             document.getElementById("div0").style="display:none !important";
             document.getElementById("div1").style="display:block !important";
             document.getElementById("div2").style="display:none !important";
+            document.getElementById("the").classList.add("ingame");
 
         }
 
@@ -1148,7 +1201,39 @@
                 else if(llk[1]=="schwer") schw();
                 if((llk[1]=="singel")) document.getElementById("div0").classList.remove("main");
             }
+
+            //catch
+
+            const themec = localStorage.getItem("themec");
+
+            if(themec=="dark"){
+                document.body.classList.remove("light");
+                document.body.classList.add("dark");
+                document.getElementById("checkbox").checked = true;
+                them ="d";
+            }
         }
+
+        window.addEventListener('DOMContentLoaded', function() {
+            const themec = localStorage.getItem("themec");
+
+            if(themec=="dark"){
+                document.body.classList.remove("light");
+                document.body.classList.add("dark");
+                document.getElementById("checkbox").checked = true;
+                them ="d";
+            }
+
+            const metas = document.getElementsByTagName('meta');
+
+            for (let i = 0; i < metas.length; i++) {
+                if (metas[i].getAttribute('name') === "version") {
+                    document.getElementById("version").innerHTML=metas[i].getAttribute('content');
+                }
+            }
+
+
+        });
 
         function sp() {
             modal.style.display = "none";
@@ -1175,11 +1260,33 @@
             document.getElementById("score").innerHTML="X: 0 vs. O: 0";
         }
 
+        var them ="l";
+
+        function theme(){
+            if(them=="l"){
+                document.body.classList.remove("light");
+                document.body.classList.add("dark");
+                them="d";
+                localStorage.setItem("themec", "dark");
+            }
+            else{
+                document.body.classList.remove("dark");
+                document.body.classList.add("light");
+                them="l";
+                localStorage.setItem("themec", "light");
+            }
+        }
+
+
     </script>
     <style>
         body{
             margin: 0;
+            color: var(--text);
+            background: var(--bg);
+            transition: background 500ms ease-in-out, color 1000ms ease-in-out;
         }
+
         tr, td {
             border-collapse: collapse;
             font-size:80px;
@@ -1189,11 +1296,13 @@
         }
 
         tr{
-            border-bottom: 10px solid black;
+            border-bottom: 10px solid var(--border);
+            transition: border 1000ms ease-in-out;
         }
 
         td{
-            border-right: 10px solid black;
+            border-right: 10px solid var(--border);
+            transition: border 1000ms ease-in-out;
         }
         table {
             border-collapse: collapse;
@@ -1209,22 +1318,17 @@
             border-bottom:none !important;
         }
 
-        button:active{
-            position: relative;
-            top: 1px;
-        }
-
         #reset{
             visibility:hidden;
             position:fixed;
             right:2%;
-            bottom:2%;
+            bottom:20px;
         }
 
         #back{
             position:fixed;
             left:2%;
-            bottom:2%;
+            bottom:20px;
         }
 
         #div1, #div2{
@@ -1261,7 +1365,7 @@
             margin: 0 auto;
             width: 15%;
             height: 15%;
-            background-color: #333;
+            background-color: var(--text);
             border-radius: 100%;
             -webkit-animation: sk-circleBounceDelay 1.2s infinite ease-in-out both;
             animation: sk-circleBounceDelay 1.2s infinite ease-in-out both;
@@ -1377,7 +1481,7 @@
             text-align: center;
             width: 250px;
             cursor: pointer;
-            color: #000;
+            color: var(--text);
             transition: all 0.3s;
             position: relative;
         }
@@ -1399,8 +1503,8 @@
             border-bottom-width: 1px;
             border-top-style: solid;
             border-bottom-style: solid;
-            border-top-color: rgba(0,0,0,0.5);
-            border-bottom-color: rgba(0,0,0,0.5);
+            border-top-color: var(--line);
+            border-bottom-color: var(--line);
             transform: scale(0.1, 1);
         }
         .btn:hover span {
@@ -1419,7 +1523,7 @@
             height: 100%;
             z-index: 1;
             transition: all 0.3s;
-            background-color: rgba(0,0,0,0.2);
+            background-color: var(--button);
         }
         .btn:hover::after {
             opacity: 0;
@@ -1440,7 +1544,7 @@
         }
 
         .modal-content {
-            background-color: #fefefe;
+            background-color: var(--bg);
             padding: 20px;
             border: 1px solid #888;
             margin: 0;
@@ -1488,6 +1592,14 @@
             #back, #reset{
                 width:46%;
             }
+            #the{
+                left: 50% !important;
+                top: 370px !important;
+                transform: translate(-50%);
+            }
+            .ingame{
+                display:none;
+            }
         }
 
 
@@ -1507,9 +1619,148 @@
             color:default;
             text-decoration: none;
         }
+
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .switch input {
+            display:none;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--bt-bg-color);
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        input:checked + .slider {
+            background-color: var(--bt-bg-color);
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 0 1px var(--bt-bg-color);
+        }
+
+        input:checked + .slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+        }
+
+        .slider.round {
+            border-radius: 34px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
+        #the{
+            position:absolute;
+            top:5px;
+            left:5px;
+            z-index:100;
+        }
+
+        i{
+            font-size: 30px;
+            line-height: 37px !important;
+            vertical-align: bottom;
+            text-decoration: none;
+        }
+
+        #versio{
+            bottom:1px;
+            left:1px;
+            position:absolute;
+            z-index: -1;
+
+        }
+
+        #pin{
+            position:absolute;
+            bottom:1px;
+            right:1px;
+            z-index:-1
+        }
+
+
+
+
+
+
+        :root{
+            --black: #2D3848;
+            --white: #f1f1f1;;
+            --white-gray: #cfcfcf;
+            --black-gray: #565f6d;
+            --white50: rgba(255,255,255,0.5);
+            --black50: rgba(0,0,0,0.5);
+            --white20: rgba(255,255,255,0.2);
+            --black20: rgba(0,0,0,0.2);
+        }
+
+        .light{
+            --bg: var(--white);
+            --text: var(--black);
+            --border: var(--black);
+            --bt-bg-color: var(--white-gray);
+            --line: var(--black50);
+            --button: var(--black20);
+        }
+
+        .dark{
+            --bg: var(--black);
+            --text: var(--white);
+            --border:var(--white);
+            --bt-bg-color: var(--black-gray);
+            --line: var(--white50);
+            --button: var(--white20);
+        }
     </style>
 </head>
-<body>
+<body class="light">
+<!--<button style="position:absolute" onclick="theme()">Theme</button>-->
+<div id="the">
+    <i class="fa fa-sun"></i>
+    <label class="switch">
+        <input type="checkbox" id="checkbox" onclick="theme()">
+        <span class="slider"></span>
+    </label>
+    <i class="fa fa-moon"></i>
+</div>
+<div id="versio">
+    <span>Version:</span>
+    <span id="version">Buggy</span>
+</div>
+<div id="pin">
+    <span>Ping:</span>
+    <span id="ping">0</span>
+    <span id="defwq"></span>
+</div>
 <div id="div0" class="main nop">
     <center>
         <h1>Tick Tack Toe</h1>
@@ -1555,7 +1806,7 @@
     </div>
     <div class="box">
         <a href="#">
-            <div class="btn" id="back" onclick="back(), dis()">
+            <div class="btn" id="back" onclick="back(); try{dis()}catch(ef){}">
                 <span >Zurück</span>
             </div>
         </a>
@@ -1579,7 +1830,7 @@
     </div>
     <div class="box">
         <a href="#">
-            <div class="btn" id="back" onclick="back(), dis()">
+            <div class="btn" id="back" onclick="back(); try{dis()}catch(ef){}">
                 <span >Zurück</span>
             </div>
         </a>
@@ -1613,7 +1864,7 @@
     </center>
     <div class="box">
         <a href="#">
-            <div class="btn" id="back" onclick="back(), dis()">
+            <div class="btn" id="back" onclick="back(); try{dis()}catch(ef){}">
                 <span >Zurück</span>
             </div>
         </a>
