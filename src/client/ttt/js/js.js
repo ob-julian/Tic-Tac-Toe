@@ -1,26 +1,29 @@
 var animationspeed,intervall;
 document.cookie="SameSite=Strict";
-var online = 'var youAreP,enemyAre,n,opponent,serverId,socket=io(),remake=!1,onlinem=!1,o=0,aa=[!1,!1,!1,!1,!1,!1,!1,!1,!1];function los(e){socket.emit("turn",e)}function rematch(){0==remake?(socket.emit("rematch"),document.getElementById("reset").disabled=!0):1==remake&&socket.emit("rematchakkept")}function reset(){socket.emit("resee");for(var e=0;e<9;e++)document.getElementById("a"+e).innerHTML="";document.getElementById("reset").style="visibility:hidden",aa=[!1,!1,!1,!1,!1,!1,!1,!1,!1]}async function neu(){fadebutton(!0),await sleep(animationspeed),onlinem=!0,b=document.getElementById("inpu").value,socket.emit("conn",b,1),localStorage.setItem("nameonline",b)}function dis(){socket.emit("dis"),document.getElementById("pin").style.display="none",document.getElementById("help").style.display="none",document.getElementById("chat").style.display="none",clearInterval(intervall)}function ping1(){var e=new Date;n=e.getTime(),socket.emit("ping1")}function lo(e){document.getElementById("ping").innerHTML=Math.round(o+e),o+=e}function typing(e){e?(document.getElementById("cha").classList.remove("fa-comment"),document.getElementById("cha").classList.add("fa-comment-dots")):(document.getElementById("cha").classList.remove("fa-comment-dots"),document.getElementById("cha").classList.add("fa-comment")),typingin(e)}socket.on("que",async function(e,t,n,o){if(1==e)fadebutton(!0),await sleep(animationspeed),document.getElementById("div0").style="display:none",document.getElementById("div1").style="display:none",document.getElementById("div2").style="display:block",document.getElementById("multiplayer").style="display:none","Notification"in window&&"denied"!==Notification.permission&&Notification.requestPermission(function(e){}),document.getElementById("help").style.display="none",closechat(),document.getElementById("chat-content").innerHTML="<center><b>Du solltest noch nicht hier sein!</b></center>",typing(!1),await sleep(100),fadebutton(!1);else if(2==e){fadebutton(!0),await sleep(animationspeed),document.getElementById("div0").style="display:none",document.getElementById("div1").style="display:block",document.getElementById("div2").style="display:none",document.getElementById("multiplayer").style="display:none",document.getElementById("youAre").innerHTML="You are "+t,youAreP=t,opponent=o,enemyAre=n;try{if("Notification"in window){if("granted"===Notification.permission)new Notification("Gegner "+o+" will gegen dich spielen")}else;}catch(e){}document.getElementById("score").innerHTML=youAreP+": 0 vs. "+enemyAre+": 0",aler("Gegner: "+o),document.getElementById("help").style.display="block",document.getElementById("chat").style.display="block",await sleep(100),fadebutton(!1)}}),socket.on("turned",function(e,t,n){document.getElementById("a"+n).innerHTML=e,document.getElementById("turn").innerHTML="Turn: "+t,"X"==e&&(aa[n]="1"),"O"==e&&(aa[n]="2")}),socket.on("win",function(e,t,n,o){e==youAreP?(document.getElementById("score").innerHTML=youAreP+": "+t+" vs. "+enemyAre+": "+n,aler("Du hast gewonnen"),chatwrite("system","Du hast gewonnen")):(document.getElementById("score").innerHTML=youAreP+": "+n+" vs. "+enemyAre+": "+t,aler("Du hast verloren"),chatwrite("system","Du hast verloren"))}),socket.on("rese",function(){document.getElementById("reset").style="visibility:visible"}),socket.on("rematchask",function(){document.getElementById("reset").innerHTML="Accept Rematch",remake=!0}),socket.on("resett",function(){document.getElementById("reset").innerHTML="Rematch",remake=!1,document.getElementById("reset").disabled=!1,reset()}),socket.on("turnreset",function(){document.getElementById("turn").innerHTML="Turn: O"}),document.onkeydown=function(e){13===e.keyCode&&(0==onlinem?neu():inchat&&sen())},socket.on("erro",function(){aler("Error:<br>Bitte starte dein Spiel neu","hid"),err()}),socket.on("ping2",function(){var e=new Date;m=e.getTime();for(var t=(m-n-o)/10,i=0;i<10;i++)setTimeout(function(){lo(t)},99*i)}),intervall=setInterval(ping1,1e3),document.getElementById("pin").style.display="block",socket.on("serverRestart",async function(e){serverId!=e&&null!=serverId?(aler("Bitte starte dein Spiel neu.<br>Es gab einen Server Neustart","hid"),err()):serverId=e});var inchat=!1,inopenchat=!1,unrea=0;async function chating(){nofillter?(chat.style.display="block",await sleep(100),document.getElementsByClassName("chat-window")[0].classList.add("movechat"),document.getElementById("chatmodal").classList.add("chatopa"),unread(0),unrea=0,inopenchat=!0):chatwarning()}async function closechat(){document.getElementsByClassName("chat-window")[0].classList.remove("movechat"),document.getElementById("chatmodal").classList.remove("chatopa"),inchat=!1,inopenchat=!1,await sleep(animationspeed),chat.style.display="none"}function sen(){let e=document.getElementById("chatinputbox").value;""!=(e=e.trim())&&(e=htmlSpecialChars(e),socket.emit("sendMessage",e)),document.getElementById("chatinputbox").value=""}function nachrichtplus(e){inopenchat||(unrea+=e,unread(unrea))}function foc(){socket.emit("foc1"),inchat=!0}function blu(){socket.emit("blu1"),inchat=!1}socket.on("foc2",function(){typing(!0)}),socket.on("blu2",function(){typing(!1)}),socket.on("startChat",function(){document.getElementById("chat-content").innerHTML="",chatwrite("system","Dies ist der Anfang deines Chats mit "+opponent)}),socket.on("receiveMessage",function(e,t){chatwrite(e,t)});';
+var online = 'var opponent,publicKey,privateKey,serverId,youAreP,enemyAre,n,socket=io(),remake=!1,onlinem=!1,o=0,aa=[!1,!1,!1,!1,!1,!1,!1,!1,!1];function los(e){socket.emit("turn",e)}function rematch(){!1===remake?(socket.emit("rematch"),document.getElementById("reset").disabled=!0):!0===remake&&socket.emit("rematchakkept")}function reset(){socket.emit("resee");for(var e=0;e<9;e++)document.getElementById("a"+e).innerHTML="";document.getElementById("reset").style="visibility:hidden",aa=[!1,!1,!1,!1,!1,!1,!1,!1,!1]}async function neu(){fadebutton(!0),await sleep(animationspeed),onlinem=!0,b=document.getElementById("inpu").value,socket.emit("conn",b,1),localStorage.setItem("nameonline",b)}function dis(){socket.emit("dis"),document.getElementById("pin").style.display="none",document.getElementById("help").style.display="none",document.getElementById("chat").style.display="none",clearInterval(intervall)}function ping1(){n=new Date().getTime(),socket.emit("ping1")}function lo(e){document.getElementById("ping").innerHTML=Math.round(o+e),o+=e}function typing(e){e?(document.getElementById("cha").classList.remove("fa-comment"),document.getElementById("cha").classList.add("fa-comment-dots")):(document.getElementById("cha").classList.remove("fa-comment-dots"),document.getElementById("cha").classList.add("fa-comment")),typingin(e)}socket.on("que",async function(e,t,i,a){if(1==e)"Notification"in window&&"denied"!==Notification.permission&&Notification.requestPermission(function(e){}),document.getElementById("help").style.display="none",closechat(),document.getElementById("chat-content").innerHTML="<center><b>Du solltest noch nicht hier sein!</b></center>",typing(!1),fadebutton(!0),await sleep(animationspeed),document.getElementById("div0").style="display:none",document.getElementById("div1").style="display:none",document.getElementById("div2").style="display:block",document.getElementById("multiplayer").style="display:none",await sleep(100),fadebutton(!1);else if(2==e){youAreP=t,opponent=a,enemyAre=i,fadebutton(!0),document.getElementById("youAre").innerHTML="You are "+t,await sleep(animationspeed),document.getElementById("div0").style="display:none",document.getElementById("div1").style="display:block",document.getElementById("div2").style="display:none",document.getElementById("multiplayer").style="display:none";try{"Notification"in window&&"granted"===Notification.permission&&new Notification("Gegner "+a+" will gegen dich spielen")}catch(s){}document.getElementById("score").innerHTML=youAreP+": 0 vs. "+enemyAre+": 0",aler("Gegner: "+a),document.getElementById("help").style.display="block",document.getElementById("chat").style.display="block";let c=await generateKeyPair();try{privateKey=await crypto.subtle.exportKey("pkcs8",c.privateKey),publicKey=await crypto.subtle.exportKey("spki",c.pk),socket.emit("publicKey",pk)}catch(l){}await sleep(100),fadebutton(!1)}}),socket.on("turned",function(e,t,i){document.getElementById("a"+i).innerHTML=e,document.getElementById("turn").innerHTML="Turn: "+t,"X"==e&&(aa[i]="1"),"O"==e&&(aa[i]="2")}),socket.on("win",function(e,t,i,a){e==youAreP?(document.getElementById("score").innerHTML=youAreP+": "+t+" vs. "+enemyAre+": "+i,aler("Du hast gewonnen"),chatwrite("system","Du hast gewonnen")):(document.getElementById("score").innerHTML=youAreP+": "+i+" vs. "+enemyAre+": "+t,aler("Du hast verloren"),chatwrite("system","Du hast verloren"))}),socket.on("rese",function(){document.getElementById("reset").style="visibility:visible"}),socket.on("rematchask",function(){document.getElementById("reset").innerHTML="Accept Rematch",remake=!0}),socket.on("resett",function(){document.getElementById("reset").innerHTML="Rematch",remake=!1,document.getElementById("reset").disabled=!1,reset()}),socket.on("turnreset",function(){document.getElementById("turn").innerHTML="Turn: O"}),document.onkeydown=function(e){13===e.keyCode&&(!1==onlinem?neu():inchat&&sen())},socket.on("erro",function(){aler("Error:<br>Bitte starte dein Spiel neu","hid"),err()}),socket.on("ping2",function(){for(var e=((m=new Date().getTime())-n-o)/10,t=0;t<10;t++)setTimeout(function(){lo(e)},99*t)}),intervall=setInterval(ping1,1e3),document.getElementById("pin").style.display="block",socket.on("serverRestart",async function(e){serverId!=e&&void 0!=serverId?(aler("Bitte starte dein Spiel neu.<br>Es gab einen Server Neustart","hid"),err()):serverId=e});var inchat=!1,inopenchat=!1,unrea=0;async function chating(){nofillter?(chat.style.display="block",await sleep(100),document.getElementsByClassName("chat-window")[0].classList.add("movechat"),document.getElementById("chatmodal").classList.add("chatopa"),unread(0),unrea=0,inopenchat=!0):chatwarning()}async function closechat(){document.getElementsByClassName("chat-window")[0].classList.remove("movechat"),document.getElementById("chatmodal").classList.remove("chatopa"),inchat=!1,inopenchat=!1,await sleep(animationspeed),chat.style.display="none"}async function sen(){let e=document.getElementById("chatinputbox").value;if(""!=(e=e.trim())){if(e=htmlSpecialChars(e),null==publicKey||""===publicKey)aler("Encryption not set up properly. Chat disabled.");else try{let t=await encrypt(e,publicKey);socket.emit("sendMessage",t),chatwrite("me",e)}catch(i){aler("Encryption failed. Disabling Chat.")}}document.getElementById("chatinputbox").value=""}function nachrichtplus(e){inopenchat||unread(unrea+=e)}function foc(){socket.emit("foc1"),inchat=!0}function blu(){socket.emit("blu1"),inchat=!1}async function generateKeyPair(){return await crypto.subtle.generateKey({name:"RSA-OAEP",modulusLength:1024,publicExponent:new Uint8Array([1,0,1]),hash:"SHA-256"},!0,["encrypt","decrypt"])}async function encrypt(e,t){let i=new TextEncoder().encode(e),a=await crypto.subtle.importKey("spki",t,{name:"RSA-OAEP",hash:"SHA-256"},!1,["encrypt"]),s=await crypto.subtle.encrypt({name:"RSA-OAEP"},a,i);return new Uint8Array(s)}async function decrypt(e,t){let i=new Uint8Array(e),a=await crypto.subtle.importKey("pkcs8",t,{name:"RSA-OAEP",hash:"SHA-256"},!0,["decrypt"]),s=await crypto.subtle.decrypt({name:"RSA-OAEP"},a,i);return new TextDecoder().decode(s)}socket.on("foc2",function(){typing(!0)}),socket.on("blu2",function(){typing(!1)}),socket.on("startChat",function(){document.getElementById("chat-content").innerHTML="",chatwrite("system","Dies ist der Anfang deines Chats mit "+opponent)}),socket.on("receiveMessage",async function(e){let t;try{t=await decrypt(e,privateKey),chatwrite("other",t)}catch(i){}}),socket.on("getKey",function(e){publicKey=e});';
 
-/*  var socket = io();
+/*
+    var socket = io();
     var youAreP,enemyAre;
     var remake = false;
     var onlinem = false;
     var n,o=0;
     var aa=[false,false,false,false,false,false,false,false,false];
     var opponent;
+    var publicKey;
+    var privateKey;
 
     function los(hh){
         socket.emit("turn",hh);
-    };
+    }
 
     function rematch(){
-        if(remake==false) {
+        if(remake===false) {
             socket.emit("rematch");
             document.getElementById("reset").disabled = true;
         }
 
-        else if(remake==true) socket.emit("rematchakkept");
+        else if(remake===true) socket.emit("rematchakkept");
     }
 
     function reset(){
@@ -44,45 +47,53 @@ var online = 'var youAreP,enemyAre,n,opponent,serverId,socket=io(),remake=!1,onl
 
     socket.on("que",async function(data,player,enem,name){
         if(data==1){
+            if (!("Notification" in window)){}
+            else if (Notification.permission !== "denied") {
+                Notification.requestPermission(function (permission){});
+            }
+            document.getElementById("help").style.display="none";
+            closechat();
+            document.getElementById("chat-content").innerHTML="<center><b>Du solltest noch nicht hier sein!</b></center>";
+            typing(false);
             fadebutton(true);
             await sleep(animationspeed);
             document.getElementById("div0").style="display:none";
             document.getElementById("div1").style="display:none";
             document.getElementById("div2").style="display:block";
             document.getElementById("multiplayer").style="display:none";
-                 if (!("Notification" in window)){}
-                 else if (Notification.permission !== "denied") {
-                     Notification.requestPermission(function (permission){});
-                 }
-            document.getElementById("help").style.display="none";
-            closechat();
-            document.getElementById("chat-content").innerHTML="<center><b>Du solltest noch nicht hier sein!</b></center>";
-            typing(false);
             await sleep(100);
             fadebutton(false);
         }
         else if(data==2){
+            youAreP = player
+            opponent = name;
+            enemyAre = enem;
             fadebutton(true);
+            document.getElementById("youAre").innerHTML = "You are "+player;
             await sleep(animationspeed);
             document.getElementById("div0").style="display:none";
             document.getElementById("div1").style="display:block";
             document.getElementById("div2").style="display:none";
             document.getElementById("multiplayer").style="display:none";
-            document.getElementById("youAre").innerHTML = "You are "+player;
-            youAreP = player
-            opponent = name;
-            enemyAre = enem;
-                try{
-                    if (!("Notification" in window)){}
-					else if(Notification.permission === "granted") {
-                         var notification = new Notification("Gegner "+name+" will gegen dich spielen");
-                     }
+            try{
+                if (!("Notification" in window)){}
+                else if(Notification.permission === "granted") {
+                    var notification = new Notification("Gegner "+name+" will gegen dich spielen");
                 }
-                catch(err){}
+            }
+            catch(err){}
             document.getElementById("score").innerHTML = youAreP+": 0 vs. "+enemyAre+": 0";
             aler("Gegner: "+name);
             document.getElementById("help").style.display="block";
             document.getElementById("chat").style.display="block";
+            //encryption setup
+            const keyPair = await generateKeyPair();
+            try {
+                privateKey = await crypto.subtle.exportKey("pkcs8", keyPair.privateKey);
+                publicKey = await crypto.subtle.exportKey("spki", keyPair.pk);
+                socket.emit("publicKey", pk);
+            }
+            catch (e){}
             await sleep(100);
             fadebutton(false);
         }
@@ -183,10 +194,8 @@ var online = 'var youAreP,enemyAre,n,opponent,serverId,socket=io(),remake=!1,onl
             aler("Bitte starte dein Spiel neu.<br>Es gab einen Server Neustart","hid");err();
 
         }
-    else{serverId=server}
+        else{serverId=server}
     });
-
-
 
     function typing(ff){
         if(ff){
@@ -226,12 +235,21 @@ var online = 'var youAreP,enemyAre,n,opponent,serverId,socket=io(),remake=!1,onl
         chat.style.display = "none";
     }
 
-    function sen(){
+    async function sen() {
         let message = document.getElementById("chatinputbox").value;
         message = message.trim();
-        if(message!=""){
+        if (message != "") {
             message = htmlSpecialChars(message);
-            socket.emit("sendMessage",message);
+            if (publicKey == null || publicKey === "")
+                aler("Encryption not set up properly. Chat disabled.");
+            else
+                try {
+                    let msg = await encrypt(message, publicKey);
+                    socket.emit("sendMessage", msg);
+                    chatwrite("me", message);
+                } catch (err) {
+                    aler("Encryption failed. Disabling Chat.");
+                }
         }
         document.getElementById("chatinputbox").value = "";
     }
@@ -264,31 +282,105 @@ var online = 'var youAreP,enemyAre,n,opponent,serverId,socket=io(),remake=!1,onl
         chatwrite("system","Dies ist der Anfang deines Chats mit " + opponent);
     });
 
-    socket.on("receiveMessage",function(ff,gg){
-        chatwrite(ff,gg);
-    });*/
+    socket.on("receiveMessage",async function (gg) {
+        let msg
+        try {
+            msg = await decrypt(gg, privateKey);
+            chatwrite("other", msg);
+        } catch (e) {
+        }
+    });
 
-var experimentmp = 'var youAreP,enemyAre,n,opponent,serverId,socket=io(),remake=!1,onlinem=!1,o=0,aa=[!1,!1,!1,!1,!1,!1,!1,!1,!1];function los(e){socket.emit("turn",e)}function rematch(){0==remake?(socket.emit("rematch"),document.getElementById("reset").disabled=!0):1==remake&&socket.emit("rematchakkept")}function reset(){socket.emit("resee");for(var e=0;e<9;e++)document.getElementById("a"+e).innerHTML="";document.getElementById("reset").style="visibility:hidden",aa=[!1,!1,!1,!1,!1,!1,!1,!1,!1]}async function neu(){fadebutton(!0),await sleep(animationspeed),onlinem=!0,b=document.getElementById("inpu").value,socket.emit("conn",b,2),localStorage.setItem("nameonline",b)}function dis(){socket.emit("dis"),document.getElementById("pin").style.display="none",document.getElementById("help").style.display="none",document.getElementById("chat").style.display="none",clearInterval(intervall)}function ping1(){var e=new Date;n=e.getTime(),socket.emit("ping1")}function lo(e){document.getElementById("ping").innerHTML=Math.round(o+e),o+=e}function typing(e){e?(document.getElementById("cha").classList.remove("fa-comment"),document.getElementById("cha").classList.add("fa-comment-dots")):(document.getElementById("cha").classList.remove("fa-comment-dots"),document.getElementById("cha").classList.add("fa-comment")),typingin(e)}socket.on("que",async function(e,t,n,o){if(1==e)fadebutton(!0),await sleep(animationspeed),document.getElementById("div0").style="display:none",document.getElementById("div1").style="display:none",document.getElementById("div2").style="display:block",document.getElementById("multiplayer").style="display:none","Notification"in window&&"denied"!==Notification.permission&&Notification.requestPermission(function(e){}),document.getElementById("help").style.display="none",closechat(),document.getElementById("chat-content").innerHTML="<center><b>Du solltest noch nicht hier sein!</b></center>",typing(!1),await sleep(100),fadebutton(!1);else if(2==e){fadebutton(!0),await sleep(animationspeed),document.getElementById("div0").style="display:none",document.getElementById("div1").style="display:block",document.getElementById("div2").style="display:none",document.getElementById("multiplayer").style="display:none",document.getElementById("youAre").innerHTML="You are "+t,youAreP=t,opponent=o,enemyAre=n;try{if("granted"===Notification.permission)new Notification("Gegner "+o+" will gegen dich spielen")}catch(e){}document.getElementById("score").innerHTML=youAreP+": 0 vs. "+enemyAre+": 0",aler("Gegner: "+o),"false"!=tut1?nochnichtgespielt():document.getElementById("help").style.display="block",document.getElementById("chat").style.display="block",await sleep(100),fadebutton(!1)}}),socket.on("turned",function(e,t,n,o,i){"move"==i?(document.getElementById("a"+n).innerHTML=e,document.getElementById("turn").innerHTML="Turn: "+t,"X"==e?aa[n]="1":"O"==e&&(aa[n]="2")):"red"==i?document.getElementById("a"+n).style.color="red":"rem"==i?document.getElementById("a"+o).removeAttribute("style"):"chan"==i?(document.getElementById("a"+n).style.color="red",document.getElementById("a"+o).removeAttribute("style")):"fin"==i&&(document.getElementById("a"+n).innerHTML=e,document.getElementById("a"+o).innerHTML=" ",document.getElementById("a"+o).removeAttribute("style"),document.getElementById("turn").innerHTML="Turn: "+t,"X"==e?aa[n]="1":"O"==e&&(aa[n]="2"),aa[o]=!1)}),socket.on("win",function(e,t,n,o){e==youAreP?(document.getElementById("score").innerHTML=youAreP+": "+t+" vs. "+enemyAre+": "+n,aler("Du hast gewonnen"),chatwrite("system","Du hast gewonnen")):(document.getElementById("score").innerHTML=youAreP+": "+n+" vs. "+enemyAre+": "+t,aler("Du hast verloren"),chatwrite("system","Du hast verloren"))}),socket.on("rese",function(){document.getElementById("reset").style="visibility:visible"}),socket.on("rematchask",function(){document.getElementById("reset").innerHTML="Accept Rematch",remake=!0}),socket.on("resett",function(){document.getElementById("reset").innerHTML="Rematch",remake=!1,document.getElementById("reset").disabled=!1,reset()}),socket.on("turnreset",function(){document.getElementById("turn").innerHTML="Turn: O"}),document.onkeydown=function(e){13===e.keyCode&&(0==onlinem?neu():inchat&&sen())},socket.on("erro",function(){aler("Error:<br>Bitte starte dein Spiel neu","hid"),err()}),socket.on("ping2",function(){var e=new Date;m=e.getTime();for(var t=(m-n-o)/10,i=0;i<10;i++)setTimeout(function(){lo(t)},99*i)}),intervall=setInterval(ping1,1e3),document.getElementById("pin").style.display="block",socket.on("serverRestart",async function(e){serverId!=e&&null!=serverId?(aler("Bitte starte dein Spiel neu.<br>Es gab einen Server Neustart","hid"),err()):serverId=e});var inchat=!1,inopenchat=!1,unrea=0;async function chating(){nofillter?(chat.style.display="block",await sleep(100),document.getElementsByClassName("chat-window")[0].classList.add("movechat"),document.getElementById("chatmodal").classList.add("chatopa"),unread(0),unrea=0,inopenchat=!0):chatwarning()}async function closechat(){document.getElementsByClassName("chat-window")[0].classList.remove("movechat"),document.getElementById("chatmodal").classList.remove("chatopa"),inchat=!1,inopenchat=!1,await sleep(animationspeed),chat.style.display="none"}function sen(){let e=document.getElementById("chatinputbox").value;""!=(e=e.trim())&&(e=htmlSpecialChars(e),socket.emit("sendMessage",e)),document.getElementById("chatinputbox").value=""}function nachrichtplus(e){inopenchat||(unrea+=e,unread(unrea))}function foc(){socket.emit("foc1"),inchat=!0}function blu(){socket.emit("blu1"),inchat=!1}socket.on("foc2",function(){typing(!0)}),socket.on("blu2",function(){typing(!1)}),socket.on("startChat",function(){document.getElementById("chat-content").innerHTML="",chatwrite("system","Dies ist der Anfang deines Chats mit "+opponent)}),socket.on("receiveMessage",function(e,t){chatwrite(e,t)});';
+    //RSA stuff
 
-/*var socket = io();
+    // Generate an RSA key pair
+    async function generateKeyPair() {
+        return await crypto.subtle.generateKey(
+            {
+                name: "RSA-OAEP",
+                modulusLength: 1024, // can be 1024, 2048, or 4096
+                publicExponent: new Uint8Array([0x01, 0x00, 0x01]),
+                hash: "SHA-256"
+            },
+            true,
+            ["encrypt", "decrypt"]
+        );
+    }
+
+    // Encrypt the message using the public key
+    async function encrypt(message, publicKey) {
+        const array = new TextEncoder().encode(message);
+        const cryptoKey = await crypto.subtle.importKey(
+            "spki",
+            publicKey,
+            {
+                name: "RSA-OAEP",
+                hash: "SHA-256"
+            },
+            false,
+            ["encrypt"]
+        );
+        const ciphertext = await crypto.subtle.encrypt(
+            {
+                name: "RSA-OAEP"
+            },
+            cryptoKey,
+            array
+        );
+        return new Uint8Array(ciphertext);
+    }
+
+    // Decrypt the ciphertext using the private key
+    async function decrypt(ciphertext, privateKey) {
+        const array = new Uint8Array(ciphertext);
+        const cryptoKey = await crypto.subtle.importKey(
+            "pkcs8",
+            privateKey,
+            {
+                name: "RSA-OAEP",
+                hash: "SHA-256"
+            },
+            true,
+            ["decrypt"]
+        );
+        const decrypted = await crypto.subtle.decrypt(
+            {
+                name: "RSA-OAEP"
+            },
+            cryptoKey,
+            array
+        );
+        return new TextDecoder().decode(decrypted);
+    }
+
+    socket.on("getKey", function(key){
+        publicKey = key;
+    });
+*/
+
+var experimentmp = 'var opponent,publicKey,privateKey,serverId,youAreP,enemyAre,n,socket=io(),remake=!1,onlinem=!1,o=0,aa=[!1,!1,!1,!1,!1,!1,!1,!1,!1];function los(e){socket.emit("turn",e)}function rematch(){!1===remake?(socket.emit("rematch"),document.getElementById("reset").disabled=!0):!0===remake&&socket.emit("rematchakkept")}function reset(){socket.emit("resee");for(var e=0;e<9;e++)document.getElementById("a"+e).innerHTML="";document.getElementById("reset").style="visibility:hidden",aa=[!1,!1,!1,!1,!1,!1,!1,!1,!1]}async function neu(){fadebutton(!0),await sleep(animationspeed),onlinem=!0,b=document.getElementById("inpu").value,socket.emit("conn",b,2),localStorage.setItem("nameonline",b)}function dis(){socket.emit("dis"),document.getElementById("pin").style.display="none",document.getElementById("help").style.display="none",document.getElementById("chat").style.display="none",clearInterval(intervall)}function ping1(){n=new Date().getTime(),socket.emit("ping1")}function lo(e){document.getElementById("ping").innerHTML=Math.round(o+e),o+=e}function typing(e){e?(document.getElementById("cha").classList.remove("fa-comment"),document.getElementById("cha").classList.add("fa-comment-dots")):(document.getElementById("cha").classList.remove("fa-comment-dots"),document.getElementById("cha").classList.add("fa-comment")),typingin(e)}socket.on("que",async function(e,t,i,a){if(1==e)"Notification"in window&&"denied"!==Notification.permission&&Notification.requestPermission(function(e){}),document.getElementById("help").style.display="none",closechat(),document.getElementById("chat-content").innerHTML="<center><b>Du solltest noch nicht hier sein!</b></center>",typing(!1),fadebutton(!0),await sleep(animationspeed),document.getElementById("div0").style="display:none",document.getElementById("div1").style="display:none",document.getElementById("div2").style="display:block",document.getElementById("multiplayer").style="display:none",await sleep(100),fadebutton(!1);else if(2==e){youAreP=t,opponent=a,enemyAre=i,fadebutton(!0),document.getElementById("youAre").innerHTML="You are "+t,await sleep(animationspeed),document.getElementById("div0").style="display:none",document.getElementById("div1").style="display:block",document.getElementById("div2").style="display:none",document.getElementById("multiplayer").style="display:none";try{"Notification"in window&&"granted"===Notification.permission&&new Notification("Gegner "+a+" will gegen dich spielen")}catch(s){}document.getElementById("score").innerHTML=youAreP+": 0 vs. "+enemyAre+": 0",aler("Gegner: "+a),document.getElementById("help").style.display="block",document.getElementById("chat").style.display="block";let c=await generateKeyPair();try{privateKey=await crypto.subtle.exportKey("pkcs8",c.privateKey),pk=await crypto.subtle.exportKey("spki",c.publicKey),socket.emit("publicKey",pk)}catch(l){}await sleep(100),fadebutton(!1)}}),socket.on("turned",function(e,t,i,a,s){"move"==s?(document.getElementById("a"+i).innerHTML=e,document.getElementById("turn").innerHTML="Turn: "+t,"X"==e?aa[i]="1":"O"==e&&(aa[i]="2")):"red"==s?document.getElementById("a"+i).style.color="red":"rem"==s?document.getElementById("a"+a).removeAttribute("style"):"chan"==s?(document.getElementById("a"+i).style.color="red",document.getElementById("a"+a).removeAttribute("style")):"fin"==s&&(document.getElementById("a"+i).innerHTML=e,document.getElementById("a"+a).innerHTML=" ",document.getElementById("a"+a).removeAttribute("style"),document.getElementById("turn").innerHTML="Turn: "+t,"X"==e?aa[i]="1":"O"==e&&(aa[i]="2"),aa[a]=!1)}),socket.on("win",function(e,t,i,a){e==youAreP?(document.getElementById("score").innerHTML=youAreP+": "+t+" vs. "+enemyAre+": "+i,aler("Du hast gewonnen"),chatwrite("system","Du hast gewonnen")):(document.getElementById("score").innerHTML=youAreP+": "+i+" vs. "+enemyAre+": "+t,aler("Du hast verloren"),chatwrite("system","Du hast verloren"))}),socket.on("rese",function(){document.getElementById("reset").style="visibility:visible"}),socket.on("rematchask",function(){document.getElementById("reset").innerHTML="Accept Rematch",remake=!0}),socket.on("resett",function(){document.getElementById("reset").innerHTML="Rematch",remake=!1,document.getElementById("reset").disabled=!1,reset()}),socket.on("turnreset",function(){document.getElementById("turn").innerHTML="Turn: O"}),document.onkeydown=function(e){13===e.keyCode&&(!1==onlinem?neu():inchat&&sen())},socket.on("erro",function(){aler("Error:<br>Bitte starte dein Spiel neu","hid"),err()}),socket.on("ping2",function(){for(var e=((m=new Date().getTime())-n-o)/10,t=0;t<10;t++)setTimeout(function(){lo(e)},99*t)}),intervall=setInterval(ping1,1e3),document.getElementById("pin").style.display="block",socket.on("serverRestart",async function(e){serverId!=e&&void 0!=serverId?(aler("Bitte starte dein Spiel neu.<br>Es gab einen Server Neustart","hid"),err()):serverId=e});var inchat=!1,inopenchat=!1,unrea=0;async function chating(){nofillter?(chat.style.display="block",await sleep(100),document.getElementsByClassName("chat-window")[0].classList.add("movechat"),document.getElementById("chatmodal").classList.add("chatopa"),unread(0),unrea=0,inopenchat=!0):chatwarning()}async function closechat(){document.getElementsByClassName("chat-window")[0].classList.remove("movechat"),document.getElementById("chatmodal").classList.remove("chatopa"),inchat=!1,inopenchat=!1,await sleep(animationspeed),chat.style.display="none"}async function sen(){let e=document.getElementById("chatinputbox").value;if(""!==(e=e.trim())){if(e=htmlSpecialChars(e),null==publicKey||""===publicKey)aler("Encryption not set up properly. Chat disabled.");else try{let t=await encrypt(e,publicKey);socket.emit("sendMessage",t),chatwrite("me",e)}catch(i){aler("Encryption failed. Disabling Chat.")}}document.getElementById("chatinputbox").value=""}function nachrichtplus(e){inopenchat||unread(unrea+=e)}function foc(){socket.emit("foc1"),inchat=!0}function blu(){socket.emit("blu1"),inchat=!1}async function generateKeyPair(){return await crypto.subtle.generateKey({name:"RSA-OAEP",modulusLength:1024,publicExponent:new Uint8Array([1,0,1]),hash:"SHA-256"},!0,["encrypt","decrypt"])}async function encrypt(e,t){let i=new TextEncoder().encode(e),a=await crypto.subtle.importKey("spki",t,{name:"RSA-OAEP",hash:"SHA-256"},!1,["encrypt"]),s=await crypto.subtle.encrypt({name:"RSA-OAEP"},a,i);return new Uint8Array(s)}async function decrypt(e,t){let i=new Uint8Array(e),a=await crypto.subtle.importKey("pkcs8",t,{name:"RSA-OAEP",hash:"SHA-256"},!0,["decrypt"]),s=await crypto.subtle.decrypt({name:"RSA-OAEP"},a,i);return new TextDecoder().decode(s)}socket.on("foc2",function(){typing(!0)}),socket.on("blu2",function(){typing(!1)}),socket.on("startChat",function(){document.getElementById("chat-content").innerHTML="",chatwrite("system","Dies ist der Anfang deines Chats mit "+opponent)}),socket.on("receiveMessage",async function(e){let t;try{t=await decrypt(e,privateKey),chatwrite("other",t)}catch(i){}}),socket.on("getKey",function(e){publicKey=e});';
+
+/*  var socket = io();
     var youAreP,enemyAre;
     var remake = false;
     var onlinem = false;
     var n,o=0;
     var aa=[false,false,false,false,false,false,false,false,false];
     var opponent;
+    var publicKey;
+    var privateKey;
 
     function los(hh){
         socket.emit("turn",hh);
-    };
+    }
 
     function rematch(){
-        if(remake==false) {
+        if(remake===false) {
             socket.emit("rematch");
             document.getElementById("reset").disabled = true;
         }
 
-        else if(remake==true) socket.emit("rematchakkept");
+        else if(remake===true) socket.emit("rematchakkept");
     }
 
     function reset(){
@@ -312,48 +404,53 @@ var experimentmp = 'var youAreP,enemyAre,n,opponent,serverId,socket=io(),remake=
 
     socket.on("que",async function(data,player,enem,name){
         if(data==1){
+            if (!("Notification" in window)){}
+            else if (Notification.permission !== "denied") {
+                Notification.requestPermission(function (permission){});
+            }
+            document.getElementById("help").style.display="none";
+            closechat();
+            document.getElementById("chat-content").innerHTML="<center><b>Du solltest noch nicht hier sein!</b></center>";
+            typing(false);
             fadebutton(true);
             await sleep(animationspeed);
             document.getElementById("div0").style="display:none";
             document.getElementById("div1").style="display:none";
             document.getElementById("div2").style="display:block";
             document.getElementById("multiplayer").style="display:none";
-                 if (!("Notification" in window)){}
-                 else if (Notification.permission !== "denied") {
-                     Notification.requestPermission(function (permission){});
-                 }
-            document.getElementById("help").style.display="none";
-            closechat();
-            document.getElementById("chat-content").innerHTML="<center><b>Du solltest noch nicht hier sein!</b></center>";
-            typing(false);
             await sleep(100);
             fadebutton(false);
         }
         else if(data==2){
+            youAreP = player
+            opponent = name;
+            enemyAre = enem;
             fadebutton(true);
+            document.getElementById("youAre").innerHTML = "You are "+player;
             await sleep(animationspeed);
             document.getElementById("div0").style="display:none";
             document.getElementById("div1").style="display:block";
             document.getElementById("div2").style="display:none";
             document.getElementById("multiplayer").style="display:none";
-            document.getElementById("youAre").innerHTML = "You are "+player;
-            youAreP = player
-            opponent = name;
-            enemyAre = enem;
-                try{
-                    if(Notification.permission === "granted") {
-                        var notification = new Notification("Gegner "+name+" will gegen dich spielen");
-                    }
+            try{
+                if (!("Notification" in window)){}
+                else if(Notification.permission === "granted") {
+                    var notification = new Notification("Gegner "+name+" will gegen dich spielen");
                 }
-                catch(erro){}
+            }
+            catch(err){}
             document.getElementById("score").innerHTML = youAreP+": 0 vs. "+enemyAre+": 0";
             aler("Gegner: "+name);
-            if(tut1 != "false") {
-                nochnichtgespielt();
-            } else {
-                document.getElementById("help").style.display = "block";
-            }
+            document.getElementById("help").style.display="block";
             document.getElementById("chat").style.display="block";
+            //encryption setup
+            const keyPair = await generateKeyPair();
+            try {
+                privateKey = await crypto.subtle.exportKey("pkcs8", keyPair.privateKey);
+                pk = await crypto.subtle.exportKey("spki", keyPair.publicKey);
+                socket.emit("publicKey", pk);
+            }
+            catch (e){}
             await sleep(100);
             fadebutton(false);
         }
@@ -475,7 +572,7 @@ var experimentmp = 'var youAreP,enemyAre,n,opponent,serverId,socket=io(),remake=
             aler("Bitte starte dein Spiel neu.<br>Es gab einen Server Neustart","hid");err();
 
         }
-    else{serverId=server}
+        else{serverId=server}
     });
 
 
@@ -518,12 +615,21 @@ var experimentmp = 'var youAreP,enemyAre,n,opponent,serverId,socket=io(),remake=
         chat.style.display = "none";
     }
 
-    function sen(){
+    async function sen() {
         let message = document.getElementById("chatinputbox").value;
         message = message.trim();
-        if(message!=""){
+        if (message !== "") {
             message = htmlSpecialChars(message);
-            socket.emit("sendMessage",message);
+            if (publicKey == null || publicKey === "")
+                aler("Encryption not set up properly. Chat disabled.");
+            else
+                try {
+                    let msg = await encrypt(message, publicKey);
+                    socket.emit("sendMessage", msg);
+                chatwrite("me", message);
+                } catch (err) {
+                    aler("Encryption failed. Disabling Chat.");
+                }
         }
         document.getElementById("chatinputbox").value = "";
     }
@@ -556,9 +662,81 @@ var experimentmp = 'var youAreP,enemyAre,n,opponent,serverId,socket=io(),remake=
         chatwrite("system","Dies ist der Anfang deines Chats mit " + opponent);
     });
 
-    socket.on("receiveMessage",function(ff,gg){
-        chatwrite(ff,gg);
-    });*/
+    socket.on("receiveMessage",async function (gg) {
+        let msg
+        try {
+            msg = await decrypt(gg, privateKey);
+            chatwrite("other", msg);
+        } catch (e) {
+        }
+    });
+
+    //RSA stuff
+
+    // Generate an RSA key pair
+    async function generateKeyPair() {
+        return await crypto.subtle.generateKey(
+            {
+                name: "RSA-OAEP",
+                modulusLength: 1024, // can be 1024, 2048, or 4096
+                publicExponent: new Uint8Array([0x01, 0x00, 0x01]),
+                hash: "SHA-256"
+            },
+            true,
+            ["encrypt", "decrypt"]
+        );
+    }
+
+    // Encrypt the message using the public key
+    async function encrypt(message, publicKey) {
+        const array = new TextEncoder().encode(message);
+        const cryptoKey = await crypto.subtle.importKey(
+            "spki",
+            publicKey,
+            {
+                name: "RSA-OAEP",
+                hash: "SHA-256"
+            },
+            false,
+            ["encrypt"]
+        );
+        const ciphertext = await crypto.subtle.encrypt(
+            {
+                name: "RSA-OAEP"
+            },
+            cryptoKey,
+            array
+        );
+        return new Uint8Array(ciphertext);
+    }
+
+    // Decrypt the ciphertext using the private key
+    async function decrypt(ciphertext, privateKey) {
+        const array = new Uint8Array(ciphertext);
+        const cryptoKey = await crypto.subtle.importKey(
+            "pkcs8",
+            privateKey,
+            {
+                name: "RSA-OAEP",
+                hash: "SHA-256"
+            },
+            true,
+            ["decrypt"]
+        );
+        const decrypted = await crypto.subtle.decrypt(
+            {
+                name: "RSA-OAEP"
+            },
+            cryptoKey,
+            array
+        );
+        return new TextDecoder().decode(decrypted);
+    }
+
+    socket.on("getKey", function(key){
+        publicKey = key;
+    });
+*/
 
 var offline = 'var hh,awe,jj=!0,jkl=0,p1=0,p2=0;function los(e){if(!1===aa[e]){jj?(document.getElementById("a"+e).innerHTML="O",document.getElementById("turn").innerHTML="Turn: X",aa[e]="2"):(document.getElementById("a"+e).innerHTML="X",document.getElementById("turn").innerHTML="Turn: O",aa[e]="1"),jj=!jj;for(var a=1;a<=2;a++){1==a&&(awe="1"),2==a&&(awe="2");for(var n=0;n<9;n+=3)if(aa[n]==aa[n+1]&&aa[n+1]==aa[n+2]&&aa[n+2]==awe)return void winner(awe);for(var r=0;r<=3;r++)if(aa[r]==aa[r+3]&&aa[r+3]==aa[r+6]&&aa[r+6]==awe)return void winner(awe);if(aa[0]==aa[4]&&aa[4]==aa[8]&&aa[8]==awe)return void winner(awe);if(aa[2]==aa[4]&&aa[4]==aa[6]&&aa[6]==awe)return void winner(awe)}9==++jkl&&rese()}}function rese(){document.getElementById("reset").style="visibility:visible",jkl=0,aa=[3,3,3,3,3,3,3,3,3]}function rematch(){aa=[!1,!1,!1,!1,!1,!1,!1,!1,!1];for(var e=0;e<9;e++)document.getElementById("a"+e).innerHTML="";document.getElementById("reset").style="visibility:hidden"}function winner(e){1==e?(p1++,aler("Gewinner: X")):2==e&&(p2++,aler("Gewinner: O")),rese(),document.getElementById("score").innerHTML="X: "+p1+" vs. O: "+p2}aa=[!1,!1,!1,!1,!1,!1,!1,!1,!1];'
 /*var  hh,jj=true;

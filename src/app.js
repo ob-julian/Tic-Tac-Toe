@@ -1,4 +1,4 @@
-consolelog("starting up","green");
+/*consolelog("starting up","green");
 "use strict";
 const express = require("express");
 const app = express();
@@ -35,7 +35,7 @@ app.get("/Impressum",function(req, res) {
 /*app.use("/icon",express.static(__dirname + "/client/icon"));
 app.use("/js",express.static(__dirname + "/client/js"));
 app.use("/css",express.static(__dirname + "/client/css"));*/
-app.use("/ttt",express.static(__dirname + "/client/ttt"));
+/*app.use("/ttt",express.static(__dirname + "/client/ttt"));
 
 app.use(RewriteMiddleware(RewriteOptions));
 
@@ -70,8 +70,38 @@ app2.get("/",function(req, res) {
 app2.use("/log",express.static(__dirname + "/log"));
 
 //serv2.listen(2002);
-//consolelog("Start from log Servre succsesful");
+//consolelog("Start from log Servre succsesful");*/
 
+//---------------------------------------------------------------------------------------
+
+"use strict";
+var express = require("express");
+var app = express();
+var server = require("http").Server(app);
+
+app.get("/",function(req, res) {
+    res.sendFile(__dirname+"/client/index.html");
+})
+app.use("/client",express.static(__dirname + "/client"));
+
+server.listen(2000);
+console.log("start from TTT succsesful");
+
+app.get("/",function(req, res) {
+    res.sendFile(__dirname+"/client/index.html");
+})
+app.get("/sitemap.xml",function(req, res) {
+    res.sendFile(__dirname+"/client/sitemap.xml");
+})
+app.get("/Datenschutz",function(req, res) {
+    res.sendFile(__dirname+"/client/datenschutz.html");
+})
+app.get("/Impressum",function(req, res) {
+    res.sendFile(__dirname+"/client/impressum.html");
+})
+app.use("/ttt",express.static(__dirname + "/client/ttt"));
+
+//------------------------------------------------------------------------------------------
 
 var socket_list={};
 var playerInQ = {};
@@ -135,7 +165,7 @@ io.sockets.on("connection",function(socket){
     socket.on("conn",function(valu,mode){
         socket.name = valu;
         socket.mode = mode;
-        consolelog(socket.id+" has canged the name to "+socket.name+" (Mode: "+mode+")");
+        consolelog(socket.id+" has changed the name to "+socket.name+" (Mode: "+mode+")");
         socket.queueM();
     });
 
@@ -306,7 +336,7 @@ io.sockets.on("connection",function(socket){
                 socket.aa=[false,false,false,false,false,false,false,false,false];
                 socket.otherPlayer.aa=[false,false,false,false,false,false,false,false,false];
                 socket.point="0";
-                consolelog("Match betwen:"+socket_list[playerInQ[0]].name+" and "+socket_list[playerInQ[1]].name);
+                consolelog("Match between:"+socket_list[playerInQ[0]].name+" and "+socket_list[playerInQ[1]].name);
                 playerInQ = {};
                 playerIn = 0;
                 socket.emit("startChat");
@@ -357,10 +387,14 @@ io.sockets.on("connection",function(socket){
     }
 
     socket.on("sendMessage",function(ff){
-        socket.emit("receiveMessage","me",ff);
-        socket.otherPlayer.emit("receiveMessage","other",ff);
-        console.log(socket.name + " schreibt an " + socket.otherPlayer.name + ": " + ff);
+        //socket.emit("receiveMessage","me",ff);
+        socket.otherPlayer.emit("receiveMessage",ff);
+        //console.log(socket.name + " schreibt an " + socket.otherPlayer.name + ": " + ff);
     });
+
+    socket.on("publicKey", function(key){
+        socket.otherPlayer.emit("getKey", key);
+    })
 
     socket.on("foc1",function(){
         socket.otherPlayer.emit("foc2");
@@ -369,9 +403,6 @@ io.sockets.on("connection",function(socket){
     socket.on("blu1",function(){
         socket.otherPlayer.emit("blu2");
     });
-
-
-
 
     socket.on("man",function(){for(var i in socket_list)consolelog("llll");});
 
@@ -386,3 +417,8 @@ function consolelog(gg){
 }
 
 consolelog("Start finished");
+
+
+//express    ^4.17.1  →  ^4.18.2
+// forever     ^2.0.0  →   ^4.0.3
+// socket.io   ^2.2.0  →   ^4.5.4
