@@ -1,20 +1,33 @@
 {
-  "name": "ttt",
-  "version": "4.0.1.3",
-  "description": "Just ordinary Tick Tack Toe",
-  "main": "app.js",
-  "dependencies": {
-    "basic-auth": "^2.0.1",
-    "express": "^4.18.2",
-    "express-force-https": "^1.0.0",
-    "express-htaccess-middleware": "^0.1.0",
-    "forever": "^4.0.3",
-    "php-node": "0.0.2",
-    "socket.io": "^4.5.4"
-  },
+  "name": "tic-tac-toe",
+  "version": "5.0.0",
+  "description": "A tic tac toe singel and multiplayer game based on html",
+  "main": "server/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint ."
   },
-  "author": "",
-  "license": "ISC"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ob-julian/Tic-Tac-Toe.git"
+  },
+  "keywords": [
+    "tic",
+    "tac",
+    "toe"
+  ],
+  "author": "Julian Oberhofer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ob-julian/Tic-Tac-Toe/issues"
+  },
+  "homepage": "https://github.com/ob-julian/Tic-Tac-Toe#readme",
+  "dependencies": {
+    "socket.io": "^4.7.5"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.2.0",
+    "eslint": "^9.2.0",
+    "globals": "^15.2.0"
+  }
 }
