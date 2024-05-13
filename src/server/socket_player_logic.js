@@ -25,7 +25,7 @@ const moveStatus = {
 };
 
 function disconectPlayer(socket) {
-    if(socket.mode === modes.PLAYING) {
+    if(socket.status === playerStatus.PLAYING) {
         if (socket.otherPlayer) {
             socket.otherPlayer.mode = modes.IDLE;
             socket.otherPlayer.emit('resett');
@@ -37,7 +37,7 @@ function disconectPlayer(socket) {
         socket.emit('turnreset');
         socket.mode = modes.IDLE;
     }
-    else if(socket.mode === modes.QUEUE) {
+    else if(socket.status === playerStatus.QUEUE) {
         removePlayerFromQueue(socket);
         socket.mode = modes.IDLE;
     }
@@ -188,7 +188,6 @@ function socket_player_logic(io, serverId) {
         socket.on('dis', () => disconectPlayer(socket));
 
         socket.on('conn', function(valu, mode){
-            consolelog('Player ' + valu + ' connected');
             if (socket.status !== playerStatus.IDLE) {
                 consolelog('Player ' + valu + ' tried to connect while already connected');
                 return;
