@@ -26,9 +26,10 @@ function startServer() {
     // Server setup
     server = serverSetup();
 
+    const corsConfig = require('../config/cors.json');
     ioServer = io(server, {
         cors: {
-            origin: '*',
+            origin: corsConfig.origin,
         }
     });
 
