@@ -1,5 +1,8 @@
 import globals from 'globals';
 import pluginJs from '@eslint/js';
+import htmlPlugin from 'eslint-plugin-html';
+import htmlEslintPlugin from '@html-eslint/eslint-plugin';
+import parser from '@html-eslint/parser';
 
 export default [
   {
@@ -7,8 +10,15 @@ export default [
     languageOptions: {sourceType: 'commonjs', globals: globals.node}
   },
   {
-    files: ['**/client/**/*.js'],
-    languageOptions: {sourceType: 'module', globals: globals.browser}
+    files: ['**/client/**/*.{js,html}'],
+    languageOptions: {sourceType: 'module', globals: globals.browser},
+    plugins: {'html': htmlPlugin}
+  },
+  {
+    files: ['**/client/**/*.html'],
+    plugins: {'@html-eslint': htmlEslintPlugin},
+    languageOptions: {parser},
+    ...htmlEslintPlugin.configs['flat/recommended']
   },
   {
     rules: {

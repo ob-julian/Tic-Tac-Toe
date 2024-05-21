@@ -1,4 +1,4 @@
-.mvr, .mvl {
+.moveRightElement, .moveLeftElement {
     transition: transform var(--animationspeed2) cubic-bezier(0.75, 0, 1, 1)!important;
 }
 
@@ -14,7 +14,7 @@
     overflow: hidden;
 }
 
-.chopa {
+.fadeElement {
     opacity: 1;
     transition: opacity var(--animationspeed2) cubic-bezier(0.75, 0, 1, 1);
 }
@@ -303,7 +303,7 @@ i {
     margin-block-start: 10px;
 }
 
-#wahl {
+.wahl {
     height: 50%;
     width: 100%;
     position: absolute;

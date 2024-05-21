@@ -1,0 +1,183 @@
+body {
+    margin: 0;
+    color: var(--text);
+    background: var(--bg);
+    transition: background 500ms ease-in-out, color 1000ms ease-in-out;
+    overflow: hidden;
+}
+
+button {
+    padding: 10px;
+}
+
+tr, td {
+    border-collapse: collapse;
+    font-size: 80px;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    outline: 0;
+}
+
+tr {
+    border-bottom: 10px solid var(--border);
+    transition: border 1000ms ease-in-out;
+}
+
+td {
+    border-right: 10px solid var(--border);
+    transition: border 1000ms ease-in-out;
+    -ms-user-select: None;
+    -moz-user-select: None;
+    -webkit-user-select: None;
+    user-select: None;
+    outline: 0;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+td:last-child {
+    border-right: none !important;
+}
+
+tr:last-child {
+    border-bottom: none !important;
+}
+
+.center {
+    text-align: center;
+}
+
+.centerObject {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.headline {
+    display: block;
+    font-size: 2em;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    unicode-bidi: isolate;
+}
+
+@media (max-width:540px) {
+    .back, #reset {
+        width: 46%;
+    }
+}
+
+@media (max-width:600px) {/*kleiner als*/
+    #settingsBox {
+        position: fixed;
+        bottom: 20px;
+        display: block;
+        left: 50%;
+        transform: translate(-50%);
+    }
+    .ingame {
+        display: none !important;
+    }
+
+    .hexhex{
+        opacity: 0 !important;
+    }
+
+    .timm{
+        font-size: 10vw;
+    }
+
+    .uul{
+        padding-left: calc(6vw + 20px);
+    }
+
+}
+
+@media (min-width:600px) {/*größer als*/
+    #settingsBox {
+        position: fixed;
+        top: 5px;
+        left: 5px;
+        z-index: 10;
+        display: block;
+    }
+
+    h1, .headline {
+        margin-top: 55px;
+    }
+
+    .hexhex:not(#settingsBox){
+        opacity: 0 !important;
+    }
+
+}
+
+/*@media (max-width: 399px){
+    #noacc{
+        display: block;
+    }
+    #div0, #div2, #div1, #singel, #myModal, #chatmodal{
+        display: none !important;
+    }
+    #multiplayer{
+        z-index: 100;
+    }
+}
+
+@media (max-height: 599px){
+    @media (max-width: 499px){
+        #noacc{
+            display: block;
+        }
+        #multiplayer{
+        z-index: 100;
+    }
+    }
+    @media (min-width: 600px){
+        #rota{
+            display: block;
+            width: 100%
+        }
+        #multiplayer{
+            z-index: 100;
+        }
+    }
+}*/
+
+:root {
+    --black: #2D3848;
+    --white: #f1f1f1;
+    --white-gray: #cfcfcf;
+    --black-gray: #565f6d;
+    --white50: rgba(255, 255, 255, 0.5);
+    --black50: rgba(0, 0, 0, 0.5);
+    --white20: rgba(255, 255, 255, 0.2);
+    --black20: rgba(0, 0, 0, 0.2);
+    --animationspeed: 750ms;
+    --animationspeed2: 600ms;
+}
+
+.light {
+    --bg: var(--white);
+    --text: var(--black);
+    --border: var(--black);
+    --bt-bg-color: var(--white-gray);
+    --line: var(--black50);
+    --button: var(--black20);
+}
+
+.dark {
+    --bg: var(--black);
+    --text: var(--white);
+    --border: var(--white);
+    --bt-bg-color: var(--black-gray);
+    --line: var(--white50);
+    --button: var(--white20);
+}
