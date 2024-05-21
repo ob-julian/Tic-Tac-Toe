@@ -1,0 +1,157 @@
+button {
+    padding: 10px;
+}
+
+tr, td {
+    border-collapse: collapse;
+    font-size: 80px;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    outline: 0;
+}
+
+tr {
+    border-bottom: 10px solid var(--border);
+    transition: border var(--animationSpeed) ease-in-out;
+}
+
+td {
+    border-right: 10px solid var(--border);
+    transition: border var(--animationSpeed) ease-in-out;
+    -ms-user-select: None;
+    -moz-user-select: None;
+    -webkit-user-select: None;
+    user-select: None;
+    outline: 0;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+td:last-child {
+    border-right: none !important;
+}
+
+tr:last-child {
+    border-bottom: none !important;
+}
+
+.center {
+    text-align: center;
+}
+
+.centerObject {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.headline {
+    display: block;
+    font-size: 2em;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    unicode-bidi: isolate;
+}
+
+#smallScreenSizeContent {
+    padding: 10px;
+}
+
+.dontDisplay {
+    display: none !important;
+}
+
+.dontDisplay:target {
+    display: block;
+}
+
+.dontShowButAccessible {
+    opacity: 0;
+    display: block;
+    width: 0;
+    height: 0;
+}
+
+@media (max-width:540px) {
+    .back, #reset {
+        width: 46% !important
+    }
+}
+
+@media (max-width:600px) {/*kleiner als*/
+    #settingsBox {
+        position: fixed;
+        bottom: 20px;
+        display: block;
+        left: 50%;
+        transform: translate(-50%);
+    }
+    .ingame {
+        display: none !important;
+    }
+
+    .hexhex{
+        opacity: 0 !important;
+    }
+
+    .timm{
+        font-size: 10vw;
+    }
+
+    .uul{
+        padding-left: calc(6vw + 20px);
+    }
+
+}
+
+@media (min-width:600px) {/*größer als*/
+    #settingsBox {
+        position: fixed;
+        top: 5px;
+        left: 5px;
+        z-index: 10;
+        display: block;
+    }
+
+    h1, .headline {
+        margin-top: 55px;
+    }
+
+    .hexhex:not(#settingsBox){
+        opacity: 0 !important;
+    }
+
+}
+
+@media (max-width: 399px){
+    #noacc{
+        display: block !important;
+    }
+    #normalScreenSizeContent {
+        display: none !important;
+    }
+}
+
+@media (max-height: 599px){
+    #normalScreenSizeContent {
+        display: none !important;
+    }
+    @media (max-width: 599px){
+        #noacc{
+            display: block !important;
+        }
+    }
+    @media (min-width: 600px){
+        #rota{
+            display: block !important;
+            width: 100%
+        }
+    }
+}

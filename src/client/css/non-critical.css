@@ -1,5 +1,5 @@
-.mvr, .mvl {
-    transition: transform var(--animationspeed2) cubic-bezier(0.75, 0, 1, 1)!important;
+.moveRightElement, .moveLeftElement {
+    transition: transform var(--animationSpeed2) cubic-bezier(0.75, 0, 1, 1)!important;
 }
 
 .recht {
@@ -14,9 +14,9 @@
     overflow: hidden;
 }
 
-.chopa {
+.fadeElement {
     opacity: 1;
-    transition: opacity var(--animationspeed2) cubic-bezier(0.75, 0, 1, 1);
+    transition: opacity var(--animationSpeed2) cubic-bezier(0.75, 0, 1, 1);
 }
 
 #help {
@@ -25,18 +25,11 @@
     top: 5px;
     margin: 0;
     cursor: pointer;
+    font-size: 1.5em;
 }
 
-#help>h1 {
+#help>h2 {
     margin: 0;
-}
-
-.nop {
-    display: none;
-}
-
-.nop:target {
-    display: block;
 }
 
 .main {
@@ -60,7 +53,7 @@ a {
     display: none;
 }
 
-.slider {
+#slider {
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -72,7 +65,7 @@ a {
     transition: .4s;
 }
 
-.slider::before {
+#slider::before {
     position: absolute;
     content: "";
     height: 26px;
@@ -92,26 +85,14 @@ a {
     opacity: 0.8;
 }
 
-input:checked+.slider {
-    background-color: var(--bt-bg-color);
+input:focus ~ #slider {
+    box-shadow: 0 0 1px var(--bg);
 }
 
-input:focus+.slider {
-    box-shadow: 0 0 1px var(--bt-bg-color);
-}
-
-input:checked+.slider::before {
+input:checked ~ #slider::before {
     -webkit-transform: translateX(26px);
     -ms-transform: translateX(26px);
     transform: translateX(26px);
-}
-
-.slider.round {
-    border-radius: 34px;
-}
-
-.slider.round::before {
-    border-radius: 50%;
 }
 
 i {
@@ -148,26 +129,33 @@ i {
     display: none;
 }
 
-.chat-window, .patch-window {
+#chat-window, #patch-window {
     background-color: var(--bg);
     padding: 20px;
-    border: 1px solid #888;
+    border: 1px solid var(--border);
     margin: 0;
     position: absolute;
-    right: 0;
-    height: calc(100vh - 40px);
+    height: calc(100vh - 47px);
     height: -webkit-fill-available;
-    width: 50%;
     display: inline;
     padding-right: 25px;
     transform: translateX(101%);
-    transition-duration: var(--animationspeed);
+    transition-duration: var(--animationSpeed);
+    box-sizing: border-box;
 }
 
-.patch-window{
+
+#chat-window {
+    width: 50%;
+    height: 100%;
+    right: 0;
+}
+
+#patch-window{
     width: auto;
     overflow: auto;
     max-width: 900px;
+    right: -1px;
 }
 
 .movechat {
@@ -175,7 +163,7 @@ i {
 }
 
 #chatinput {
-    bottom: calc(-100% + 60px);
+    bottom: calc(-100% + 61px);
     right: 20px;
     position: relative;
     width: calc(100% + 45px);
@@ -192,19 +180,22 @@ i {
     user-select: none;
     outline: 0;
     color: var(--text);
+    border-color: var(--bt-bg-color);
 }
 
 #chat-content {
-    height: calc(100% - 88px);
-    width: calc(100% - 37px);
+    height: calc(100% - 49px);
+    width: 100%;
     overflow: auto;
     overflow: overlay;
     position: inherit;
     z-index: 10;
     color: var(--text);
-    padding: 10px;
+    padding: 25px;
     right: 0;
+    top: 0;
     padding-right: 27px;
+    box-sizing: border-box;
 }
 
 
@@ -220,9 +211,9 @@ i {
     line-height: 49px !important;
 }
 
-#chatmodal, #patch {
+#chatModal, #patch {
     overflow: hidden;
-    transition: background-color var(--animationspeed) ease-out;
+    transition: background-color var(--animationSpeed) ease-out;
     background-color: rgba(0, 0, 0, 0);
     z-index: 100;
 }
@@ -247,39 +238,37 @@ i {
     width: auto;
 }
 
-.slide {
+#slide {
     -webkit-appearance: none;
     appearance: none;
     width: 124px;
     height: 15px;
     border-radius: 5px;
-    background: var(--bt-bg-color);
+    background-color: var(--bt-bg-color);
     outline: none;
-    transition: opacity .2s, background 500ms ease-in-out;
+    transition: background-color .2s, opacity var(--animationSpeed) ease-in-out;
 }
 
-.slide::-webkit-slider-thumb {
+#slide::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
     width: 25px;
     height: 25px;
     border-radius: 50%;
-    background: var(--text);
-    cursor: pointer;
-    transition: background 500ms ease-in-out;
+    background-color: var(--text);
+    transition: background-color .5s, opacity var(--animationSpeed) ease-in-out;
 }
 
-.slide::-moz-range-thumb {
+#slide::-moz-range-thumb {
     -webkit-appearance: none;
     appearance: none;
     width: 25px;
     height: 25px;
     border-radius: 50%;
-    background: var(--text);
+    background-color: var(--text);
     cursor: pointer;
-    transition: background 500ms ease-in-out;
+    transition: background-color .5s, opacity var(--animationSpeed) ease-in-out;
 }
-
 
 #slid{
     margin-top: 15px;
@@ -303,7 +292,7 @@ i {
     margin-block-start: 10px;
 }
 
-#wahl {
+.wahl {
     height: 50%;
     width: 100%;
     position: absolute;
@@ -468,7 +457,7 @@ i {
 }
 
 .groser{
-    transition: width var(--animationspeed) linear, height var(--animationspeed) linear;
+    transition: width var(--animationSpeed) linear, height var(--animationSpeed) linear;
 }
 
 .kein{
@@ -568,8 +557,12 @@ i {
     transform: scale(0.1, 1);
 }
 
+.btn.disabled, .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 .modal {
-    display: none;
     position: fixed;
     z-index: 200;
     left: 0;
@@ -623,9 +616,12 @@ i {
     padding-right: 25px;
     width: fit-content;
     max-width: 80%;
+    max-height: 80%;
+    overflow: auto;
+    box-sizing: border-box;
 }
 
-.close {
+#closeModal {
     color: #aaa;
     float: right;
     font-size: 28px;
@@ -635,13 +631,13 @@ i {
     right: 9px;
 }
 
-.close:hover, .close:focus {
-    color: black;
+#closeModal:hover, #closeModal:focus, .closeBigPannel:hover, .closeBigPannel:focus {
+    color: var(--text);
     text-decoration: none;
     cursor: pointer;
 }
 
-.close2 {
+.closeBigPannel {
     color: #aaa;
     float: left;
     font-size: 28px;
@@ -649,12 +645,6 @@ i {
     position: relative;
     top: -24px;
     left: -16px;
-}
-
-.close2:hover, .close2:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
 }
 
 .timm{
@@ -696,4 +686,34 @@ i {
     width: 100%;
     z-index: -1;
 
+}
+
+
+/* scrollbars */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.4);
+    }
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background-color: var(--opposite);
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--lightOpposite);
+} 
+
+/*Firefox "equal"*/
+html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--opposite) rgba(0, 0, 0, 0.4);
 }
