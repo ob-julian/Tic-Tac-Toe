@@ -27,19 +27,19 @@ const moveStatus = {
 function disconectPlayer(socket) {
     if(socket.status === playerStatus.PLAYING) {
         if (socket.otherPlayer) {
-            socket.otherPlayer.mode = modes.IDLE;
-            socket.otherPlayer.emit('resett');
-            socket.otherPlayer.emit('turnreset');
+            getOtherPlayer(socket).status = playerStatus.IDLE;
+            getOtherPlayer(socket).emit('resett');
+            getOtherPlayer(socket).emit('turnreset');
             queue(socket.otherPlayer);
         }
         socket.otherPlayer = undefined;
         socket.emit('resett');
         socket.emit('turnreset');
-        socket.mode = modes.IDLE;
+        socket.status = modes.IDLE;
     }
     else if(socket.status === playerStatus.QUEUE) {
         removePlayerFromQueue(socket);
-        socket.mode = modes.IDLE;
+        socket.status = modes.IDLE;
     }
 }
 
@@ -65,8 +65,8 @@ function removePlayerFromQueue(socket){
 
 function winner(socket){
     socket.point++;
-    socket.emit('win', socket.playerSymbole, socket.point, socket.otherPlayer.point);
-    socket.otherPlayer.emit('win', socket.playerSymbole, socket.point, socket.otherPlayer.point);
+    socket.emit('win', socket.playerSymbole, socket.point, getOtherPlayer(socket).point);
+    getOtherPlayer(socket).emit('win', socket.playerSymbole, socket.point, getOtherPlayer(socket).point);
 
     resetPlayers(socket);
 }
@@ -78,7 +78,7 @@ function resetPlayers(socket){
 }
 
 function resetPlayer(socket){
-    socket.emit('rese'); // show the player re reset screen
+    socket.emit('showReset'); // show the player re reset screen
     socket.playingFieldLinearRepresentation = [3, 3, 3, 3, 3, 3, 3, 3, 3];
     socket.amountOfTurns = 0;
     socket.movingStatus = 1;
@@ -98,6 +98,7 @@ function initSocket(socket){
 
 
 function queue(socket){
+    consolelog('Player ' + socket.name + ' queued for mode ' + socket.mode);
     if (socket.mode === modes.undefined || socket.status !== playerStatus.IDLE) {
         socket.emit('erro');
         return;
@@ -106,17 +107,23 @@ function queue(socket){
         //queue manager
         if(playerSocketInQueueNormnal === undefined) {
             playerSocketInQueueNormnal = socket;
-            socket.emit('que', 1);
+            socket.emit('queueIn');
             socket.status = playerStatus.QUEUE;
         }
         else if(playerSocketInQueueNormnal !== socket) {
             socket.otherPlayer = playerSocketInQueueNormnal;
             playerSocketInQueueNormnal = undefined; // reset queue as fast as possible
-            socket.otherPlayer.otherPlayer = socket;
+            try {
+                getOtherPlayer(socket).otherPlayer = socket;
+            } catch {
+                // other player seems to be undefined
+                // try requeue
+                queue(socket);
+            }
 
             matchPlayers(socket);
 
-            consolelog('Match betwen:' + socket.name + ' and ' + socket.otherPlayer.name + '; mode: normal');
+            consolelog('Match betwen:' + socket.name + ' and ' + getOtherPlayer(socket).name + '; mode: normal');
         }
         else socket.emit('erro');
     }
@@ -124,17 +131,17 @@ function queue(socket){
         //queue manager
         if(playerSocketInQueueExperimental === undefined) {
             playerSocketInQueueExperimental = socket;
-            socket.emit('que', 1);
+            socket.emit('queueIn');
             socket.status = playerStatus.QUEUE;
         }
         else if(playerSocketInQueueExperimental !== socket) {
             socket.otherPlayer = playerSocketInQueueExperimental;
             playerSocketInQueueExperimental = undefined; // reset queue as fast as possible
-            socket.otherPlayer.otherPlayer = socket;
+            getOtherPlayer(socket).otherPlayer = socket;
 
             matchPlayers(socket);
 
-            consolelog('Match betwen:' + socket.name + ' and ' + socket.otherPlayer.name + '; mode: experimental');
+            consolelog('Match betwen:' + socket.name + ' and ' + getOtherPlayer(socket).name + '; mode: experimental');
         }
         else socket.emit('erro');
     }
@@ -142,16 +149,16 @@ function queue(socket){
 
 function matchPlayers(socket){
     socket.playerSymbole = playerSymbole.X;
-    socket.otherPlayer.playerSymbole = playerSymbole.O;
+    getOtherPlayer(socket).playerSymbole = playerSymbole.O;
 
-    socket.emit('que', 2, socket.playerSymbole, socket.otherPlayer.playerSymbole, socket.otherPlayer.name);
-    socket.otherPlayer.emit('que', 2, socket.otherPlayer.playerSymbole, socket.playerSymbole, socket.name);
+    socket.emit('queueOut', socket.playerSymbole, getOtherPlayer(socket).playerSymbole, getOtherPlayer(socket).name);
+    getOtherPlayer(socket).emit('queueOut', getOtherPlayer(socket).playerSymbole, socket.playerSymbole, socket.name);
 
     initSocket(socket);
     initSocket(socket.otherPlayer);
 
     socket.emit('startChat');
-    socket.otherPlayer.emit('startChat');
+    getOtherPlayer(socket).emit('startChat');
 }
 
 function sanitizeString(str) {
@@ -187,9 +194,9 @@ function socket_player_logic(io, serverId) {
 
         socket.on('dis', () => disconectPlayer(socket));
 
-        socket.on('conn', function(valu, mode){
+        socket.on('conn', function(playerName, mode) {
             if (socket.status !== playerStatus.IDLE) {
-                consolelog('Player ' + valu + ' tried to connect while already connected');
+                consolelog('Player ' + playerName + ' tried to connect while already connected');
                 return;
             }
             if (mode !== modes.undefined && Object.values(modes).includes(parseInt(mode))) {
@@ -198,7 +205,7 @@ function socket_player_logic(io, serverId) {
                 socket.emit('erro');
                 return;
             }
-            socket.name = sanitizeString(valu);
+            socket.name = sanitizeString(playerName);
             consolelog('Player ' + socket.name + ' connected for mode ' + mode);
             queue(socket);
         });
@@ -214,24 +221,24 @@ function socket_player_logic(io, serverId) {
             if(socket.mode === modes.NORMAL){
                 if(socket.playingFieldLinearRepresentation[linearTurnPosition] === false) {
                     socket.playingFieldLinearRepresentation[linearTurnPosition] = 1;
-                    socket.otherPlayer.playingFieldLinearRepresentation[linearTurnPosition] = 2;
-                    socket.turn = socket.otherPlayer.playerSymbole;
-                    socket.otherPlayer.turn = socket.otherPlayer.playerSymbole;
+                    getOtherPlayer(socket).playingFieldLinearRepresentation[linearTurnPosition] = 2;
+                    socket.turn = getOtherPlayer(socket).playerSymbole;
+                    getOtherPlayer(socket).turn = getOtherPlayer(socket).playerSymbole;
 
-                    socket.emit('turned', socket.playerSymbole, socket.otherPlayer.playerSymbole, linearTurnPosition);
-                    socket.otherPlayer.emit('turned', socket.playerSymbole, socket.otherPlayer.playerSymbole, linearTurnPosition);
+                    socket.emit('turned', socket.playerSymbole, getOtherPlayer(socket).playerSymbole, linearTurnPosition);
+                    getOtherPlayer(socket).emit('turned', socket.playerSymbole, getOtherPlayer(socket).playerSymbole, linearTurnPosition);
                 } else {
                     return;
                 }
             } else if(socket.mode === modes.EXPERIMENTAL){
                 if((socket.playingFieldLinearRepresentation[linearTurnPosition] === false) && (socket.amountOfTurns < 6)){
                     socket.playingFieldLinearRepresentation[linearTurnPosition] = 1;
-                    socket.otherPlayer.playingFieldLinearRepresentation[linearTurnPosition] = 2;
-                    socket.turn = socket.otherPlayer.playerSymbole;
-                    socket.otherPlayer.turn = socket.otherPlayer.playerSymbole;
+                    getOtherPlayer(socket).playingFieldLinearRepresentation[linearTurnPosition] = 2;
+                    socket.turn = getOtherPlayer(socket).playerSymbole;
+                    getOtherPlayer(socket).turn = getOtherPlayer(socket).playerSymbole;
 
-                    socket.emit('turned', socket.playerSymbole, socket.otherPlayer.playerSymbole, linearTurnPosition, '', 'move');
-                    socket.otherPlayer.emit('turned', socket.playerSymbole, socket.otherPlayer.playerSymbole, linearTurnPosition, '', 'move');
+                    socket.emit('turned', socket.playerSymbole, getOtherPlayer(socket).playerSymbole, linearTurnPosition, '', 'move');
+                    getOtherPlayer(socket).emit('turned', socket.playerSymbole, getOtherPlayer(socket).playerSymbole, linearTurnPosition, '', 'move');
                 }
                 else if(socket.amountOfTurns >= 6){
                     // logic for moving around the field
@@ -241,34 +248,34 @@ function socket_player_logic(io, serverId) {
                         socket.movingStatus = moveStatus.move;
 
                         socket.emit('turned', '', '', linearTurnPosition, '', 'red');
-                        socket.otherPlayer.emit('turned', '', '', linearTurnPosition, '', 'red');
+                        getOtherPlayer(socket).emit('turned', '', '', linearTurnPosition, '', 'red');
                     } else if((socket.movingStatus === moveStatus.move) && (linearTurnPosition === socket.positionToGetMoved)){
                         // remove the selection
                         socket.emit('turned', '', '', '', socket.positionToGetMoved, 'rem');
-                        socket.otherPlayer.emit('turned', '', '', '', socket.positionToGetMoved, 'rem');
+                        getOtherPlayer(socket).emit('turned', '', '', '', socket.positionToGetMoved, 'rem');
                         socket.movingStatus = moveStatus.select;
                         socket.positionToGetMoved = undefined;
                     }
                     else if((socket.movingStatus ===  moveStatus.move) && ((socket.playingFieldLinearRepresentation[linearTurnPosition] === 1))){
                         // select the position to move
                         socket.emit('turned', '', '', linearTurnPosition, socket.positionToGetMoved, 'chan');
-                        socket.otherPlayer.emit('turned', '', '', linearTurnPosition, socket.positionToGetMoved, 'chan');
+                        getOtherPlayer(socket).emit('turned', '', '', linearTurnPosition, socket.positionToGetMoved, 'chan');
                         socket.positionToGetMoved = linearTurnPosition;
                     }
                     else if((socket.movingStatus ===  moveStatus.move) && (socket.playingFieldLinearRepresentation[linearTurnPosition] === false)){
                         // move the selected position
                         socket.playingFieldLinearRepresentation[linearTurnPosition] = 1;
-                        socket.otherPlayer.playingFieldLinearRepresentation[linearTurnPosition] = 2;
+                        getOtherPlayer(socket).playingFieldLinearRepresentation[linearTurnPosition] = 2;
                         socket.playingFieldLinearRepresentation[socket.positionToGetMoved] = false;
-                        socket.otherPlayer.playingFieldLinearRepresentation[socket.positionToGetMoved] = false;
+                        getOtherPlayer(socket).playingFieldLinearRepresentation[socket.positionToGetMoved] = false;
 
-                        socket.turn = socket.otherPlayer.playerSymbole;
-                        socket.otherPlayer.turn = socket.otherPlayer.playerSymbole;
+                        socket.turn = getOtherPlayer(socket).playerSymbole;
+                        getOtherPlayer(socket).turn = getOtherPlayer(socket).playerSymbole;
                         socket.movingStatus = moveStatus.select;
                         socket.positionToGetMoved = undefined;
 
-                        socket.emit('turned', socket.playerSymbole, socket.otherPlayer.playerSymbole, linearTurnPosition, socket.positionToGetMoved, 'fin');
-                        socket.otherPlayer.emit('turned', socket.playerSymbole, socket.otherPlayer.playerSymbole, linearTurnPosition, socket.positionToGetMoved, 'fin');
+                        socket.emit('turned', socket.playerSymbole, getOtherPlayer(socket).playerSymbole, linearTurnPosition, socket.positionToGetMoved, 'fin');
+                        getOtherPlayer(socket).emit('turned', socket.playerSymbole, getOtherPlayer(socket).playerSymbole, linearTurnPosition, socket.positionToGetMoved, 'fin');
                     }
                 }
             }
@@ -314,44 +321,44 @@ function socket_player_logic(io, serverId) {
             //draw logic
             const newAmountOfTurns = Math.min(socket.amountOfTurns + 1, 9);
             socket.amountOfTurns = newAmountOfTurns;
-            socket.otherPlayer.amountOfTurns = newAmountOfTurns;
+            getOtherPlayer(socket).amountOfTurns = newAmountOfTurns;
             if(socket.mode === modes.NORMAL && socket.amountOfTurns === 9) {
                 resetPlayers(socket);
             }
         });
 
-        socket.on('resee', function(){
+        socket.on('reset', function(){
             socket.playingFieldLinearRepresentation = [false, false, false, false, false, false, false, false, false];
-            socket.otherPlayer.playingFieldLinearRepresentation = [false, false, false, false, false, false, false, false, false];
+            getOtherPlayer(socket).playingFieldLinearRepresentation = [false, false, false, false, false, false, false, false, false];
         });
 
         socket.on('rematch', function(){
-            socket.otherPlayer.emit('rematchask');
+            getOtherPlayer(socket).emit('rematchask');
         });
 
-        socket.on('rematchakkept', function(){
-            socket.emit('resett');
-            socket.otherPlayer.emit('resett');
+        socket.on('rematchAccept', function(){
+            socket.emit('reset');
+            getOtherPlayer(socket).emit('reset');
         });
 
-        socket.on('ping1', function(){
-            socket.emit('ping2');
+        socket.on('ping', function(){
+            socket.emit('pong');
         });
 
         socket.on('sendMessage', function(ff){
-            socket.otherPlayer.emit('receiveMessage', ff);
+            getOtherPlayer(socket).emit('receiveMessage', ff);
         });
 
         socket.on('publicKey', function(key){
-            socket.otherPlayer.emit('getKey', key);
+            getOtherPlayer(socket).emit('getKey', key);
         });
 
         socket.on('foc1', function(){
-            socket.otherPlayer.emit('foc2');
+            getOtherPlayer(socket).emit('foc2');
         });
 
         socket.on('blu1', function(){
-            socket.otherPlayer.emit('blu2');
+            getOtherPlayer(socket).emit('blu2');
         });
 
         socket.emit('serverRestart', serverId);
@@ -361,6 +368,15 @@ function socket_player_logic(io, serverId) {
 function consolelog(data){
     const date = new Date;
     console.log('[' + date.getDate() + '.' + (date.getMonth() + 1) + '-' + date.getHours() + ':' + date.getMinutes() + '] ' + data);
+}
+
+function getOtherPlayer(socket) {
+    if (socket && socket.otherPlayer) {
+        return socket.otherPlayer;
+    } else {
+        // Return a new object to avoid errors
+        return new Object();
+    }
 }
 
 module.exports = socket_player_logic;

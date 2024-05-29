@@ -255,7 +255,7 @@ i {
     border-radius: 5px;
     background: var(--bt-bg-color);
     outline: none;
-    transition: opacity .2s, background 500ms ease-in-out;
+    transition: opacity .2s, background-color 500ms ease-in-out;
 }
 
 .slide::-webkit-slider-thumb {
@@ -266,7 +266,7 @@ i {
     border-radius: 50%;
     background: var(--text);
     cursor: pointer;
-    transition: background 500ms ease-in-out;
+    transition: background-color 500ms ease-in-out;
 }
 
 .slide::-moz-range-thumb {
@@ -277,9 +277,8 @@ i {
     border-radius: 50%;
     background: var(--text);
     cursor: pointer;
-    transition: background 500ms ease-in-out;
+    transition: background-color 500ms ease-in-out;
 }
-
 
 #slid{
     margin-top: 15px;

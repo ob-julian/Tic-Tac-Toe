@@ -72,7 +72,8 @@
         <noscript>
             <link rel="stylesheet" href="css/non-critical.css">
         </noscript>
-        <script type="text/javascript" src="js/defer.js"></script>
+        <script type="text/javascript" src="js/defer.js" defer></script>
+        <script type="text/javascript" src="js/TTT_logic_classes.js" defer></script>
         <script type="text/javascript" src="js/instant.js"></script>
 
         <!--fontawesome stuff-->
@@ -82,15 +83,66 @@
         <script src="https://cdn.socket.io/4.7.5/socket.io.min.js" defer></script>
 
         <!--tags used by js-->
-        <script id="toBeAutoFilledScript"></script>
         <style type="text/css" id="chatt"></style>
         <style type="text/css" id="typingg"></style>
         <style type="text/css" id="patchh"></style>
+
+        <!--inline css for the color theme-->
+        <style>
+        :root {
+            --black: #2D3848;
+            --white: #f1f1f1;
+            --white-gray: #cfcfcf;
+            --black-gray: #565f6d;
+            --white50: rgba(255, 255, 255, 0.5);
+            --black50: rgba(0, 0, 0, 0.5);
+            --white20: rgba(255, 255, 255, 0.2);
+            --black20: rgba(0, 0, 0, 0.2);
+            --animationspeed: 750ms;
+            --animationspeed2: 600ms;
+        }
+
+        .light {
+            --bg: var(--white);
+            --text: var(--black);
+            --border: var(--black);
+            --bt-bg-color: var(--white-gray);
+            --line: var(--black50);
+            --button: var(--black20);
+        }
+
+        .dark {
+            --bg: var(--black);
+            --text: var(--white);
+            --border: var(--white);
+            --bt-bg-color: var(--black-gray);
+            --line: var(--white50);
+            --button: var(--white20);
+        }
+
+        body {
+            margin: 0;
+            color: var(--text);
+            background-color: var(--bg);
+            overflow: hidden;
+        }
+
+        /* Disable transitions initially */
+        .no-transitions * {
+            transition: none !important;
+        }
+
+        /* Enable transitions for theme change */
+        .with-transitions {
+            transition: background-color 500ms ease-in-out, color 1000ms ease-in-out;
+        }
+
+        </style>
     </head>
-    <body class="light">
+    <body class="light no-transitions">
         <div id="js-enabled">
             <script>
-                // This script load when the boda starts loading
+                // This script load when the body starts loading
                 // So setting the color theme here so it is loaded as soon as possible
                 let themeColor = localStorage.getItem('themeColor');
                 if(themeColor === null) {
@@ -101,13 +153,16 @@
                     document.body.classList.remove('light');
                     document.body.classList.add('dark');
                 }
-                 // hide the body until everything is loaded, to prevent flickering when changing the language
+                // hide the body until everything is loaded, to prevent flickering when changing the language
                 document.body.style.visibility = 'hidden';
-                window.addEventListener('load', function() {
+                window.addEventListener('DOMContentLoaded', function() {
                     document.body.style.visibility = 'visible';
+                    document.body.classList.remove('no-transitions');
+                    document.body.classList.add('with-transitions');
                 });
             </script>
             <noscript>
+                <!-- Load default browser theme if JavaScript is disabled -->
                 <style>
                     @media (prefers-color-scheme: dark) {
                         body {
@@ -149,10 +204,10 @@
                 </div>
                 <br>
                 <div id="slid" class="lider">
-                    <input type="range" name="slide" min="0" max="5000" value="1500" step="2" onchange="changeanimationspeed(this.value);" class="slide">
+                    <input type="range" name="slide" min="0" max="5000" value="1500" step="2" onchange="changeAnimationSpeed(this.value);" class="slide">
                     <br>
-                    <i class="fas fa-angle-double-right linkss" onclick="document.getElementsByClassName('slide')[0].value = 0; changeanimationspeed(0);"></i>
-                    <i class="fas fa-angle-right rechts" onclick="document.getElementsByClassName('slide')[0].value = 5000; changeanimationspeed(5000);"></i>
+                    <i class="fas fa-angle-double-right linkss" onclick="document.getElementsByClassName('slide')[0].value = 0; changeAnimationSpeed(0);"></i>
+                    <i class="fas fa-angle-right rechts" onclick="document.getElementsByClassName('slide')[0].value = 5000; changeAnimationSpeed(5000);"></i>
 
                 </div>
             </div>
@@ -229,7 +284,7 @@
                 <div class="wahl">
                     <div class="box">
                         <a href="#experimental-area">
-                            <div class="btn moveLeftElement" onclick="">
+                            <div class="btn moveLeftElement">
                                 <span>Einzelspieler (WiP)</span>
                             </div>
                         </a>
@@ -238,7 +293,7 @@
                     <br>
                     <div class="box">
                         <a href="#experimental-local-multiplayer">
-                            <div class="btn moveRightElement" onclick="async function fadeout(){fadebutton(true);await sleep(animationspeed);experloc();await sleep(100);fadebutton(false);}fadeout();">
+                            <div class="btn moveRightElement">
                                 <span>Lokaler Mehrspieler</span>
                             </div>
                         </a>
@@ -247,7 +302,7 @@
                     <br>
                     <div class="box">
                         <a href="#experimental-multiplayer">
-                            <div class="btn moveLeftElement" onclick="async function fadeout(){fadebutton(true);await sleep(animationspeed);expermp();await sleep(100);fadebutton(false);}fadeout();">
+                            <div class="btn moveLeftElement">
                                 <span>Online Mehrspieler</span>
                             </div>
                         </a>
@@ -272,15 +327,16 @@
                     </div>
                 </div>
                 <div class="box">
-                    <div class="back btn moveLeftElement" onclick="backButton(); try{dis()}catch(ef){}">
+                    <div class="back btn moveLeftElement" onclick="backButton(); disconnect()">
                         <span>Zurück</span>
                     </div>
                 </div>
             </div>
             <div id="div2" class="nop overhid">
                 <div class="center">
-                    <h2>Waiting for other Player</h2>
+                    <h2>Warte auf Spieler</h2>
                 </div>
+                <!--Waiting Animation-->
                 <div class="sk-div groser">
                     <div class="sk-circle">
                         <div class="sk-circle1 sk-child"></div>
@@ -298,7 +354,7 @@
                     </div>
                 </div>
                 <div class="box">
-                    <div class="back btn moveLeftElement" onclick="backButton(); try{dis()}catch(ef){};">
+                    <div class="back btn moveLeftElement" onclick="backButton(); disconnect()">
                         <span>Zurück</span>
                     </div>
                 </div>
@@ -328,13 +384,13 @@
                         </table>
                     </div>
                     <div class="center">
-                        <h2 class="headline" id="turn">Turn: O</h2>
+                        <h2 class="headline" id="turn">Turn: X</h2>
                         <h3>Score:</h3>
                         <h4 id="score">X: 0 vs. O: 0</h4>
                     </div>
                 </div>
                 <div class="box">
-                    <div class="back btn moveLeftElement" onclick="backButton(); try{dis()}catch(ef){};">
+                    <div class="back btn moveLeftElement" onclick="backButton(); disconnect()">
                         <span>Zurück</span>
                     </div>
                 </div>
@@ -342,7 +398,7 @@
                     <div class="btn moveRightElement" id="reset" onclick="rematch()">
                         <span>Rematch</span>
                     </div>
-                    <div class="btn nop moveRightElement" id="chat" onclick="chating()">
+                    <div class="btn nop moveRightElement" id="chat" onclick="chatting()">
                         <i class="far fa-comment" id="cha"></i>
                     </div>
                 </div>
@@ -356,7 +412,7 @@
                 <div class="wahl">
                     <div class="box">
                         <a href="#easyBot">
-                            <div class="btn moveLeftElement" onclick="async function fadeout(){fadebutton(true);await sleep(animationspeed);ein();await sleep(100);fadebutton(false);}fadeout();">
+                            <div class="btn moveLeftElement">
                                 <span>Einfach</span>
                             </div>
                         </a>
@@ -365,7 +421,7 @@
                     <br>
                     <div class="box">
                         <a href="#mediumBot">
-                            <div class="btn moveRightElement" onclick="async function fadeout(){fadebutton(true);await sleep(animationspeed);mit();await sleep(100);fadebutton(false);}fadeout();">
+                            <div class="btn moveRightElement">
                                 <span>Mittel</span>
                             </div>
                         </a>
@@ -374,7 +430,7 @@
                     <br>
                     <div class="box">
                         <a href="#hardBot">
-                            <div class="btn moveLeftElement" onclick="async function fadeout(){fadebutton(true);await sleep(animationspeed);schw();await sleep(100);fadebutton(false);}fadeout();">
+                            <div class="btn moveLeftElement">
                                 <span>Schwer/Unmöglich</span>
                             </div>
                         </a>
@@ -390,15 +446,15 @@
             </div>
             <div id="myModal" class="modal nop">
                 <div class="modal-content">
-                    <span class="close" onclick="sp()">&times;</span>
+                    <span class="close" onclick="closeModal()">&times;</span>
                     <div class="center">
                         <h2 id="mote"></h2>
                     </div>
                 </div>
             </div>
-            <div id="chatmodal" class="modal nop">
+            <div id="chatModal" class="modal nop">
                 <div class="chat-window">
-                    <span class="close2" onclick="closechat()">&times;</span>
+                    <span class="close2" onclick="closehat()">&times;</span>
                     <span id="chat-content">
                         <div class="center">
                             <b>Du bist nicht Online!</b>
@@ -407,8 +463,8 @@
                         </div>
                     </span>
                     <div id="chatinput">
-                        <input type="text" id="chatinputbox" name="chatinput" onblur="try{blu()}catch(ef){}" onfocus="try{foc()}catch(ef){}">
-                        <i onclick="try{sen()}catch(ef){}" id="sendd" class="fas fa-location-arrow"></i>
+                        <input type="text" id="chatinputbox" name="chatinput" onblur="onBlur()" onfocus="onFocus()">
+                        <i onclick="sendMsg()" id="sendd" class="fas fa-location-arrow"></i>
                     </div>
                 </div>
             </div>
@@ -427,7 +483,7 @@
             </div>
             <div id="patch" class="modal nop">
                 <div class="patch-window">
-                    <span class="close2 timm" onclick="closepatch()">&times;</span>
+                    <span class="close2 timm" onclick="closePatch()">&times;</span>
                     <div class="center">
                         <h3>Patch Notes:</h3>
                     </div>

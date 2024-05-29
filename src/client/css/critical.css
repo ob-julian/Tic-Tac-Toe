@@ -1,11 +1,3 @@
-body {
-    margin: 0;
-    color: var(--text);
-    background: var(--bg);
-    transition: background 500ms ease-in-out, color 1000ms ease-in-out;
-    overflow: hidden;
-}
-
 button {
     padding: 10px;
 }
@@ -150,34 +142,3 @@ tr:last-child {
         }
     }
 }*/
-
-:root {
-    --black: #2D3848;
-    --white: #f1f1f1;
-    --white-gray: #cfcfcf;
-    --black-gray: #565f6d;
-    --white50: rgba(255, 255, 255, 0.5);
-    --black50: rgba(0, 0, 0, 0.5);
-    --white20: rgba(255, 255, 255, 0.2);
-    --black20: rgba(0, 0, 0, 0.2);
-    --animationspeed: 750ms;
-    --animationspeed2: 600ms;
-}
-
-.light {
-    --bg: var(--white);
-    --text: var(--black);
-    --border: var(--black);
-    --bt-bg-color: var(--white-gray);
-    --line: var(--black50);
-    --button: var(--black20);
-}
-
-.dark {
-    --bg: var(--black);
-    --text: var(--white);
-    --border: var(--white);
-    --bt-bg-color: var(--black-gray);
-    --line: var(--white50);
-    --button: var(--white20);
-}
