@@ -155,18 +155,20 @@ i {
     border: 1px solid var(--border);
     margin: 0;
     position: absolute;
-    right: 0;
-    height: calc(100vh - 42px);
+    right: 1px;
+    height: calc(100vh - 47px);
     height: -webkit-fill-available;
     display: inline;
     padding-right: 25px;
     transform: translateX(101%);
     transition-duration: var(--animationSpeed);
+    box-sizing: border-box;
 }
 
 
 #chat-window {
-    width: calc(50% - 42px);
+    width: 50%;
+    height: 100%;
 }
 
 #patch-window{
@@ -201,16 +203,18 @@ i {
 }
 
 #chat-content {
-    height: calc(100% - 88px);
-    width: calc(100% - 37px);
+    height: calc(100% - 49px);
+    width: 100%;
     overflow: auto;
     overflow: overlay;
     position: inherit;
     z-index: 10;
     color: var(--text);
-    padding: 10px;
+    padding: 25px;
     right: 0;
+    top: 0;
     padding-right: 27px;
+    box-sizing: border-box;
 }
 
 
@@ -633,6 +637,12 @@ i {
     padding-right: 25px;
     width: fit-content;
     max-width: 80%;
+    max-height: 80%;
+    overflow: auto;
+    box-sizing: border-box;
+}
+
+#modalContentWindow {
 }
 
 #closeModal {
@@ -700,4 +710,34 @@ i {
     width: 100%;
     z-index: -1;
 
+}
+
+
+/* scrollbars */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.4);
+    }
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: var(--opposite);
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--lightOpposite);
+} 
+
+/*Firefox "equal"*/
+html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--opposite) rgba(0, 0, 0, 0.4);
 }

@@ -60,6 +60,10 @@ tr:last-child {
     unicode-bidi: isolate;
 }
 
+#smallScreenSizeContent {
+    padding: 10px;
+}
+
 @media (max-width:540px) {
     .back, #reset {
         width: 46%;
@@ -111,34 +115,28 @@ tr:last-child {
 
 }
 
-/*@media (max-width: 399px){
+@media (max-width: 399px){
     #noacc{
         display: block;
     }
-    #div0, #div2, #div1, #singel, #myModal, #chatmodal{
+    #normalScreenSizeContent {
         display: none !important;
-    }
-    #multiplayer{
-        z-index: 100;
     }
 }
 
 @media (max-height: 599px){
-    @media (max-width: 499px){
+    #normalScreenSizeContent {
+        display: none !important;
+    }
+    @media (max-width: 599px){
         #noacc{
             display: block;
         }
-        #multiplayer{
-        z-index: 100;
-    }
     }
     @media (min-width: 600px){
         #rota{
             display: block;
             width: 100%
         }
-        #multiplayer{
-            z-index: 100;
-        }
     }
-}*/
+}
