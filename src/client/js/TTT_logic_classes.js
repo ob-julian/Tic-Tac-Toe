@@ -109,10 +109,10 @@ class LocalMultiplayer {
     }
 
     tutorialJa() {
-        showAlert('<b>Anleitung</b><br><br>Ihr (also du und dein Gegner) setzt jeweils  abwechselnd euer Zeichen (<span style=\'color:#50ff1e\'>X</span> und <span style=\'color:#50ff1e\'>O</span>).<br> Ziel ist es, als erstes 3 von seinen Zeichen in einer Reihe, Spalte oder Diargonalen zu haben.<br><br><div  align=\'left\' style=\'float:left;\'><button onclick=\'closeModal()\'>Ok</button></div><div  align=\'right\' style=\'margin-bottom: -18px;\'><button onclick=\'anination()\'>Animation</button></div>', false);
+        showAlert('<b>Anleitung</b><br><br>Ihr (also du und dein Gegner) setzt jeweils  abwechselnd euer Zeichen (<span style=\'color:#50ff1e\'>X</span> und <span style=\'color:#50ff1e\'>O</span>).<br> Ziel ist es, als erstes 3 von seinen Zeichen in einer Reihe, Spalte oder Diagonalen zu haben.<br><br><div  align=\'left\' style=\'float:left;\'><button onclick=\'closeModal()\'>Ok</button></div><div  align=\'right\' style=\'margin-bottom: -18px;\'><button onclick=\'animation()\'>Animation</button></div>', false);
     }
 
-    async anination(){
+    async animation(){
         const bac = document.getElementsByClassName('back');
         for(let i = 0; i < 4; i++)
             bac[i].style.display = 'none';
@@ -234,10 +234,10 @@ class ExperimentalLocalMultiplayer extends LocalMultiplayer {
     }
 
     tutorialJa() {
-        showAlert('<b>Anleitung</b><br><br>Ihr (also du und dein Gegner) setzt jeweils  abwechselnd euer Zeichen (<span style=\'color:#50ff1e\'>X</span> und <span style=\'color:#50ff1e\'>O</span>).<br> Ziel ist es, als erstes 3 von seinen Zeichen in einer Reihe, Spalte oder Diargonalen zu haben.<br>Der Unterschied zum normalen Spiel besteht jedoch darin, dass jeder nur 3 Zeichen besitzt.<br>Wenn alle gesetzt worden sind, werden die Zeichen auf den Feldern solange versetzt, bis einer Gewonnen hat.<br><br><div  align=\'left\' style=\'float:left;\'><button onclick=\'closeModal()\'>Ok</button></div><div  align=\'right\' style=\'margin-bottom: -18px;\'><button onclick=\'anination()\'>Animation</button></div>', false);
+        showAlert('<b>Anleitung</b><br><br>Ihr (also du und dein Gegner) setzt jeweils  abwechselnd euer Zeichen (<span style=\'color:#50ff1e\'>X</span> und <span style=\'color:#50ff1e\'>O</span>).<br> Ziel ist es, als erstes 3 von seinen Zeichen in einer Reihe, Spalte oder Diagonalen zu haben.<br>Der Unterschied zum normalen Spiel besteht jedoch darin, dass jeder nur 3 Zeichen besitzt.<br>Wenn alle gesetzt worden sind, werden die Zeichen auf den Feldern solange versetzt, bis einer Gewonnen hat.<br><br><div  align=\'left\' style=\'float:left;\'><button onclick=\'closeModal()\'>Ok</button></div><div  align=\'right\' style=\'margin-bottom: -18px;\'><button onclick=\'animation()\'>Animation</button></div>', false);
     }
 
-    async anination() {
+    async animation() {
         const bac = document.getElementsByClassName('back');
         for(let i = 0; i < 4; i++)
             bac[i].style.display = 'none';
