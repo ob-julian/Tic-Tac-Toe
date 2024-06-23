@@ -194,7 +194,7 @@ function socket_player_logic(io, serverId) {
 
         socket.on('dis', () => disconectPlayer(socket));
 
-        socket.on('conn', function(playerName, mode) {
+        socket.on('conn', (playerName, mode) => {
             if (socket.status !== playerStatus.IDLE) {
                 consolelog('Player ' + playerName + ' tried to connect while already connected');
                 return;
@@ -210,7 +210,7 @@ function socket_player_logic(io, serverId) {
             queue(socket);
         });
 
-        socket.on('turn', function(linearTurnPosition){
+        socket.on('turn', (linearTurnPosition) => {
             if (socket.status !== playerStatus.PLAYING || socket.mode === modes.undefined) {
                 socket.emit('erro');
                 return;
@@ -327,37 +327,37 @@ function socket_player_logic(io, serverId) {
             }
         });
 
-        socket.on('reset', function(){
+        socket.on('reset', () => {
             socket.playingFieldLinearRepresentation = [false, false, false, false, false, false, false, false, false];
             getOtherPlayer(socket).playingFieldLinearRepresentation = [false, false, false, false, false, false, false, false, false];
         });
 
-        socket.on('rematch', function(){
+        socket.on('rematch', () => {
             getOtherPlayer(socket).emit('rematchask');
         });
 
-        socket.on('rematchAccept', function(){
+        socket.on('rematchAccept', () => {
             socket.emit('reset');
             getOtherPlayer(socket).emit('reset');
         });
 
-        socket.on('ping', function(){
+        socket.on('ping', () => {
             socket.emit('pong');
         });
 
-        socket.on('sendMessage', function(ff){
+        socket.on('sendMessage', (ff) => {
             getOtherPlayer(socket).emit('receiveMessage', ff);
         });
 
-        socket.on('publicKey', function(key){
+        socket.on('publicKey', (key) => {
             getOtherPlayer(socket).emit('getKey', key);
         });
 
-        socket.on('foc1', function(){
+        socket.on('foc1', () => {
             getOtherPlayer(socket).emit('foc2');
         });
 
-        socket.on('blu1', function(){
+        socket.on('blu1', () => {
             getOtherPlayer(socket).emit('blu2');
         });
 
