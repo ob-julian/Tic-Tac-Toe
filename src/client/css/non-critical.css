@@ -1,5 +1,5 @@
 .moveRightElement, .moveLeftElement {
-    transition: transform var(--animationspeed2) cubic-bezier(0.75, 0, 1, 1)!important;
+    transition: transform var(--animationSpeed2) cubic-bezier(0.75, 0, 1, 1)!important;
 }
 
 .recht {
@@ -16,7 +16,7 @@
 
 .fadeElement {
     opacity: 1;
-    transition: opacity var(--animationspeed2) cubic-bezier(0.75, 0, 1, 1);
+    transition: opacity var(--animationSpeed2) cubic-bezier(0.75, 0, 1, 1);
 }
 
 #help {
@@ -25,9 +25,10 @@
     top: 5px;
     margin: 0;
     cursor: pointer;
+    font-size: 1.5em;
 }
 
-#help>h1 {
+#help>h2 {
     margin: 0;
 }
 
@@ -148,23 +149,27 @@ i {
     display: none;
 }
 
-.chat-window, .patch-window {
+#chat-window, #patch-window {
     background-color: var(--bg);
     padding: 20px;
-    border: 1px solid #888;
+    border: 1px solid var(--border);
     margin: 0;
     position: absolute;
     right: 0;
-    height: calc(100vh - 40px);
+    height: calc(100vh - 42px);
     height: -webkit-fill-available;
-    width: 50%;
     display: inline;
     padding-right: 25px;
     transform: translateX(101%);
-    transition-duration: var(--animationspeed);
+    transition-duration: var(--animationSpeed);
 }
 
-.patch-window{
+
+#chat-window {
+    width: calc(50% - 42px);
+}
+
+#patch-window{
     width: auto;
     overflow: auto;
     max-width: 900px;
@@ -175,7 +180,7 @@ i {
 }
 
 #chatinput {
-    bottom: calc(-100% + 60px);
+    bottom: calc(-100% + 61px);
     right: 20px;
     position: relative;
     width: calc(100% + 45px);
@@ -192,6 +197,7 @@ i {
     user-select: none;
     outline: 0;
     color: var(--text);
+    border-color: var(--bt-bg-color);
 }
 
 #chat-content {
@@ -220,9 +226,9 @@ i {
     line-height: 49px !important;
 }
 
-#chatmodal, #patch {
+#chatModal, #patch {
     overflow: hidden;
-    transition: background-color var(--animationspeed) ease-out;
+    transition: background-color var(--animationSpeed) ease-out;
     background-color: rgba(0, 0, 0, 0);
     z-index: 100;
 }
@@ -255,7 +261,7 @@ i {
     border-radius: 5px;
     background: var(--bt-bg-color);
     outline: none;
-    transition: opacity .2s, background-color 500ms ease-in-out;
+    transition: opacity .2s, background-color var(--animationSpeed) ease-in-out;
 }
 
 .slide::-webkit-slider-thumb {
@@ -266,7 +272,7 @@ i {
     border-radius: 50%;
     background: var(--text);
     cursor: pointer;
-    transition: background-color 500ms ease-in-out;
+    transition: background-color var(--animationSpeed) ease-in-out;
 }
 
 .slide::-moz-range-thumb {
@@ -277,7 +283,7 @@ i {
     border-radius: 50%;
     background: var(--text);
     cursor: pointer;
-    transition: background-color 500ms ease-in-out;
+    transition: background-color var(--animationSpeed) ease-in-out;
 }
 
 #slid{
@@ -467,7 +473,7 @@ i {
 }
 
 .groser{
-    transition: width var(--animationspeed) linear, height var(--animationspeed) linear;
+    transition: width var(--animationSpeed) linear, height var(--animationSpeed) linear;
 }
 
 .kein{
@@ -567,6 +573,11 @@ i {
     transform: scale(0.1, 1);
 }
 
+.btn.disabled, .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 .modal {
     display: none;
     position: fixed;
@@ -624,7 +635,7 @@ i {
     max-width: 80%;
 }
 
-.close {
+#closeModal {
     color: #aaa;
     float: right;
     font-size: 28px;
@@ -634,13 +645,13 @@ i {
     right: 9px;
 }
 
-.close:hover, .close:focus {
-    color: black;
+#closeModal:hover, #closeModal:focus, .closeBigPannel:hover, .closeBigPannel:focus {
+    color: var(--text);
     text-decoration: none;
     cursor: pointer;
 }
 
-.close2 {
+.closeBigPannel {
     color: #aaa;
     float: left;
     font-size: 28px;
@@ -648,12 +659,6 @@ i {
     position: relative;
     top: -24px;
     left: -16px;
-}
-
-.close2:hover, .close2:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
 }
 
 .timm{

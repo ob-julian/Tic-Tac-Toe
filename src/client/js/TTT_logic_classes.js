@@ -34,6 +34,8 @@ class LocalMultiplayer {
         this.player1 = new Player();
         this.player2 = new Player();
 
+        this.isAnimating = false;
+
         this._reset_GUI();
         document.getElementById('score').innerHTML = 'X: ' + this.player1.score + ' vs. O: ' + this.player2.score;
     }
@@ -50,7 +52,10 @@ class LocalMultiplayer {
     _makeUncheckedMove(index) {
         this.board[index] = this.turn;
         this.moves++;
-        document.getElementById('a' + index).innerHTML = this.turn;
+        if (!this.isAnimating) {
+            // only update GUI if not animating
+            document.getElementById('a' + index).innerHTML = this.turn;
+        }
     }
 
     _afterTurn() {
@@ -99,7 +104,7 @@ class LocalMultiplayer {
         document.getElementById('reset').style = 'visibility:visible';
     }
 
-    rematch() {
+    rematchAsked() {
         this.reset();
     }
 
@@ -112,14 +117,47 @@ class LocalMultiplayer {
         showAlert('<b>Anleitung</b><br><br>Ihr (also du und dein Gegner) setzt jeweils  abwechselnd euer Zeichen (<span style=\'color:#50ff1e\'>X</span> und <span style=\'color:#50ff1e\'>O</span>).<br> Ziel ist es, als erstes 3 von seinen Zeichen in einer Reihe, Spalte oder Diagonalen zu haben.<br><br><div  align=\'left\' style=\'float:left;\'><button onclick=\'closeModal()\'>Ok</button></div><div  align=\'right\' style=\'margin-bottom: -18px;\'><button onclick=\'animation()\'>Animation</button></div>', false);
     }
 
-    async animation(){
-        const bac = document.getElementsByClassName('back');
-        for(let i = 0; i < 4; i++)
-            bac[i].style.display = 'none';
-            document.getElementById('help').style.display = 'none';
-        for(let www = 0; www < 9; www++)
+    async animation() {
+        this.animationInit();
+        await this.animationSteps();
+        this.animationEnd();
+    }
+
+    animationInit() {
+        this.isAnimating = true;
+        const allBackButtons = document.getElementsByClassName('back');
+
+        document.getElementById('help').style.display = 'none';
+        document.getElementById('infoscreen').style.display = 'none';
+
+        for(let backBut of allBackButtons) {
+            backBut.style.display = 'none';
+        }
+        for(let www = 0; www < 9; www++) {
             document.getElementById('a' + www).innerHTML = '';
-        closeModal();
+        }
+        // cloase modal
+        modal.style.display = 'none';
+    }
+
+    animationEnd() {
+        this.isAnimating = false;
+        const allBackButtons = document.getElementsByClassName('back');
+
+        document.getElementById('help').style.display = 'block';
+        document.getElementById('infoscreen').style.display = 'block';
+
+        // reinstating the board
+        for(let i = 0; i < 9; i++) {
+            document.getElementById('a' + i).innerHTML = this.board[i];
+        }
+        for(let backBut of allBackButtons) {
+            backBut.removeAttribute('style');
+        }
+        this.tutorialJa();
+    }
+
+    async animationSteps(){
         await sleep(500);
         document.getElementById('a0').innerHTML = 'X';
         await sleep(1000);
@@ -151,13 +189,6 @@ class LocalMultiplayer {
         document.getElementById('a3').innerHTML = 'X';
         document.getElementById('a6').innerHTML = 'X';
         await sleep(500);
-        // reinstating the board
-        for(let i = 0; i < 9; i++)
-            document.getElementById('a' + i).innerHTML = '';
-        document.getElementById('help').style.display = 'block';
-        for(let i = 0; i < 4; i++)
-            bac[i].removeAttribute('style');
-        this.tutorialJa();
     }
 
     reset() {
@@ -237,14 +268,15 @@ class ExperimentalLocalMultiplayer extends LocalMultiplayer {
         showAlert('<b>Anleitung</b><br><br>Ihr (also du und dein Gegner) setzt jeweils  abwechselnd euer Zeichen (<span style=\'color:#50ff1e\'>X</span> und <span style=\'color:#50ff1e\'>O</span>).<br> Ziel ist es, als erstes 3 von seinen Zeichen in einer Reihe, Spalte oder Diagonalen zu haben.<br>Der Unterschied zum normalen Spiel besteht jedoch darin, dass jeder nur 3 Zeichen besitzt.<br>Wenn alle gesetzt worden sind, werden die Zeichen auf den Feldern solange versetzt, bis einer Gewonnen hat.<br><br><div  align=\'left\' style=\'float:left;\'><button onclick=\'closeModal()\'>Ok</button></div><div  align=\'right\' style=\'margin-bottom: -18px;\'><button onclick=\'animation()\'>Animation</button></div>', false);
     }
 
-    async animation() {
-        const bac = document.getElementsByClassName('back');
-        for(let i = 0; i < 4; i++)
-            bac[i].style.display = 'none';
-        document.getElementById('help').style.display = 'none';
-        for(let www = 0; www < 9; www++)
-            document.getElementById('a' + www).innerHTML = '';
-        closeModal();
+    animationEnd() {
+        super.animationEnd();
+        // reinstate possible selected field
+        if (this.selectedField !== null) {
+            document.getElementById('a' + this.selectedField).style.color = 'red';
+        }
+    }
+
+    async animationSteps() {
         await sleep(500);
         document.getElementById('a0').innerHTML = 'X';
         await sleep(1000);
@@ -286,12 +318,6 @@ class ExperimentalLocalMultiplayer extends LocalMultiplayer {
         document.getElementById('a4').innerHTML = 'O';
         document.getElementById('a7').innerHTML = 'O';
         await sleep(500);
-        // reinstating the board
-        for(let i = 0; i < 9; i++)
-            document.getElementById('a' + i).innerHTML = '';
-        document.getElementById('help').style.display = 'block';
-        for(let i = 0; i < 4; i++) bac[i].removeAttribute('style');
-        this.tutorialJa();
     }
 
     nochNichtGespielt(){
@@ -617,7 +643,7 @@ class OnlineMultiplayer extends LocalMultiplayer {
     constructor() {
         super();
         this.socket = io(host);
-        this.rematch = false;
+        this.rematchAsked = false;
         this.isOnline = false;
         this.inChatInput = false;
         this.publicKey = null;
@@ -642,17 +668,18 @@ class OnlineMultiplayer extends LocalMultiplayer {
     }
 
     rematch() {
-        if (this.rematch) {
+        if (!this.rematchAsked) {
             this.socket.emit('rematch');
-            document.getElementById('reset').disabled = true;
+            document.getElementById('reset').classList.add('disabled');
         } else {
             this.socket.emit('rematchAccept');
         }
     }
 
     reset() {
+        document.getElementById('reset').style = 'visibility:hidden';
         this.socket.emit('reset');
-        this.rematch = false;
+        this.rematchAsked = false;
         super.reset();
     }
 
@@ -671,6 +698,7 @@ class OnlineMultiplayer extends LocalMultiplayer {
     initSocket() {
         // this.socket events
         this.socket.on('queueIn', async () => {
+            // Event when player is in queue
             if (('Notification' in window) && Notification.permission !== 'denied' && Notification.permission !== 'granted') {
                 Notification.requestPermission();
                 showAlert('Hallo, wenn du dem Popup zur Benachrichtigungsberechtigung zustimmst, erhältst du nur Nachrichten, wenn ein Gegner gefunden wird, während du in der Warteschlange bist.<br>Bei Ablehnung wirst du nicht nochmals gefragt.');
@@ -689,6 +717,7 @@ class OnlineMultiplayer extends LocalMultiplayer {
         });
 
         this.socket.on('queueOut', async (playerSymbol, enemySymbol, enemyName) => {
+            // Event when player finds an enemy
             this.player1.symbol = playerSymbol;
             this.player2.symbol = enemySymbol;
             this.player2.name = enemyName;
@@ -705,6 +734,7 @@ class OnlineMultiplayer extends LocalMultiplayer {
                 document.getElementById('help').style.display = 'block';
                 document.getElementById('chat').style.display = 'block';
                 document.getElementById('score').innerHTML = playerSymbol + ': 0 vs. ' + enemySymbol + ': 0';
+                document.getElementById('pin').style.display = 'block';
             })();
 
             showAlert('Gegner: ' + enemyName);
@@ -744,15 +774,14 @@ class OnlineMultiplayer extends LocalMultiplayer {
         });
 
         this.socket.on('rematchask', () => {
-            document.getElementById('reset').innerHTML = 'Accept Rematch';
-            this.rematch = true;
+            document.getElementById('reset').innerHTML = 'Rematch Akzeptieren';
+            this.rematchAsked = true;
         });
 
         this.socket.on('reset', () => {
-            document.getElementById('reset').innerHTML = 'Rematch';
-            this.rematch = false;
-            document.getElementById('reset').disabled = false;
             this.reset();
+            document.getElementById('reset').innerHTML = 'Rematch';
+            document.getElementById('reset').classList.remove('disabled');
         });
 
         this.socket.on('turnreset', () => {
@@ -864,7 +893,7 @@ class OnlineMultiplayer extends LocalMultiplayer {
         if(this.noFillter){
             chat.style.display = 'block';
             await sleep(100);
-            document.getElementsByClassName('chat-window')[0].classList.add('movechat');
+            document.getElementById('chat-window').classList.add('movechat');
             chat.classList.add('chatopa');
             this.unread(0);
             this.unreadMessages = 0;
@@ -880,7 +909,7 @@ class OnlineMultiplayer extends LocalMultiplayer {
     }
 
     async closeChat(){
-        document.getElementsByClassName('chat-window')[0].classList.remove('movechat');
+        document.getElementById('chat-window').classList.remove('movechat');
         chat.classList.remove('chatopa');
         this.inOpenChat = false;
         this.inChatInput = false;
@@ -1009,7 +1038,7 @@ class OnlineMultiplayer extends LocalMultiplayer {
         localStorage.setItem('nofillter', true);
         chat.style.display = 'block';
         await sleep(100);
-        document.getElementsByClassName('chat-window')[0].classList.add('movechat');
+        document.getElementById('chat-window').classList.add('movechat');
         chat.classList.add('chatopa');
         this.unread(0);
         this.unreadMessages = 0;

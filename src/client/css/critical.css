@@ -13,12 +13,12 @@ tr, td {
 
 tr {
     border-bottom: 10px solid var(--border);
-    transition: border 1000ms ease-in-out;
+    transition: border var(--animationSpeed) ease-in-out;
 }
 
 td {
     border-right: 10px solid var(--border);
-    transition: border 1000ms ease-in-out;
+    transition: border var(--animationSpeed) ease-in-out;
     -ms-user-select: None;
     -moz-user-select: None;
     -webkit-user-select: None;

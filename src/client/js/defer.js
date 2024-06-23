@@ -5,98 +5,78 @@
 /* exported los, rematch, changeAnimationSpeed, help, pat, backButton, neu, disconnect, chatting, onBlur, onFocus, sendMsg, chatOk, tutorialJa, tutorialNein, closeModal, showAlert, anination, experimentalTutorialDisableHint, switchTheme, fadebutton */
 
 // ttt wrapper for class based game modes
-function los(index) {
-    if(activeGameMode) {
-        activeGameMode.makeMove(index);
+function executeGameModeMethod(methodName, requiredClass = null, ...args) {
+    if (activeGameMode && (!requiredClass || activeGameMode instanceof requiredClass)) {
+        activeGameMode[methodName]?.(...args);
     }
+}
+
+// Simplified function calls
+function los(index) {
+    executeGameModeMethod('makeMove', null, index);
 }
 
 function rematch() {
-    if(activeGameMode) {
-        activeGameMode.rematch();
-    }
+    executeGameModeMethod('rematch');
 }
 
 function help() {
-    if(activeGameMode) {
-        activeGameMode.help();
-    }
+    executeGameModeMethod('help');
 }
 
 function tutorialJa() {
-    if(activeGameMode) {
-        activeGameMode.tutorialJa();
-    }
+    executeGameModeMethod('tutorialJa');
 }
 
 function tutorialNein() {
     closeModal();
-    document.getElementById('help').style.display = 'block';
 }
 
-function anination() {
-    if(activeGameMode) {
-        activeGameMode.animation();
-    }
+function animation() {
+    executeGameModeMethod('animation');
 }
 
 function neu() {
-    if(activeGameMode instanceof OnlineMultiplayer) {
-        activeGameMode.neu();
-    }
+    executeGameModeMethod('neu', OnlineMultiplayer);
 }
 
 function disconnect() {
-    if(activeGameMode instanceof OnlineMultiplayer) {
-        activeGameMode.disconnect();
-    }
+    executeGameModeMethod('disconnect', OnlineMultiplayer);
 }
 
 function chatting() {
-    if(activeGameMode instanceof OnlineMultiplayer) {
-        activeGameMode.chatting();
-    }
+    executeGameModeMethod('chatting', OnlineMultiplayer);
 }
 
 function closeChat() {
-    if(activeGameMode instanceof OnlineMultiplayer) {
-        activeGameMode.closeChat();
-    }
+    executeGameModeMethod('closeChat', OnlineMultiplayer);
 }
 
 function onBlur() {
-    if(activeGameMode instanceof OnlineMultiplayer) {
-        activeGameMode.blurChatInput();
-    }
+    executeGameModeMethod('blurChatInput', OnlineMultiplayer);
 }
 
 function onFocus() {
-    if(activeGameMode instanceof OnlineMultiplayer) {
-        activeGameMode.focusChatInput();
-    }
+    executeGameModeMethod('focusChatInput', OnlineMultiplayer);
 }
 
 function sendMsg() {
-    if(activeGameMode instanceof OnlineMultiplayer) {
-        activeGameMode.sendChat();
-    }
+    executeGameModeMethod('sendChat', OnlineMultiplayer);
 }
 
-function chatOk(){
+function chatOk() {
     closeModal();
-    if(activeGameMode instanceof OnlineMultiplayer) {
-        activeGameMode.chatOk();
-    }
-}
-
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    executeGameModeMethod('chatOk', OnlineMultiplayer);
 }
 
 function experimentalTutorialDisableHint() {
-    if (activeGameMode instanceof ExperimentalLocalMultiplayer) {
-        activeGameMode.disableTutorialHint();
-    }
+    executeGameModeMethod('disableTutorialHint', ExperimentalLocalMultiplayer);
+}
+
+
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 function backButton() {
@@ -126,9 +106,6 @@ function backButton() {
     activeGameMode = null;
 }
 
-// TODO: Rest of this
-
-
 async function closeModal() {
     modal.style.display = 'none';
     document.getElementById('help').style.display = 'block';
@@ -150,10 +127,19 @@ function showAlert(text, isClosable = true) {
     document.getElementById('mote').innerHTML = text;
     modal.style.display = 'block';
     if(!isClosable) {
-        document.getElementsByClassName('close')[0].style.display = 'none';
+        document.getElementById('closeModal').style.display = 'none';
     } else {
-        document.getElementsByClassName('close')[0].style.display = 'block';
+        document.getElementById('closeModal').style.display = 'block';
     }
+}
+
+function changeAnimationSpeed(newSpeed){
+    newSpeed /= 2;
+    animationSpeed = newSpeed;
+    localStorage.setItem('animationSpeed', newSpeed);
+    document.documentElement.style.setProperty('--animationSpeed', newSpeed + 'ms');
+    newSpeed = newSpeed * 2/3;
+    document.documentElement.style.setProperty('--animationSpeed2', newSpeed + 'ms');
 }
 
 function switchTheme() {
@@ -168,6 +154,35 @@ function switchTheme() {
     }
     localStorage.setItem('themeColor', themeColor);
 }
+
+
+async function openPatchNotes(){
+    patch.style.display = 'block';
+    await sleep(100);
+    document.getElementById('patch-window').classList.add('movechat');
+    patch.classList.add('chatopa');
+
+    // rmove the red dot indicating new patch notes
+    const patchNotesCss = document.getElementById('patchh');
+    patchNotesCss.remove();
+    const newscript = document.createElement('style');
+    newscript.type = 'text/css';
+    newscript.id = 'patchh';
+    newscript.appendChild(document.createTextNode('#note::after{display:none}'));
+    document.getElementsByTagName('head').item(0).appendChild(newscript);
+    localStorage.setItem('patchversion', document.getElementById('version').innerHTML);
+}
+
+async function closePatch(){
+    document.getElementById('patch-window').classList.remove('movechat');
+    patch.classList.remove('chatopa');
+    await sleep(animationSpeed);
+    patch.style.display = 'none';
+}
+
+// TODO: Rest of this
+
+
 
 async function fadebutton(fadeOut){
     let ff;
@@ -212,34 +227,4 @@ async function fadebutton(fadeOut){
     }
 }
 
-function changeAnimationSpeed(ff){
-    ff /= 2;
-    animationSpeed = ff;
-    localStorage.setItem('animationSpeed', ff);
-    document.documentElement.style.setProperty('--animationSpeed', ff + 'ms');
-    ff = (ff * 2) / 3;
-    document.documentElement.style.setProperty('--animationSpeed2', ff + 'ms');
 
-}
-
-async function closePatch(){
-    document.getElementsByClassName('patch-window')[0].classList.remove('movechat');
-    patch.classList.remove('chatopa');
-    await sleep(animationSpeed);
-    patch.style.display = 'none';
-}
-
-async function pat(){
-    patch.style.display = 'block';
-    await sleep(100);
-    document.getElementsByClassName('patch-window')[0].classList.add('movechat');
-    patch.classList.add('chatopa');
-    const yourscripttag = document.getElementById('patchh');
-    yourscripttag.remove();
-    const newscript = document.createElement('style');
-    newscript.type = 'text/css';
-    newscript.id = 'patchh';
-    newscript.appendChild(document.createTextNode('#note::after{display:none}'));
-    document.getElementsByTagName('head').item(0).appendChild(newscript);
-    localStorage.setItem('patchversion', document.getElementById('version').innerHTML);
-}

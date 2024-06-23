@@ -1,4 +1,4 @@
-/* global sleep, fadebutton, OnlineMultiplayer, LocalMultiplayer, EasyBot, MediumBot, HardBot, experimentalLocalMultiplayer, experimentalMultiplayer, changeAnimationSpeed */
+/* global sleep, fadebutton, OnlineMultiplayer, LocalMultiplayer, EasyBot, MediumBot, HardBot, ExperimentalLocalMultiplayer, ExperimentalMultiplayer, changeAnimationSpeed */
 /* exported modal, chat, patch, animationSpeed, intervall, modus, erro, activeGameMode, host */
 
 //const host = 'https://oberhofer.ddns.net:3000';
@@ -169,14 +169,14 @@ function changeToHardBot() {
 
 
 function changeToExperimentalLocalMultiplayer() {
-    activeGameMode = new experimentalLocalMultiplayer();
+    activeGameMode = new ExperimentalLocalMultiplayer();
     show('div1');
     document.getElementById('settingsBox').classList.add('ingame');
     inExperimentalGame();
 }
 
 function changeToExperimentalMultiplayer() {
-    activeGameMode = new experimentalMultiplayer();
+    activeGameMode = new ExperimentalMultiplayer();
     show('multiplayer');
     document.getElementById('settingsBox').classList.add('ingame');
     inExperimentalGame();
