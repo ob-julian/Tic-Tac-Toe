@@ -205,7 +205,11 @@ function socket_player_logic(io, serverId) {
                 socket.emit('erro');
                 return;
             }
-            socket.name = sanitizeString(playerName);
+            socket.name = sanitizeString(playerName.trim());
+            if (socket.name === '') {
+                socket.emit('erro');
+                return;
+            }
             consolelog('Player ' + socket.name + ' connected for mode ' + mode);
             queue(socket);
         });
@@ -251,15 +255,15 @@ function socket_player_logic(io, serverId) {
                         getOtherPlayer(socket).emit('turned', '', '', linearTurnPosition, '', 'red');
                     } else if((socket.movingStatus === moveStatus.move) && (linearTurnPosition === socket.positionToGetMoved)){
                         // remove the selection
-                        socket.emit('turned', '', '', '', socket.positionToGetMoved, 'rem');
-                        getOtherPlayer(socket).emit('turned', '', '', '', socket.positionToGetMoved, 'rem');
+                        socket.emit('turned', '', '', '', socket.positionToGetMoved, 'remove');
+                        getOtherPlayer(socket).emit('turned', '', '', '', socket.positionToGetMoved, 'remove');
                         socket.movingStatus = moveStatus.select;
                         socket.positionToGetMoved = undefined;
                     }
                     else if((socket.movingStatus ===  moveStatus.move) && ((socket.playingFieldLinearRepresentation[linearTurnPosition] === 1))){
                         // select the position to move
-                        socket.emit('turned', '', '', linearTurnPosition, socket.positionToGetMoved, 'chan');
-                        getOtherPlayer(socket).emit('turned', '', '', linearTurnPosition, socket.positionToGetMoved, 'chan');
+                        socket.emit('turned', '', '', linearTurnPosition, socket.positionToGetMoved, 'changeSelect');
+                        getOtherPlayer(socket).emit('turned', '', '', linearTurnPosition, socket.positionToGetMoved, 'changeSelect');
                         socket.positionToGetMoved = linearTurnPosition;
                     }
                     else if((socket.movingStatus ===  moveStatus.move) && (socket.playingFieldLinearRepresentation[linearTurnPosition] === false)){
@@ -274,8 +278,8 @@ function socket_player_logic(io, serverId) {
                         socket.movingStatus = moveStatus.select;
                         socket.positionToGetMoved = undefined;
 
-                        socket.emit('turned', socket.playerSymbole, getOtherPlayer(socket).playerSymbole, linearTurnPosition, socket.positionToGetMoved, 'fin');
-                        getOtherPlayer(socket).emit('turned', socket.playerSymbole, getOtherPlayer(socket).playerSymbole, linearTurnPosition, socket.positionToGetMoved, 'fin');
+                        socket.emit('turned', socket.playerSymbole, getOtherPlayer(socket).playerSymbole, linearTurnPosition, socket.positionToGetMoved, 'reposition');
+                        getOtherPlayer(socket).emit('turned', socket.playerSymbole, getOtherPlayer(socket).playerSymbole, linearTurnPosition, socket.positionToGetMoved, 'reposition');
                     }
                 }
             }
