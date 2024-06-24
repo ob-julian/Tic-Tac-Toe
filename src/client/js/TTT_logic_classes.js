@@ -685,7 +685,7 @@ class OnlineMultiplayer extends LocalMultiplayer {
 
     async neu() {
         const name = document.getElementById('inpu').value;
-        this.socket.emit('conn', name, 1);
+        this.emitQueueEvent(name);
         this.isOnline = true;
         localStorage.setItem('nameOnline', name);
 
@@ -693,6 +693,10 @@ class OnlineMultiplayer extends LocalMultiplayer {
         if (animationSpeed > 0) {
             await sleep(animationSpeed);
         }
+    }
+
+    emitQueueEvent(name) {
+        this.socket.emit('conn', name, 1);
     }
 
     initSocket() {
@@ -708,9 +712,9 @@ class OnlineMultiplayer extends LocalMultiplayer {
             document.getElementById('chat-content').innerHTML = '<center><b>Du solltest noch nicht hier sein!</b></center>';
             this.typing(false);
             fadeout(() => {
-                document.getElementById('div0').style = 'display:none';
-                document.getElementById('div1').style = 'display:none';
-                document.getElementById('div2').style = 'display:block';
+                document.getElementById('gameMenuContainer').style = 'display:none';
+                document.getElementById('gameBoardContainer').style = 'display:none';
+                document.getElementById('queueAnimationContainer').style = 'display:block';
                 document.getElementById('multiplayer').style = 'display:none';
                 document.getElementById('pin').style.display = 'block';
             })();
@@ -727,9 +731,9 @@ class OnlineMultiplayer extends LocalMultiplayer {
 
             fadeout(() => {
                 document.getElementById('youAre').innerHTML = 'You are ' + playerSymbol;
-                document.getElementById('div0').style = 'display:none';
-                document.getElementById('div1').style = 'display:block';
-                document.getElementById('div2').style = 'display:none';
+                document.getElementById('gameMenuContainer').style = 'display:none';
+                document.getElementById('gameBoardContainer').style = 'display:block';
+                document.getElementById('queueAnimationContainer').style = 'display:none';
                 document.getElementById('multiplayer').style = 'display:none';
                 document.getElementById('help').style.display = 'block';
                 document.getElementById('chat').style.display = 'block';

@@ -115,7 +115,7 @@ function inExperimentalGame() {
 }
 
 function back() {
-    show('div0');
+    show('gameMenuContainer');
     document.getElementById('settingsBox').classList.remove('ingame');
     document.getElementById('help').style.display = 'none';
     notInGame();
@@ -131,7 +131,7 @@ function changeToOnlineMultiplayer() {
 
 function changeToLocalMultiplayer() {
     activeGameMode = new LocalMultiplayer();
-    show('div1');
+    show('gameBoardContainer');
     document.getElementById('settingsBox').classList.add('ingame');
     document.getElementById('help').style.display = 'block';
     inNormalGame();
@@ -145,7 +145,7 @@ function changeToSingleplayerArea() {
 
 function changeToEasyBot() {
     activeGameMode = new EasyBot();
-    show('div1');
+    show('gameBoardContainer');
     document.getElementById('settingsBox').classList.add('ingame');
     document.getElementById('help').style.display = 'block';
     inNormalGame();
@@ -153,7 +153,7 @@ function changeToEasyBot() {
 
 function changeToMediumBot() {
     activeGameMode = new MediumBot();
-    show('div1');
+    show('gameBoardContainer');
     document.getElementById('settingsBox').classList.add('ingame');
     document.getElementById('help').style.display = 'block';
     inNormalGame();
@@ -161,7 +161,7 @@ function changeToMediumBot() {
 
 function changeToHardBot() {
     activeGameMode = new HardBot();
-    show('div1');
+    show('gameBoardContainer');
     document.getElementById('settingsBox').classList.add('ingame');
     document.getElementById('help').style.display = 'block';
     inNormalGame();
@@ -170,7 +170,7 @@ function changeToHardBot() {
 
 function changeToExperimentalLocalMultiplayer() {
     activeGameMode = new ExperimentalLocalMultiplayer();
-    show('div1');
+    show('gameBoardContainer');
     document.getElementById('settingsBox').classList.add('ingame');
     inExperimentalGame();
 }
@@ -190,9 +190,9 @@ function changeToExperimentalArea() {
 }
 
 function show(contain){
-    document.getElementById('div0').style = 'display:none !important';
-    document.getElementById('div1').style = 'display:none !important';
-    document.getElementById('div2').style = 'display:none !important';
+    document.getElementById('gameMenuContainer').style = 'display:none !important';
+    document.getElementById('gameBoardContainer').style = 'display:none !important';
+    document.getElementById('queueAnimationContainer').style = 'display:none !important';
     document.getElementById('singleplayer').style = 'display:none !important';
     document.getElementById('multiplayer').style = 'display:none !important';
     document.getElementById('experimental-area').style = 'display:none !important';
