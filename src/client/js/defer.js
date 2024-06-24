@@ -6,7 +6,13 @@
 
 // ttt wrapper for class based game modes
 function executeGameModeMethod(methodName, requiredClass = null, ...args) {
-    if (activeGameMode && (!requiredClass || activeGameMode instanceof requiredClass)) {
+    const isInstanceOfRequiredClass = requiredClass ?
+        (Array.isArray(requiredClass) ?
+            requiredClass.some(cls => activeGameMode instanceof cls) :
+            activeGameMode instanceof requiredClass) :
+        true;
+
+    if (activeGameMode && isInstanceOfRequiredClass) {
         activeGameMode[methodName]?.(...args);
     }
 }
@@ -70,7 +76,7 @@ function chatOk() {
 }
 
 function experimentalTutorialDisableHint() {
-    executeGameModeMethod('disableTutorialHint', ExperimentalLocalMultiplayer);
+    executeGameModeMethod('disableTutorialHint', [ExperimentalLocalMultiplayer, ExperimentalOnlineMultiplayer]);
 }
 
 
