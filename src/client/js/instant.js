@@ -1,4 +1,4 @@
-/* global sleep, fadebutton, OnlineMultiplayer, LocalMultiplayer, EasyBot, MediumBot, HardBot, ExperimentalLocalMultiplayer, ExperimentalMultiplayer, changeAnimationSpeed */
+/* global sleep, fadeButton, OnlineMultiplayer, LocalMultiplayer, EasyBot, MediumBot, HardBot, ExperimentalLocalMultiplayer, ExperimentalMultiplayer, changeAnimationSpeed */
 /* exported modal, chat, patch, animationSpeed, intervall, modus, erro, activeGameMode, host */
 
 //const host = 'https://oberhofer.ddns.net:3000';
@@ -12,13 +12,13 @@ let activeGameMode = null;
 
 function fadeout(action) {
     return async function() {
-        fadebutton(true);
+        fadeButton(true);
         if (animationSpeed > 0)
             await sleep(animationSpeed);
         action();
         if (animationSpeed > 0)
             await sleep(100);
-        fadebutton(false);
+        fadeButton(false);
     };
 }
 
@@ -98,7 +98,7 @@ window.addEventListener('DOMContentLoaded', function() {
         animationSpeed = 750;
     }
     changeAnimationSpeed(animationSpeed * 2);
-    document.getElementsByClassName('slide')[0].value = animationSpeed * 2;
+    document.getElementById('slide').value = animationSpeed * 2;
 
 
     // site.webmanifest offline handling
@@ -147,7 +147,8 @@ function inExperimentalGame() {
 function back() {
     show('gameMenuContainer');
     document.getElementById('settingsBox').classList.remove('ingame');
-    document.getElementById('help').style.display = 'none';
+    document.getElementById('help').classList.add('dontDisplay');
+    document.getElementById('help').classList.remove('dontDisplay');
     notInGame();
 }
 
@@ -155,7 +156,7 @@ function changeToOnlineMultiplayer() {
     activeGameMode = new OnlineMultiplayer();
     show('multiplayer');
     document.getElementById('settingsBox').classList.add('ingame');
-    document.getElementById('help').style.display = 'none';
+    document.getElementById('help').classList.add('dontDisplay');
     inNormalGame();
 }
 
@@ -163,13 +164,14 @@ function changeToLocalMultiplayer() {
     activeGameMode = new LocalMultiplayer();
     show('gameBoardContainer');
     document.getElementById('settingsBox').classList.add('ingame');
-    document.getElementById('help').style.display = 'block';
+    document.getElementById('help').classList.remove('dontDisplay');
     inNormalGame();
 }
 
 function changeToSingleplayerArea() {
     show('singleplayer');
     document.getElementById('settingsBox').classList.add('ingame');
+    document.getElementById('help').classList.add('dontDisplay');
     notInGame();
 }
 
@@ -177,7 +179,7 @@ function changeToEasyBot() {
     activeGameMode = new EasyBot();
     show('gameBoardContainer');
     document.getElementById('settingsBox').classList.add('ingame');
-    document.getElementById('help').style.display = 'block';
+    document.getElementById('help').classList.remove('dontDisplay');
     inNormalGame();
 }
 
@@ -185,7 +187,7 @@ function changeToMediumBot() {
     activeGameMode = new MediumBot();
     show('gameBoardContainer');
     document.getElementById('settingsBox').classList.add('ingame');
-    document.getElementById('help').style.display = 'block';
+    document.getElementById('help').classList.remove('dontDisplay');
     inNormalGame();
 }
 
@@ -193,7 +195,7 @@ function changeToHardBot() {
     activeGameMode = new HardBot();
     show('gameBoardContainer');
     document.getElementById('settingsBox').classList.add('ingame');
-    document.getElementById('help').style.display = 'block';
+    document.getElementById('help').classList.remove('dontDisplay');
     inNormalGame();
 }
 
@@ -202,6 +204,7 @@ function changeToExperimentalLocalMultiplayer() {
     activeGameMode = new ExperimentalLocalMultiplayer();
     show('gameBoardContainer');
     document.getElementById('settingsBox').classList.add('ingame');
+    document.getElementById('help').classList.remove('dontDisplay');
     inExperimentalGame();
 }
 
@@ -209,22 +212,23 @@ function changeToExperimentalMultiplayer() {
     activeGameMode = new ExperimentalOnlineMultiplayer();
     show('multiplayer');
     document.getElementById('settingsBox').classList.add('ingame');
+    document.getElementById('help').classList.add('dontDisplay');
     inExperimentalGame();
-    document.getElementById('help').style.display = 'none';
 }
 
 function changeToExperimentalArea() {
     show('experimental-area');
     document.getElementById('settingsBox').classList.add('ingame');
+    document.getElementById('help').classList.add('dontDisplay');
     notInGame();
 }
 
 function show(contain){
-    document.getElementById('gameMenuContainer').classList.add('nop');
-    document.getElementById('gameBoardContainer').classList.add('nop');
-    document.getElementById('queueAnimationContainer').classList.add('nop');
-    document.getElementById('singleplayer').classList.add('nop');
-    document.getElementById('multiplayer').classList.add('nop');
-    document.getElementById('experimental-area').classList.add('nop');
-    document.getElementById(contain).classList.remove('nop');
+    document.getElementById('gameMenuContainer').classList.add('dontDisplay');
+    document.getElementById('gameBoardContainer').classList.add('dontDisplay');
+    document.getElementById('queueAnimationContainer').classList.add('dontDisplay');
+    document.getElementById('singleplayer').classList.add('dontDisplay');
+    document.getElementById('multiplayer').classList.add('dontDisplay');
+    document.getElementById('experimental-area').classList.add('dontDisplay');
+    document.getElementById(contain).classList.remove('dontDisplay');
 }

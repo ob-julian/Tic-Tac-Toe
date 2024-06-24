@@ -40,8 +40,18 @@ class LocalMultiplayer {
         document.getElementById('score').innerHTML = 'X: ' + this.player1.score + ' vs. O: ' + this.player2.score;
     }
 
+    getElement(index) {
+        if (!this.isAnimating && 0 <= index && index < 9) {
+            return document.getElementById('a' + index);
+        }
+        return {
+            style: {},
+            removeAttribute: () => {}
+        };
+    }
+
     makeMove(index) {
-        if (this.board[index] || this.winner) {
+        if (this.board[index] || this.winner || this.isAnimating) {
             return false;
         }
         this._makeUncheckedMove(index);
@@ -52,10 +62,8 @@ class LocalMultiplayer {
     _makeUncheckedMove(index) {
         this.board[index] = this.turn;
         this.moves++;
-        if (!this.isAnimating) {
-            // only update GUI if not animating
-            document.getElementById('a' + index).innerHTML = this.turn;
-        }
+        this.getElement(index).innerHTML = this.turn;
+
     }
 
     _afterTurn() {
@@ -109,7 +117,7 @@ class LocalMultiplayer {
     }
 
     async help() {
-        document.getElementById('help').style.display = 'none';
+        document.getElementById('help').classList.add('dontDisplay');
         showAlert('<b>Hilfe</b><br><br>Willst du ein Tutorial zu diesem Spielmodus?<br><br><div  align=\'left\' style=\'float:left;\'><button onclick=\'tutorialJa()\'>Ja</button></div><div  align=\'right\' style=\'margin-bottom: -18px;\'><button onclick=\'closeModal()\'>Nein</button></div>', false);
     }
 
@@ -127,25 +135,25 @@ class LocalMultiplayer {
         this.isAnimating = true;
         const allBackButtons = document.getElementsByClassName('back');
 
-        document.getElementById('help').style.display = 'none';
-        document.getElementById('infoscreen').style.display = 'none';
+        document.getElementById('help').classList.add('dontDisplay');
+        document.getElementById('infoscreen').classList.add('dontDisplay');
 
         for(let backBut of allBackButtons) {
-            backBut.style.display = 'none';
+            backBut.classList.add('dontDisplay');
         }
         for(let www = 0; www < 9; www++) {
             document.getElementById('a' + www).innerHTML = '';
         }
         // cloase modal
-        modal.style.display = 'none';
+        modal.classList.add('dontDisplay');
     }
 
     animationEnd() {
         this.isAnimating = false;
         const allBackButtons = document.getElementsByClassName('back');
 
-        document.getElementById('help').style.display = 'block';
-        document.getElementById('infoscreen').style.display = 'block';
+        document.getElementById('help').classList.remove('dontDisplay');
+        document.getElementById('infoscreen').classList.remove('dontDisplay');
 
         // reinstating the board
         for(let i = 0; i < 9; i++) {
@@ -200,7 +208,7 @@ class LocalMultiplayer {
 
     _reset_GUI() {
         for (let i = 0; i < 9; i++) {
-            document.getElementById('a' + i).innerHTML = '';
+            this.getElement(i).innerHTML = '';
         }
         document.getElementById('reset').style = 'visibility:hidden';
         document.getElementById('turn').innerHTML = 'Turn: ' + this.turn;
@@ -225,34 +233,37 @@ class ExperimentalLocalMultiplayer extends LocalMultiplayer {
         if (!hasPlayedBefore) {
             this.nochNichtGespielt();
         } else {
-            document.getElementById('help').style.display = 'block';
+            document.getElementById('help').classList.remove('dontDisplay');
         }
     }
 
     makeMove(index) {
+        if (this.winner || this.isAnimating) {
+            return;
+        }
         if (this.moves < 6) {
             super.makeMove(index);
         } else {
             if (!this.selectedField && this.board[index] === this.turn) {
                 // Player clicked empty field and has not selected a field before
                 this.selectedField = index;
-                document.getElementById('a' + index).style.color = 'red';
+                this.getElement(index).style.color = 'red';
             } else if (this.selectedField === index) {
                 // Player clicked the same field again
                 this.selectedField = null;
-                document.getElementById('a' + index).removeAttribute('style');
+                this.getElement(index).removeAttribute('style');
             } else if (this.selectedField && this.board[index] === this.turn) {
                 // Player selected a field and clicked on their own symbol
-                document.getElementById('a' + this.selectedField).removeAttribute('style');
-                document.getElementById('a' + index).style.color = 'red';
+                this.getElement(this.selectedField).removeAttribute('style');
+                this.getElement(index).style.color = 'red';
                 this.selectedField = index;
             } else if (this.selectedField && !this.board[index]) {
                 // Player selected a field and clicked on an empty field
                 this.board[index] = this.turn;
                 this.board[this.selectedField] = null;
-                document.getElementById('a' + this.selectedField).innerHTML = '';
-                document.getElementById('a' + index).innerHTML = this.turn;
-                document.getElementById('a' + this.selectedField).removeAttribute('style');
+                this.getElement(this.selectedField).innerHTML = '';
+                this.getElement(index).innerHTML = this.turn;
+                this.getElement(this.selectedField).removeAttribute('style');
                 this.selectedField = null;
                 this._afterTurn();
             }
@@ -664,7 +675,9 @@ class OnlineMultiplayer extends LocalMultiplayer {
     }
 
     makeMove(index) {
-        this.socket.emit('turn', index);
+        if (!this.isAnimating) {
+            this.socket.emit('turn', index);
+        }
     }
 
     rematch() {
@@ -711,16 +724,16 @@ class OnlineMultiplayer extends LocalMultiplayer {
                 Notification.requestPermission();
                 showAlert('Hallo, wenn du dem Popup zur Benachrichtigungsberechtigung zustimmst, erhältst du nur Nachrichten, wenn ein Gegner gefunden wird, während du in der Warteschlange bist.<br>Bei Ablehnung wirst du nicht nochmals gefragt.');
             }
-            document.getElementById('help').style.display = 'none';
+            document.getElementById('help').classList.add('dontDisplay');
             this.closeChat();
             document.getElementById('chat-content').innerHTML = '<center><b>Du solltest noch nicht hier sein!</b></center>';
             this.typing(false);
             fadeout(() => {
-                document.getElementById('gameMenuContainer').style = 'display:none';
-                document.getElementById('gameBoardContainer').style = 'display:none';
-                document.getElementById('queueAnimationContainer').style = 'display:block';
-                document.getElementById('multiplayer').style = 'display:none';
-                document.getElementById('pin').style.display = 'block';
+                document.getElementById('gameMenuContainer').classList.add('dontDisplay');
+                document.getElementById('gameBoardContainer').classList.add('dontDisplay');
+                document.getElementById('queueAnimationContainer').classList.remove('dontDisplay');
+                document.getElementById('multiplayer').classList.add('dontDisplay');
+                document.getElementById('pin').classList.remove('dontDisplay');
             })();
         });
 
@@ -735,14 +748,14 @@ class OnlineMultiplayer extends LocalMultiplayer {
 
             fadeout(() => {
                 document.getElementById('youAre').innerHTML = 'You are ' + playerSymbol;
-                document.getElementById('gameMenuContainer').style = 'display:none';
-                document.getElementById('gameBoardContainer').style = 'display:block';
-                document.getElementById('queueAnimationContainer').style = 'display:none';
-                document.getElementById('multiplayer').style = 'display:none';
-                document.getElementById('help').style.display = 'block';
-                document.getElementById('chat').style.display = 'block';
+                document.getElementById('gameMenuContainer').classList.add('dontDisplay');
+                document.getElementById('gameBoardContainer').classList.remove('dontDisplay');
+                document.getElementById('queueAnimationContainer').classList.add('dontDisplay');
+                document.getElementById('multiplayer').classList.add('dontDisplay');
+                document.getElementById('help').classList.remove('dontDisplay');
+                document.getElementById('chat').classList.remove('dontDisplay');
                 document.getElementById('score').innerHTML = playerSymbol + ': 0 vs. ' + enemySymbol + ': 0';
-                document.getElementById('pin').style.display = 'block';
+                document.getElementById('pin').classList.remove('dontDisplay');
             })();
 
             showAlert('Gegner: ' + enemyName);
@@ -857,9 +870,9 @@ class OnlineMultiplayer extends LocalMultiplayer {
 
     disconnect(){
         this.socket.emit('dis');
-        document.getElementById('pin').style.display = 'none';
-        document.getElementById('help').style.display = 'none';
-        document.getElementById('chat').style.display = 'none';
+        document.getElementById('pin').classList.add('dontDisplay');
+        document.getElementById('help').classList.add('dontDisplay');
+        document.getElementById('chat').classList.add('dontDisplay');
         clearInterval(this.intervall);
 
         // Reset this
@@ -884,7 +897,7 @@ class OnlineMultiplayer extends LocalMultiplayer {
     }
 
     performTurn(turnPlayerSymbol, otherPlayerSymbol, index) {
-        document.getElementById('a' + index).innerHTML = turnPlayerSymbol;
+        this.getElement(index).innerHTML = turnPlayerSymbol;
         document.getElementById('turn').innerHTML = 'Turn: ' + otherPlayerSymbol;
         this.board[index] = turnPlayerSymbol;
     }
@@ -903,7 +916,7 @@ class OnlineMultiplayer extends LocalMultiplayer {
 
     async chatting(){
         if(this.noFillter){
-            chat.style.display = 'block';
+            chat.classList.remove('dontDisplay');
             await sleep(100);
             document.getElementById('chat-window').classList.add('movechat');
             chat.classList.add('chatopa');
@@ -926,7 +939,7 @@ class OnlineMultiplayer extends LocalMultiplayer {
         this.inOpenChat = false;
         this.inChatInput = false;
         await sleep(animationSpeed);
-        chat.style.display = 'none';
+        chat.classList.add('dontDisplay');
     }
 
     async sendChat() {
@@ -1048,7 +1061,7 @@ class OnlineMultiplayer extends LocalMultiplayer {
     async chatOk () {
         this.noFillter = true;
         localStorage.setItem('nofillter', true);
-        chat.style.display = 'block';
+        chat.classList.remove('dontDisplay');
         await sleep(100);
         document.getElementById('chat-window').classList.add('movechat');
         chat.classList.add('chatopa');
@@ -1143,18 +1156,18 @@ class ExperimentalOnlineMultiplayer extends OnlineMultiplayer {
                 super.performTurn(turnPlayerSymbol, otherPlayerSymbol, index);   
                 break;
             case 'red':
-                document.getElementById('a' + index).style.color = 'red';
+                this.getElement(index).style.color = 'red';
                 break;
             case 'remove':
-                document.getElementById('a' + oldPosition).removeAttribute('style');
+                this.getElement(oldPosition).removeAttribute('style');
                 break;
             case 'changeSelect':
-                document.getElementById('a' + oldPosition).removeAttribute('style');
-                document.getElementById('a' + index).style.color = 'red';
+                this.getElement(oldPosition).removeAttribute('style');
+                this.getElement(index).style.color = 'red';
                 break;
             case 'reposition':
-                document.getElementById('a' + oldPosition).innerHTML = '';
-                document.getElementById('a' + oldPosition).removeAttribute('style');
+                this.getElement(oldPosition).innerHTML = '';
+                this.getElement(oldPosition).removeAttribute('style');
                 super.performTurn(turnPlayerSymbol, otherPlayerSymbol, index);
                 break;
         }

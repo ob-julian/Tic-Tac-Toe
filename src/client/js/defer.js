@@ -2,7 +2,7 @@
 // EsLint global variables
 /* global activeGameMode, themeColor, patch, OnlineMultiplayer, modal, ExperimentalLocalMultiplayer, chat, themeColor, animationSpeed*/
 // EsLint exported variables
-/* exported los, rematch, changeAnimationSpeed, help, pat, backButton, neu, disconnect, chatting, onBlur, onFocus, sendMsg, chatOk, tutorialJa, tutorialNein, closeModal, showAlert, anination, experimentalTutorialDisableHint, switchTheme, fadebutton */
+/* exported los, rematch, changeAnimationSpeed, help, pat, backButton, neu, disconnect, chatting, onBlur, onFocus, sendMsg, chatOk, tutorialJa, tutorialNein, closeModal, showAlert, anination, experimentalTutorialDisableHint, switchTheme, fadeButton */
 
 // ttt wrapper for class based game modes
 function executeGameModeMethod(methodName, requiredClass = null, ...args) {
@@ -113,8 +113,8 @@ function backButton() {
 }
 
 async function closeModal() {
-    modal.style.display = 'none';
-    document.getElementById('help').style.display = 'block';
+    modal.classList.add('dontDisplay');
+    document.getElementById('help').classList.remove('dontDisplay');
 }
 
 window.onclick = function(event) {
@@ -131,11 +131,11 @@ window.onclick = function(event) {
 
 function showAlert(text, isClosable = true) {
     document.getElementById('mote').innerHTML = text;
-    modal.style.display = 'block';
+    modal.classList.remove('dontDisplay');
     if(!isClosable) {
-        document.getElementById('closeModal').style.display = 'none';
+        document.getElementById('closeModal').classList.add('dontDisplay');
     } else {
-        document.getElementById('closeModal').style.display = 'block';
+        document.getElementById('closeModal').classList.remove('dontDisplay');
     }
 }
 
@@ -163,7 +163,7 @@ function switchTheme() {
 
 
 async function openPatchNotes(){
-    patch.style.display = 'block';
+    patch.classList.remove('dontDisplay');
     await sleep(100);
     document.getElementById('patch-window').classList.add('movechat');
     patch.classList.add('chatopa');
@@ -183,54 +183,36 @@ async function closePatch(){
     document.getElementById('patch-window').classList.remove('movechat');
     patch.classList.remove('chatopa');
     await sleep(animationSpeed);
-    patch.style.display = 'none';
+    patch.classList.add('dontDisplay');
 }
 
-// TODO: Rest of this
-
-
-
-async function fadebutton(fadeOut){
-    let ff;
-    if(fadeOut){
-        document.getElementsByClassName('slide')[0].disabled = true;
-        ff = document.getElementsByClassName('moveRightElement');
-        for (let i = ff.length - 1; i >= 0; i--) {
-            ff[i].classList.add('links');
-        }
-        ff = document.getElementsByClassName('moveLeftElement');
-        for (let i = ff.length - 1; i >= 0; i--) {
-            ff[i].classList.add('recht');
-        }
-        ff = document.getElementsByClassName('fadeElement');
-        for (let i = ff.length - 1; i >= 0; i--) {
-            ff[i].classList.add('hexhex');
-        }
-        ff = document.getElementsByClassName('groser');
-        for (let i = ff.length - 1; i >= 0; i--) {
-            ff[i].classList.add('kein');
-        }
+async function fadeButton(fadeOut) {
+    // Helper function to toggle classes
+    function toggleClass(elements, className, add) {
+        Array.from(elements).forEach(element => {
+            element.classList[add ? 'add' : 'remove'](className);
+        });
     }
-    else {
-        ff = document.getElementsByClassName('moveRightElement');
-        for (let i = ff.length - 1; i >= 0; i--) {
-            ff[i].classList.remove('links');
-        }
-        ff = document.getElementsByClassName('moveLeftElement');
-        for (let i = ff.length - 1; i >= 0; i--) {
-            ff[i].classList.remove('recht');
-        }
-        ff = document.getElementsByClassName('fadeElement');
-        for (let i = ff.length - 1; i >= 0; i--) {
-            ff[i].classList.remove('hexhex');
-        }
-        ff = document.getElementsByClassName('groser');
-        for (let i = ff.length - 1; i >= 0; i--) {
-            ff[i].classList.remove('kein');
-        }
+
+    const slideElement = document.getElementById('slide');
+    const moveRightElements = document.getElementsByClassName('moveRightElement');
+    const moveLeftElements = document.getElementsByClassName('moveLeftElement');
+    const fadeElements = document.getElementsByClassName('fadeElement');
+    const groserElements = document.getElementsByClassName('groser');
+
+    function toggleAllClasses(add) {
+        toggleClass(moveRightElements, 'links', add);
+        toggleClass(moveLeftElements, 'recht', add);
+        toggleClass(fadeElements, 'hexhex', add);
+        toggleClass(groserElements, 'kein', add);
+    }
+
+    if (fadeOut) {
+        slideElement.disabled = true;
+        toggleAllClasses(true);
+    } else {
+        toggleAllClasses(false);
         await sleep(animationSpeed);
-        document.getElementsByClassName('slide')[0].disabled = false;
+        slideElement.disabled = false;
     }
 }
-
-
