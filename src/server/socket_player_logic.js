@@ -16,7 +16,7 @@ const modes = {
 const playerSymbole = {
     X: 'X',
     O: 'O',
-    startSymbole: 'O'
+    startSymbole: 'X'
 };
 
 const moveStatus = {

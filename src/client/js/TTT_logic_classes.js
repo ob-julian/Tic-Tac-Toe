@@ -73,7 +73,7 @@ class LocalMultiplayer {
 
     _switchTurn() {
         this.turn = this.turn === playerSymbols[1] ? playerSymbols[2] : playerSymbols[1];
-        document.getElementById('turn').innerHTML = 'Turn: ' + this.turn;
+        document.getElementById('turn').innerHTML = this.turn;
     }
 
     _winningLogic() {
@@ -112,7 +112,7 @@ class LocalMultiplayer {
         document.getElementById('reset').style = 'visibility:visible';
     }
 
-    rematchAsked() {
+    rematch() {
         this.reset();
     }
 
@@ -211,7 +211,7 @@ class LocalMultiplayer {
             this.getElement(i).innerHTML = '';
         }
         document.getElementById('reset').style = 'visibility:hidden';
-        document.getElementById('turn').innerHTML = 'Turn: ' + this.turn;
+        document.getElementById('turn').innerHTML = this.turn;
     }
 
     _symbolToPlayer(symbol) {
@@ -706,7 +706,7 @@ class OnlineMultiplayer extends LocalMultiplayer {
         this.isOnline = true;
         localStorage.setItem('nameOnline', name);
 
-        fadebutton(true);
+        fadeButton(true);
         if (animationSpeed > 0) {
             await sleep(animationSpeed);
         }
@@ -721,7 +721,9 @@ class OnlineMultiplayer extends LocalMultiplayer {
         this.socket.on('queueIn', async () => {
             // Event when player is in queue
             if (('Notification' in window) && Notification.permission !== 'denied' && Notification.permission !== 'granted') {
-                Notification.requestPermission();
+                Notification.requestPermission().then(() => {
+                    closeModal();
+                });
                 showAlert('Hallo, wenn du dem Popup zur Benachrichtigungsberechtigung zustimmst, erhältst du nur Nachrichten, wenn ein Gegner gefunden wird, während du in der Warteschlange bist.<br>Bei Ablehnung wirst du nicht nochmals gefragt.');
             }
             document.getElementById('help').classList.add('dontDisplay');
@@ -804,7 +806,7 @@ class OnlineMultiplayer extends LocalMultiplayer {
         });
 
         this.socket.on('turnreset', () => {
-            document.getElementById('turn').innerHTML = 'Turn: O';
+            document.getElementById('turn').innerHTML = this.player1.symbol;
         });
 
         this.socket.on('erro', () => {
@@ -898,7 +900,7 @@ class OnlineMultiplayer extends LocalMultiplayer {
 
     performTurn(turnPlayerSymbol, otherPlayerSymbol, index) {
         this.getElement(index).innerHTML = turnPlayerSymbol;
-        document.getElementById('turn').innerHTML = 'Turn: ' + otherPlayerSymbol;
+        document.getElementById('turn').innerHTML = otherPlayerSymbol;
         this.board[index] = turnPlayerSymbol;
     }
 
