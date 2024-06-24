@@ -32,14 +32,6 @@
     margin: 0;
 }
 
-.nop {
-    display: none;
-}
-
-.nop:target {
-    display: block;
-}
-
 .main {
     display: block;
 }

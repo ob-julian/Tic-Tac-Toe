@@ -64,6 +64,14 @@ tr:last-child {
     padding: 10px;
 }
 
+.nop {
+    display: none !important;
+}
+
+.nop:target {
+    display: block;
+}
+
 @media (max-width:540px) {
     .back, #reset {
         width: 46%;

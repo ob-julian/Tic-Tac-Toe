@@ -220,11 +220,11 @@ function changeToExperimentalArea() {
 }
 
 function show(contain){
-    document.getElementById('gameMenuContainer').style = 'display:none !important';
-    document.getElementById('gameBoardContainer').style = 'display:none !important';
-    document.getElementById('queueAnimationContainer').style = 'display:none !important';
-    document.getElementById('singleplayer').style = 'display:none !important';
-    document.getElementById('multiplayer').style = 'display:none !important';
-    document.getElementById('experimental-area').style = 'display:none !important';
-    document.getElementById(contain).style = 'display:block !important';
+    document.getElementById('gameMenuContainer').classList.add('nop');
+    document.getElementById('gameBoardContainer').classList.add('nop');
+    document.getElementById('queueAnimationContainer').classList.add('nop');
+    document.getElementById('singleplayer').classList.add('nop');
+    document.getElementById('multiplayer').classList.add('nop');
+    document.getElementById('experimental-area').classList.add('nop');
+    document.getElementById(contain).classList.remove('nop');
 }
