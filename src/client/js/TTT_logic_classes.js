@@ -684,7 +684,11 @@ class OnlineMultiplayer extends LocalMultiplayer {
     }
 
     async neu() {
-        const name = document.getElementById('inpu').value;
+        const name = document.getElementById('inpu').value.trim();
+        if (!name) {
+            showAlert('Bitte gib einen Namen ein');
+            return;
+        }
         this.emitQueueEvent(name);
         this.isOnline = true;
         localStorage.setItem('nameOnline', name);
@@ -754,10 +758,8 @@ class OnlineMultiplayer extends LocalMultiplayer {
             }
         });
 
-        this.socket.on('turned', (turnPlayerSymbol, otherPlayerSymbol, index) => {
-            document.getElementById('a' + index).innerHTML = turnPlayerSymbol;
-            document.getElementById('turn').innerHTML = 'Turn: ' + otherPlayerSymbol;
-            this.board[index] = turnPlayerSymbol;
+        this.socket.on('turned', (...args) => {
+            this.performTurn(...args);
         });
 
         this.socket.on('win', (winner, punkteSelf, punkteEnemy) => {
@@ -879,6 +881,12 @@ class OnlineMultiplayer extends LocalMultiplayer {
         const oldPing = parseInt(document.getElementById('ping').innerHTML);
         // To smooth out the ping, the new ping is averaged with the old ping
         document.getElementById('ping').innerHTML = Math.ceil((oldPing + ping) / 2);
+    }
+
+    performTurn(turnPlayerSymbol, otherPlayerSymbol, index) {
+        document.getElementById('a' + index).innerHTML = turnPlayerSymbol;
+        document.getElementById('turn').innerHTML = 'Turn: ' + otherPlayerSymbol;
+        this.board[index] = turnPlayerSymbol;
     }
 
     typing(isTyping){
@@ -1096,4 +1104,59 @@ class OnlineMultiplayer extends LocalMultiplayer {
         document.getElementsByTagName('head').item(0).appendChild(newmeta);
     }
 
+}
+
+class ExperimentalOnlineMultiplayer extends OnlineMultiplayer {
+
+    constructor() {
+        super();
+        this.experimental = undefined;
+    }
+
+    initSocket() {
+        super.initSocket();
+        this.socket.on('queueOut', async () => {
+            if (this.experimental === undefined) {
+                this.experimental = new ExperimentalLocalMultiplayer();
+            }
+        });
+    }
+
+    // some more stuff for external rechability
+    disableTutorialHint() {
+        this.experimental.disableTutorialHint();
+    }
+    tutorialJa() {
+        this.experimental.tutorialJa();
+    }
+    animation() {
+        this.experimental.animation();
+    }
+
+    emitQueueEvent(name) {
+        this.socket.emit('conn', name, 2);
+    }
+
+    performTurn(turnPlayerSymbol, otherPlayerSymbol, index, oldPosition, moveKind) {
+        switch (moveKind) {
+            case 'move':
+                super.performTurn(turnPlayerSymbol, otherPlayerSymbol, index);   
+                break;
+            case 'red':
+                document.getElementById('a' + index).style.color = 'red';
+                break;
+            case 'remove':
+                document.getElementById('a' + oldPosition).removeAttribute('style');
+                break;
+            case 'changeSelect':
+                document.getElementById('a' + oldPosition).removeAttribute('style');
+                document.getElementById('a' + index).style.color = 'red';
+                break;
+            case 'reposition':
+                document.getElementById('a' + oldPosition).innerHTML = '';
+                document.getElementById('a' + oldPosition).removeAttribute('style');
+                super.performTurn(turnPlayerSymbol, otherPlayerSymbol, index);
+                break;
+        }
+    }
 }
