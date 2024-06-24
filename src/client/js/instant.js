@@ -232,3 +232,19 @@ function show(contain){
     document.getElementById('experimental-area').classList.add('dontDisplay');
     document.getElementById(contain).classList.remove('dontDisplay');
 }
+
+function scaleContent() {
+    const baseWidth = 410;
+    const baseHeight = 610;
+    const viewport = document.querySelector('meta[name="viewport"]');
+    const deviceWidth = window.screen.width;
+    const deviceHeight = window.screen.height;
+    const scaleWidth = Math.min(1, deviceWidth / baseWidth);
+    const scaleHeight = Math.min(1, deviceHeight / baseHeight);
+    const scale = Math.min(scaleWidth, scaleHeight);
+    //viewport.content = `width=${baseWidth}, initial-scale=${scale}, user-scalable=no`;
+    viewport.content = `width=device-width, initial-scale=${scale}, user-scalable=no`;
+}
+
+scaleContent();
+window.addEventListener('resize', scaleContent);

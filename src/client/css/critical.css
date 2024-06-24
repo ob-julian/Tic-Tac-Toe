@@ -74,7 +74,7 @@ tr:last-child {
 
 @media (max-width:540px) {
     .back, #reset {
-        width: 46%;
+        width: 46% !important
     }
 }
 

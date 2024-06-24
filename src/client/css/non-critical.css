@@ -147,7 +147,6 @@ i {
     border: 1px solid var(--border);
     margin: 0;
     position: absolute;
-    right: 1px;
     height: calc(100vh - 47px);
     height: -webkit-fill-available;
     display: inline;
@@ -161,12 +160,14 @@ i {
 #chat-window {
     width: 50%;
     height: 100%;
+    right: 0;
 }
 
 #patch-window{
     width: auto;
     overflow: auto;
     max-width: 900px;
+    right: -1px;
 }
 
 .movechat {
