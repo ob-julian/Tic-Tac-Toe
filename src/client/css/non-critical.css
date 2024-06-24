@@ -53,7 +53,7 @@ a {
     display: none;
 }
 
-.slider {
+#slider {
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -65,7 +65,7 @@ a {
     transition: .4s;
 }
 
-.slider::before {
+#slider::before {
     position: absolute;
     content: "";
     height: 26px;
@@ -85,25 +85,25 @@ a {
     opacity: 0.8;
 }
 
-input:checked+.slider {
+input:checked+#slider {
     background-color: var(--bt-bg-color);
 }
 
-input:focus+.slider {
+input:focus+#slider {
     box-shadow: 0 0 1px var(--bt-bg-color);
 }
 
-input:checked+.slider::before {
+input:checked+#slider::before {
     -webkit-transform: translateX(26px);
     -ms-transform: translateX(26px);
     transform: translateX(26px);
 }
 
-.slider.round {
+#slider.round {
     border-radius: 34px;
 }
 
-.slider.round::before {
+#slider.round::before {
     border-radius: 50%;
 }
 
@@ -249,7 +249,7 @@ i {
     width: auto;
 }
 
-.slide {
+#slide {
     -webkit-appearance: none;
     appearance: none;
     width: 124px;
@@ -260,7 +260,7 @@ i {
     transition: opacity .2s, background-color var(--animationSpeed) ease-in-out;
 }
 
-.slide::-webkit-slider-thumb {
+#slide::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
     width: 25px;
@@ -271,7 +271,7 @@ i {
     transition: background-color var(--animationSpeed) ease-in-out;
 }
 
-.slide::-moz-range-thumb {
+#slide::-moz-range-thumb {
     -webkit-appearance: none;
     appearance: none;
     width: 25px;
@@ -575,7 +575,6 @@ i {
 }
 
 .modal {
-    display: none;
     position: fixed;
     z-index: 200;
     left: 0;

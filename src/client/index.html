@@ -205,7 +205,7 @@
                     <span>Version:</span>
                     <span id="version">Buggy</span>
                 </div>
-                <div id="pin" class="moveRightElement" style="display:none">
+                <div id="pin" class="moveRightElement dontDisplay">
                     <span>Ping:</span>
                     <span id="ping">0</span>
                     <span id="defwq"></span>
@@ -219,20 +219,20 @@
                                 if (themeColor === 'dark')
                                 document.getElementById('checkbox').checked = true;
                             </script>
-                            <span class="slider"></span>
+                            <span id="slider"></span>
                         </label>
                         <i class="fa fa-moon"></i>
                     </div>
                     <br>
                     <div id="slid" class="lider">
-                        <input type="range" name="slide" min="0" max="5000" value="1500" step="2" onchange="changeAnimationSpeed(this.value);" class="slide">
+                        <input type="range" name="slide" min="0" max="5000" value="1500" step="2" onchange="changeAnimationSpeed(this.value);" id="slide">
                         <br>
-                        <i class="fas fa-angle-double-right linkss" onclick="document.getElementsByClassName('slide')[0].value = 0; changeAnimationSpeed(0);"></i>
-                        <i class="fas fa-angle-right rechts" onclick="document.getElementsByClassName('slide')[0].value = 5000; changeAnimationSpeed(5000);"></i>
+                        <i class="fas fa-angle-double-right linkss" onclick="document.getElementById('slide').value = 0; changeAnimationSpeed(0);"></i>
+                        <i class="fas fa-angle-right rechts" onclick="document.getElementById('slide').value = 5000; changeAnimationSpeed(5000);"></i>
 
                     </div>
                 </div>
-                <div style="display:none" id="help" onclick="help()">
+                <div class="dontDisplay" id="help" onclick="help()">
                     <h2>?</h2>
                 </div>
                 <div id="gameMenuContainer" class="main overhid">
@@ -279,7 +279,7 @@
                         <div class="fadeElement" onclick="openPatchNotes()" id="note">
                             Patch Notes
                         </div>
-                        <div class="fadeElement" id="datimp" style="display:none">
+                        <div class="fadeElement dontDisplay" id="datimp">
                             <div class="center">
                                 <div class="linkkk">
                                     <a href="/Datenschutz/">
@@ -296,7 +296,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="experimental-area" class="nop overhid">
+                <div id="experimental-area" class="dontDisplay overhid">
                     <div class="center">
                         <h2 class="headline fadeElement">Experimentaler Bereich</h2>
                     </div>
@@ -335,7 +335,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="multiplayer" class="nop overhid">
+                <div id="multiplayer" class="dontDisplay overhid">
                     <div class="center">
                         <h2 class="fadeElement">Online Mehrspieler</h2>
                         <input class="moveLeftElement" id="inpu" type="text" placeholder="Name" maxlength="20">
@@ -353,7 +353,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="queueAnimationContainer" class="nop overhid">
+                <div id="queueAnimationContainer" class="dontDisplay overhid">
                     <div class="center">
                         <h2>Warte auf Spieler</h2>
                     </div>
@@ -380,7 +380,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="gameBoardContainer" class="nop overhid">
+                <div id="gameBoardContainer" class="dontDisplay overhid">
                     <div class="fadeElement">
                         <h2 class="center" id="youAre"></h2>
                         <div class="centerObject">
@@ -419,12 +419,12 @@
                         <div class="btn moveRightElement" id="reset" onclick="rematch()">
                             <span>Rematch</span>
                         </div>
-                        <div class="btn nop moveRightElement" id="chat" onclick="chatting()">
+                        <div class="btn dontDisplay moveRightElement" id="chat" onclick="chatting()">
                             <i class="far fa-comment" id="cha"></i>
                         </div>
                     </div>
                 </div>
-                <div id="singleplayer" class="nop overhid">
+                <div id="singleplayer" class="dontDisplay overhid">
                     <div class="center">
                         <h1 class="fadeElement">Einzelspieler</h1>
                     </div>
@@ -465,7 +465,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="myModal" class="modal nop">
+                <div id="myModal" class="modal dontDisplay">
                     <div class="modal-content">
                         <span id="closeModal" onclick="closeModal()">&times;</span>
                         <div class="center" id="modalContentWindow">
@@ -473,7 +473,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="chatModal" class="modal nop">
+                <div id="chatModal" class="modal dontDisplay">
                     <div id="chat-window">
                         <span class="closeBigPannel" onclick="closehat()">&times;</span>
                         <span id="chat-content">
@@ -489,7 +489,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="patch" class="modal nop">
+                <div id="patch" class="modal dontDisplay">
                     <div id="patch-window">
                         <span class="closeBigPannel timm" onclick="closePatch()">&times;</span>
                         <div class="center">
@@ -720,7 +720,7 @@
                 </div>
             </div>
             <div id="smallScreenSizeContent">
-                <div class="nop" id="noacc">
+                <div class="dontDisplay" id="noacc">
                     <div class="center">
                         <h2>
                             Dein Gerät ist zu klein.<br>
@@ -728,7 +728,7 @@
                         </h2>
                     </div>
                 </div>
-                <div class="nop" id="rota">
+                <div class="dontDisplay" id="rota">
                     <div class="center">
                         <h2>Bitte drehen Sie ihr Gerät um 90°</h2>
                     </div>
