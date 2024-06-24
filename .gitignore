@@ -3,3 +3,4 @@ node_modules
 /src/log/log.log
 /config/https.json
 compressed
+*_old.*
