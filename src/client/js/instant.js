@@ -100,6 +100,36 @@ window.addEventListener('DOMContentLoaded', function() {
     changeAnimationSpeed(animationSpeed * 2);
     document.getElementsByClassName('slide')[0].value = animationSpeed * 2;
 
+
+    // site.webmanifest offline handling
+    function toggleMultiplayerButtons(isOnline) {
+        const multiplayerButtons = document.getElementsByClassName('multiplayerButton');
+        for (let button of multiplayerButtons) {
+            isOnline ? button.classList.remove('disabled') : button.classList.add('disabled');
+        }
+    }
+
+    function setupMultiplayerButtonListeners() {
+        const multiplayerButtons = document.getElementsByClassName('multiplayerButton');
+        for (let button of multiplayerButtons) {
+            const parent = button.parentElement;
+            parent.addEventListener('click', (event) => {
+                if (!navigator.onLine) { // Check the online status at the time of click
+                    event.preventDefault();
+                    showAlert('Du bist offline, bitte überprüfe deine Internetverbindung.');
+                }
+            });
+        }
+    }
+
+    // Initial setup
+    toggleMultiplayerButtons(navigator.onLine);
+    setupMultiplayerButtonListeners();
+
+    // Listen for changes
+    window.addEventListener('online', () => toggleMultiplayerButtons(true));
+    window.addEventListener('offline', () => toggleMultiplayerButtons(false));
+
 });
 
 function notInGame() {
@@ -176,7 +206,7 @@ function changeToExperimentalLocalMultiplayer() {
 }
 
 function changeToExperimentalMultiplayer() {
-    activeGameMode = new ExperimentalMultiplayer();
+    activeGameMode = new ExperimentalOnlineMultiplayer();
     show('multiplayer');
     document.getElementById('settingsBox').classList.add('ingame');
     inExperimentalGame();
