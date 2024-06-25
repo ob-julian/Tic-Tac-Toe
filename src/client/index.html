@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="google-site-verification" content="ZkYZLMkiLfya4NMM9wztcqkhilJw5L2_akPe9ottCdY">
         <title>Tic Tac Toe</title>
         <meta name="description" content="Eine kleine Seite zum Singel- und Multiplayer spielen von Tic-Tac-Toe. Adfree!">
@@ -91,8 +91,10 @@
         <script type="text/javascript" src="js/instant.js"></script>
 
         <!--fontawesome stuff-->
-        <link rel="stylesheet" href="https://kit-free.fontawesome.com/releases/latest/css/free.min.css" media="all">
-
+        <link rel="preload" href="https://kit-free.fontawesome.com/releases/latest/css/free.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript>
+            <link rel="stylesheet" href="https://kit-free.fontawesome.com/releases/latest/css/free.min.css">
+        </noscript>
         <!--socket.io-->
         <script src="https://cdn.socket.io/4.7.5/socket.io.min.js" defer></script>
 
@@ -208,13 +210,12 @@
                 <div id="pin" class="moveRightElement dontDisplay" title="Zeit im millisekunden die der Server braucht um zu antworten">
                     <span>Ping:</span>
                     <span id="ping">0</span>
-                    <span id="defwq"></span>
                 </div>
                 <div class="box fadeElement" id="settingsBox">
                     <div class="lider" title="Color Theme">
                         <i class="fa fa-sun"></i>
                         <label class="switch">
-                            <input type="checkbox" id="checkbox" onclick="switchTheme()">
+                            <input type="checkbox" id="checkbox" onclick="switchTheme()" label="Color Theme">
                             <script>
                                 if (themeColor === 'dark')
                                 document.getElementById('checkbox').checked = true;
@@ -225,7 +226,7 @@
                     </div>
                     <br>
                     <div id="slid" class="lider" title="Animation Speed">
-                        <input type="range" name="slide" min="0" max="5000" value="1500" step="2" onchange="changeAnimationSpeed(this.value);" id="slide">
+                        <input type="range" name="slide" min="0" max="5000" value="1500" step="2" onchange="changeAnimationSpeed(this.value);" id="slide" label="Animation Speed">
                         <br>
                         <i class="fas fa-angle-double-right linkss" onclick="document.getElementById('slide').value = 0; changeAnimationSpeed(0);"></i>
                         <i class="fas fa-angle-right rechts" onclick="document.getElementById('slide').value = 5000; changeAnimationSpeed(5000);"></i>
@@ -523,13 +524,16 @@
                                                 </li>
                                             </ul>
                                             <li>
-                                                Minimum required Device Size reduced
+                                                Minimum required Mobile Device Size reduced
                                                 <ul>
                                                     <li>
                                                         Effective minimum size is now 150 x 150 (px)
                                                     </li>
                                                     <li>
                                                         Or 100 x (>150) (px), if 
+                                                    </li>
+                                                    <li>
+                                                        Desktop Size restrictions are not affected
                                                     </li>
                                                 </ul>
                                             </li>
