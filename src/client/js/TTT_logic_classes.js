@@ -798,6 +798,7 @@ class OnlineMultiplayer extends LocalMultiplayer {
 
         this.socket.on('rematchask', () => {
             document.getElementById('reset').innerHTML = 'Rematch Akzeptieren';
+            document.getElementById('reset').classList.remove('disabled');
             this.rematchAsked = true;
         });
 
