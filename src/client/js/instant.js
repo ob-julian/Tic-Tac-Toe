@@ -1,8 +1,8 @@
-/* global sleep, fadeButton, OnlineMultiplayer, LocalMultiplayer, EasyBot, MediumBot, HardBot, ExperimentalLocalMultiplayer, ExperimentalMultiplayer, changeAnimationSpeed */
+/* global sleep, fadeButton, OnlineMultiplayer, LocalMultiplayer, EasyBot, MediumBot, HardBot, ExperimentalLocalMultiplayer, ExperimentalOnlineMultiplayer, changeAnimationSpeed, showAlert */
 /* exported modal, chat, patch, animationSpeed, intervall, modus, erro, activeGameMode, host */
 
-const host = 'https://oberhofer.ddns.net:3000';
-//const host = 'localhost:3000';
+//const host = 'https://oberhofer.ddns.net:3000';
+const host = 'localhost:3000';
 
 let modal, chat, patch, animationSpeed, intervall;
 let modus = 0;
@@ -104,14 +104,14 @@ window.addEventListener('DOMContentLoaded', function() {
     // site.webmanifest offline handling
     function toggleMultiplayerButtons(isOnline) {
         const multiplayerButtons = document.getElementsByClassName('multiplayerButton');
-        for (let button of multiplayerButtons) {
+        for (const button of multiplayerButtons) {
             isOnline ? button.classList.remove('disabled') : button.classList.add('disabled');
         }
     }
 
     function setupMultiplayerButtonListeners() {
         const multiplayerButtons = document.getElementsByClassName('multiplayerButton');
-        for (let button of multiplayerButtons) {
+        for (const button of multiplayerButtons) {
             const parent = button.parentElement;
             parent.addEventListener('click', (event) => {
                 if (!navigator.onLine) { // Check the online status at the time of click

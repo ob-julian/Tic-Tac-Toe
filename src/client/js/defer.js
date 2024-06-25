@@ -1,8 +1,8 @@
 /* eslint-disable no-global-assign */
 // EsLint global variables
-/* global activeGameMode, themeColor, patch, OnlineMultiplayer, modal, ExperimentalLocalMultiplayer, chat, themeColor, animationSpeed*/
+/* global activeGameMode, themeColor, patch, OnlineMultiplayer, modal, ExperimentalLocalMultiplayer, chat, themeColor, animationSpeed, ExperimentalOnlineMultiplayer*/
 // EsLint exported variables
-/* exported los, rematch, changeAnimationSpeed, help, pat, backButton, neu, disconnect, chatting, onBlur, onFocus, sendMsg, chatOk, tutorialJa, tutorialNein, closeModal, showAlert, anination, experimentalTutorialDisableHint, switchTheme, fadeButton */
+/* exported los, rematch, changeAnimationSpeed, help, pat, backButton, neu, disconnect, chatting, onBlur, onFocus, sendMsg, chatOk, tutorialJa, tutorialNein, closeModal, showAlert, anination, experimentalTutorialDisableHint, switchTheme, fadeButton, animation, openPatchNotes */
 
 // ttt wrapper for class based game modes
 function executeGameModeMethod(methodName, requiredClass = null, ...args) {
@@ -144,7 +144,7 @@ function changeAnimationSpeed(newSpeed){
     animationSpeed = newSpeed;
     localStorage.setItem('animationSpeed', newSpeed);
     document.documentElement.style.setProperty('--animationSpeed', newSpeed + 'ms');
-    newSpeed = newSpeed * 2/3;
+    newSpeed = newSpeed * 2 / 3;
     document.documentElement.style.setProperty('--animationSpeed2', newSpeed + 'ms');
 }
 

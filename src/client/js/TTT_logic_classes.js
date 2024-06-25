@@ -1,5 +1,5 @@
-/* global showAlert, sleep, io, fadebutton, animationSpeed, fadeout, host, closeModal, chat */
-/* exported LocalMultiplayer, ExperimentalLocalMultiplayer, HardBot, MediumBot, EasyBot, OnlineMultiplayer */
+/* global showAlert, sleep, io, animationSpeed, fadeout, host, closeModal, chat, fadeButton, modal */
+/* exported LocalMultiplayer, ExperimentalLocalMultiplayer, HardBot, MediumBot, EasyBot, OnlineMultiplayer, ExperimentalOnlineMultiplayer */
 
 const playerSymbols = {
     1: 'X',
@@ -138,7 +138,7 @@ class LocalMultiplayer {
         document.getElementById('help').classList.add('dontDisplay');
         document.getElementById('infoscreen').classList.add('dontDisplay');
 
-        for(let backBut of allBackButtons) {
+        for(const backBut of allBackButtons) {
             backBut.classList.add('dontDisplay');
         }
         for(let www = 0; www < 9; www++) {
@@ -159,7 +159,7 @@ class LocalMultiplayer {
         for(let i = 0; i < 9; i++) {
             document.getElementById('a' + i).innerHTML = this.board[i];
         }
-        for(let backBut of allBackButtons) {
+        for(const backBut of allBackButtons) {
             backBut.removeAttribute('style');
         }
         this.tutorialJa();
@@ -782,11 +782,13 @@ class OnlineMultiplayer extends LocalMultiplayer {
                 document.getElementById('score').innerHTML = this.player1.symbol + ': ' + punkteSelf + ' vs. ' + this.player2.symbol + ': ' + punkteEnemy;
                 showAlert('Du hast gewonnen');
                 this.chatWrite('system', 'Du hast gewonnen');
+                this.turn = this.player2.symbol;
             }
             else{
                 document.getElementById('score').innerHTML = this.player1.symbol + ': ' + punkteEnemy + ' vs. ' + this.player2.symbol + ': ' + punkteSelf;
                 showAlert('Du hast verloren');
                 this.chatWrite('system', 'Du hast verloren');
+                this.turn = this.player1.symbol;
             }
         });
 
@@ -1155,7 +1157,7 @@ class ExperimentalOnlineMultiplayer extends OnlineMultiplayer {
     performTurn(turnPlayerSymbol, otherPlayerSymbol, index, oldPosition, moveKind) {
         switch (moveKind) {
             case 'move':
-                super.performTurn(turnPlayerSymbol, otherPlayerSymbol, index);   
+                super.performTurn(turnPlayerSymbol, otherPlayerSymbol, index);
                 break;
             case 'red':
                 this.getElement(index).style.color = 'red';
