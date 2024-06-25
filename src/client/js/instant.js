@@ -229,6 +229,9 @@ function show(contain){
     document.getElementById('singleplayer').classList.add('dontDisplay');
     document.getElementById('multiplayer').classList.add('dontDisplay');
     document.getElementById('experimental-area').classList.add('dontDisplay');
+    chat.classList.add('dontDisplay');
+    patch.classList.add('dontDisplay');
+    modal.classList.add('dontDisplay');
     document.getElementById(contain).classList.remove('dontDisplay');
 }
 
@@ -241,8 +244,8 @@ function scaleContent() {
     const scaleWidth = Math.min(1, deviceWidth / baseWidth);
     const scaleHeight = Math.min(1, deviceHeight / baseHeight);
     const scale = Math.min(scaleWidth, scaleHeight);
-    //viewport.content = `width=${baseWidth}, initial-scale=${scale}, user-scalable=no`;
-    viewport.content = `width=device-width, initial-scale=${scale}, user-scalable=no`;
+    //viewport.content = `width=${baseWidth}, initial-scale=${scale}`;
+    viewport.content = `width=device-width, initial-scale=${scale}`;
 }
 
 scaleContent();
