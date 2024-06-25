@@ -229,6 +229,7 @@ function show(contain){
     document.getElementById('singleplayer').classList.add('dontDisplay');
     document.getElementById('multiplayer').classList.add('dontDisplay');
     document.getElementById('experimental-area').classList.add('dontDisplay');
+    document.getElementById('pin').classList.add('dontDisplay');
     chat.classList.add('dontDisplay');
     patch.classList.add('dontDisplay');
     modal.classList.add('dontDisplay');

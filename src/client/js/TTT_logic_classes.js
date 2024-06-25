@@ -874,9 +874,6 @@ class OnlineMultiplayer extends LocalMultiplayer {
 
     disconnect(){
         this.socket.emit('dis');
-        document.getElementById('pin').classList.add('dontDisplay');
-        document.getElementById('help').classList.add('dontDisplay');
-        document.getElementById('chat').classList.add('dontDisplay');
         clearInterval(this.intervall);
 
         // Reset this
@@ -886,7 +883,6 @@ class OnlineMultiplayer extends LocalMultiplayer {
         this.inOpenChat = false;
         this.inChatInput = false;
         this.unreadMessages = 0;
-
     }
 
     ping(){
@@ -922,7 +918,7 @@ class OnlineMultiplayer extends LocalMultiplayer {
         if(this.noFillter){
             chat.classList.remove('dontDisplay');
             await sleep(100);
-            chat.classList.add('movechat');
+            document.getElementById('chat-window').classList.add('movechat');
             chat.classList.add('chatopa');
             this.unread(0);
             this.unreadMessages = 0;
@@ -938,7 +934,7 @@ class OnlineMultiplayer extends LocalMultiplayer {
     }
 
     async closeChat(){
-        chat.classList.remove('movechat');
+        document.getElementById('chat-window').classList.remove('movechat');
         chat.classList.remove('chatopa');
         this.inOpenChat = false;
         this.inChatInput = false;
@@ -1067,7 +1063,7 @@ class OnlineMultiplayer extends LocalMultiplayer {
         localStorage.setItem('nofillter', true);
         chat.classList.remove('dontDisplay');
         await sleep(100);
-        chat.classList.add('movechat');
+        document.getElementById('chat-window').classList.add('movechat');
         chat.classList.add('chatopa');
         this.unread(0);
         this.unreadMessages = 0;
