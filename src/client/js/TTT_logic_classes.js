@@ -922,7 +922,7 @@ class OnlineMultiplayer extends LocalMultiplayer {
         if(this.noFillter){
             chat.classList.remove('dontDisplay');
             await sleep(100);
-            document.getElementById('chat-window').classList.add('movechat');
+            chat.classList.add('movechat');
             chat.classList.add('chatopa');
             this.unread(0);
             this.unreadMessages = 0;
@@ -934,11 +934,11 @@ class OnlineMultiplayer extends LocalMultiplayer {
     }
 
     async chatWarning(){
-        showAlert('Der Chat besitzt keinerlei Worfilter!<br>Die Webseite hat nichts mit den Inhalten welche Übermittelt werden zu tun und  übernimmt keinerlei Haftung für jegliche von dritter Übermittelte Inhalte!<br><div  align=\'left\' style=\'float:left;\'><button onclick=\'chatOk();\'>Okay verstanden</button></div><div  align=\'right\' style=\'margin-bottom: -18px;\'><button onclick=\'closeModal()\'>Kein Interesse</button></div>', false);
+        showAlert('Der Chat besitzt keinerlei Wortfilter!<br>Die Webseite hat nichts mit den Inhalten welche Übermittelt werden zu tun und  übernimmt keinerlei Haftung für jegliche von dritter Übermittelte Inhalte!<br><div  align=\'left\' style=\'float:left;\'><button onclick=\'chatOk();\'>Okay verstanden</button></div><div  align=\'right\' style=\'margin-bottom: -18px;\'><button onclick=\'closeModal()\'>Kein Interesse</button></div>', false);
     }
 
     async closeChat(){
-        document.getElementById('chat-window').classList.remove('movechat');
+        chat.classList.remove('movechat');
         chat.classList.remove('chatopa');
         this.inOpenChat = false;
         this.inChatInput = false;
@@ -1067,7 +1067,7 @@ class OnlineMultiplayer extends LocalMultiplayer {
         localStorage.setItem('nofillter', true);
         chat.classList.remove('dontDisplay');
         await sleep(100);
-        document.getElementById('chat-window').classList.add('movechat');
+        chat.classList.add('movechat');
         chat.classList.add('chatopa');
         this.unread(0);
         this.unreadMessages = 0;
