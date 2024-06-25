@@ -20,5 +20,5 @@
     "theme_color": "#565f6d",
     "description": "Hier kannst du Tic Tac Toe gegen den Computer oder gegen einen Freund spielen, online oder an selben Gerät.",
     "lang": "de",
-    "related_applications": false
+    "related_applications": []
 }
