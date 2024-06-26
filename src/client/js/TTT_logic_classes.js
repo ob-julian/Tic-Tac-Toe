@@ -662,6 +662,7 @@ class OnlineMultiplayer extends LocalMultiplayer {
         this.serverId = null;
         this.inOpenChat = false;
         this.unreadMessages = 0;
+        this.isInQueue = false;
 
         this.noFillter = localStorage.getItem('nofillter');
         if (this.noFillter === null) {
@@ -719,6 +720,7 @@ class OnlineMultiplayer extends LocalMultiplayer {
     initSocket() {
         // this.socket events
         this.socket.on('queueIn', async () => {
+            this.isInQueue = true;
             // Event when player is in queue
             if (('Notification' in window) && Notification.permission !== 'denied' && Notification.permission !== 'granted') {
                 Notification.requestPermission().then(() => {
@@ -744,9 +746,11 @@ class OnlineMultiplayer extends LocalMultiplayer {
             this.player1.symbol = playerSymbol;
             this.player2.symbol = enemySymbol;
             this.player2.name = enemyName;
-            if (('Notification' in window) && Notification.permission === 'granted') {
+            // Do not show notification if the player finds an enemy instantly
+            if (('Notification' in window) && Notification.permission === 'granted' && this.isInQueue) {
                 new Notification('Gegner ' + enemyName + ' will gegen dich spielen');
             }
+            this.isInQueue = false;
 
             fadeout(() => {
                 document.getElementById('youAre').innerHTML = 'You are ' + playerSymbol;
@@ -884,6 +888,7 @@ class OnlineMultiplayer extends LocalMultiplayer {
         this.inOpenChat = false;
         this.inChatInput = false;
         this.unreadMessages = 0;
+        this.isInQueue = false;
     }
 
     ping(){
