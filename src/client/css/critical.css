@@ -72,6 +72,13 @@ tr:last-child {
     display: block;
 }
 
+.dontShowButAccessible {
+    opacity: 0;
+    display: block;
+    width: 0;
+    height: 0;
+}
+
 @media (max-width:540px) {
     .back, #reset {
         width: 46% !important
