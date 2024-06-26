@@ -85,26 +85,14 @@ a {
     opacity: 0.8;
 }
 
-input:checked+#slider {
-    background-color: var(--bt-bg-color);
+input:focus ~ #slider {
+    box-shadow: 0 0 1px var(--bg);
 }
 
-input:focus+#slider {
-    box-shadow: 0 0 1px var(--bt-bg-color);
-}
-
-input:checked+#slider::before {
+input:checked ~ #slider::before {
     -webkit-transform: translateX(26px);
     -ms-transform: translateX(26px);
     transform: translateX(26px);
-}
-
-#slider.round {
-    border-radius: 34px;
-}
-
-#slider.round::before {
-    border-radius: 50%;
 }
 
 i {
@@ -258,7 +246,7 @@ i {
     border-radius: 5px;
     background: var(--bt-bg-color);
     outline: none;
-    transition: opacity .2s, background-color var(--animationSpeed) ease-in-out;
+    transition: background-color .2s, opacity var(--animationSpeed) ease-in-out;
 }
 
 #slide::-webkit-slider-thumb {
@@ -268,8 +256,7 @@ i {
     height: 25px;
     border-radius: 50%;
     background: var(--text);
-    cursor: pointer;
-    transition: background-color var(--animationSpeed) ease-in-out;
+    transition: background-color .2s, opacity var(--animationSpeed) ease-in-out;
 }
 
 #slide::-moz-range-thumb {
@@ -280,7 +267,7 @@ i {
     border-radius: 50%;
     background: var(--text);
     cursor: pointer;
-    transition: background-color var(--animationSpeed) ease-in-out;
+    transition: background-color .2s, opacity var(--animationSpeed) ease-in-out;
 }
 
 #slid{

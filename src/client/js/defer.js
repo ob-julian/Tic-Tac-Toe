@@ -117,7 +117,18 @@ async function closeModal() {
     document.getElementById('help').classList.remove('dontDisplay');
 }
 
-window.onclick = function(event) {
+window.onclick = closePosibleOpen;
+window.onkeydown = function(event) {
+    if(event.key === 'Escape') {
+        closeModal();
+        closeChat();
+        closePatch();
+    }
+};
+// safari fix
+window.ontouchstart = closePosibleOpen;
+
+function closePosibleOpen(event) {
     if(event.target === modal) {
         closeModal();
     }
@@ -127,7 +138,7 @@ window.onclick = function(event) {
     else if(event.target === patch){
         closePatch();
     }
-};
+}
 
 function showAlert(text, isClosable = true) {
     document.getElementById('mote').innerHTML = text;
