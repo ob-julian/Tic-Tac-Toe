@@ -657,12 +657,14 @@ class OnlineMultiplayer extends LocalMultiplayer {
         this.rematchAsked = false;
         this.isOnline = false;
         this.inChatInput = false;
-        this.publicKey = null;
-        this.privateKey = null;
+        this.keyPair = null;
+        this.otherPersonsKey = null;
+        this.aesKey = null;
         this.serverId = null;
         this.inOpenChat = false;
         this.unreadMessages = 0;
         this.isInQueue = false;
+        this.chatEnabled = true;
 
         this.noFillter = localStorage.getItem('nofillter');
         if (this.noFillter === null) {
@@ -765,15 +767,26 @@ class OnlineMultiplayer extends LocalMultiplayer {
             })();
 
             showAlert('Gegner: ' + enemyName);
-            //encryption setup
-            const keyPair = await this.generateKeyPair();
+            
             try {
-                this.privateKey = await crypto.subtle.exportKey('pkcs8', keyPair.privateKey);
-                const pk = await crypto.subtle.exportKey('spki', keyPair.publicKey);
+                //clear old keys
+                this.keyPair = null;
+                this.otherPersonsKey = null;
+                this.aesKey = null;
+
+                //encryption setup
+                const keyPair = await this.generateKeyPair();
+                this.keyPair = keyPair;
+                const pk = await this.exportPublicKey(keyPair);
                 this.socket.emit('publicKey', pk);
+                // check if the other player has already sent his key
+                if (this.otherPersonsKey) {
+                    this.tryToGenerateAESKey();
+                }
             }
             catch (e){
                 console.error(e);
+                this.disableChat();
             }
         });
 
@@ -844,18 +857,16 @@ class OnlineMultiplayer extends LocalMultiplayer {
             this.chatWrite('system', 'Dies ist der Anfang deines Chats mit ' + this.player2.name);
         });
 
-        this.socket.on('receiveMessage', async (gg) => {
+        this.socket.on('receiveMessage', async (data) => {
             let msg;
-            try {
-                msg = await this.decrypt(gg, this.privateKey);
-                this.chatWrite('other', msg);
-            } catch {
-                showAlert('Error while decrypting message. Disabling Chat.');
-            }
+            msg = await this.decryptMessage(data);
+            this.chatWrite('other', msg);
+
         });
 
         this.socket.on('getKey', (key) => {
-            this.publicKey = key;
+            this.otherPersonsKey = key;
+            this.tryToGenerateAESKey();
         });
 
         this.socket.on('foc2', () => {
@@ -883,8 +894,9 @@ class OnlineMultiplayer extends LocalMultiplayer {
 
         // Reset this
         this.isOnline = false;
-        this.publicKey = null;
-        this.privateKey = null;
+        this.keyPair = null;
+        this.otherPersonsKey = null;
+        this.aesKey = null;
         this.inOpenChat = false;
         this.inChatInput = false;
         this.unreadMessages = 0;
@@ -908,6 +920,12 @@ class OnlineMultiplayer extends LocalMultiplayer {
         this.board[index] = turnPlayerSymbol;
     }
 
+    disableChat(){
+        this.chatEnabled = false;
+        document.getElementById('chat').classList.add('dontDisplay');
+        showAlert('Der Chat wurde deaktiviert, da die Verschlüsselung fehlgeschlagen ist.');
+    }
+
     typing(isTyping){
         if(isTyping){
             document.getElementById('cha').classList.remove('fa-comment');
@@ -920,7 +938,14 @@ class OnlineMultiplayer extends LocalMultiplayer {
         this.typingIn(isTyping);
     }
 
-    async chatting(){
+    async openChat(){
+        if (!this.aesKey) {
+            // fail safe code in case the 2 socket messages missed each other
+            await this.tryToGenerateAESKey();
+        }
+        if (!this.chatEnabled || !this.aesKey) {
+            return
+        }
         if(this.noFillter){
             chat.classList.remove('dontDisplay');
             await sleep(100);
@@ -953,16 +978,11 @@ class OnlineMultiplayer extends LocalMultiplayer {
         message = message.trim();
         if (message !== '') {
             message = this.htmlEscapeSpecialChars(message);
-            if (this.publicKey === null || this.publicKey === '')
-                showAlert('Encryption not set up properly. Chat disabled.');
-            else
-                try {
-                    const msg = await this.encrypt(message, this.publicKey);
-                    this.socket.emit('sendMessage', msg);
-                    this.chatWrite('me', message);
-                } catch {
-                    showAlert('Encryption failed. Disabling Chat.');
-                }
+
+            const msg = await this.encryptMessage(message);
+            this.socket.emit('sendMessage', msg);
+            this.chatWrite('me', message);
+
         }
         document.getElementById('chatinputbox').value = '';
     }
@@ -985,63 +1005,125 @@ class OnlineMultiplayer extends LocalMultiplayer {
     }
 
     async generateKeyPair() {
-        return await crypto.subtle.generateKey(
+        return crypto.subtle.generateKey(
             {
-                name: 'RSA-OAEP',
-                modulusLength: 1024, // can be 1024, 2048, or 4096
-                publicExponent: new Uint8Array([0x01, 0x00, 0x01]),
-                hash: 'SHA-256'
+            name: "ECDH",
+            namedCurve: "P-256", // Can also use "P-384" or "P-521"
+            },
+            true, // Key is extractable
+            ["deriveKey"]
+        );
+    }
+        
+    async exportPublicKey(keyPair) {
+        return crypto.subtle.exportKey("raw", keyPair.publicKey);
+        }
+        
+    async importPublicKey(rawKey) {
+        return crypto.subtle.importKey(
+            "raw",
+            rawKey,
+            {
+            name: "ECDH",
+            namedCurve: "P-256",
             },
             true,
-            ['encrypt', 'decrypt']
+            []
+        );
+    }
+        
+    async deriveSharedSecret(privateKey, publicKey) {
+        return crypto.subtle.deriveKey(
+            {
+            name: "ECDH",
+            public: publicKey,
+            },
+            privateKey,
+            { name: "AES-GCM", length: 256 }, // Derived key type
+            true,
+            ["encrypt", "decrypt"]
         );
     }
 
-    // Encrypt the message using the public key
-    async encrypt(message, publicKey) {
-        const array = new TextEncoder().encode(message);
-        const cryptoKey = await crypto.subtle.importKey(
-            'spki',
-            publicKey,
-            {
-                name: 'RSA-OAEP',
-                hash: 'SHA-256'
-            },
-            false,
-            ['encrypt']
-        );
-        const ciphertext = await crypto.subtle.encrypt(
-            {
-                name: 'RSA-OAEP'
-            },
-            cryptoKey,
-            array
-        );
-        return new Uint8Array(ciphertext);
+    tryToGenerateAESKey() {
+        if (this.otherPersonsKey !== null && this.keyPair !== null && this.aesKey === null) {
+            return this.importPublicKey(this.otherPersonsKey).then((publicKey) => {
+                this.deriveSharedSecret(this.keyPair.privateKey, publicKey).then((aesKey) => {
+                    this.aesKey = aesKey;
+                }).catch((error) => {
+                    console.error("Error deriving shared secret:", error);
+                });
+            }).catch((error) => {
+                console.error("Error importing public key:", error);
+            }).finally(() => {
+                // cleanup
+                this.keyPair = null;
+                this.otherPersonsKey = null;
+            });
+        }
     }
+    
+    // Encrypt the message using the public key
+    async  encryptMessage(data) {
+        if (this.aesKey === null) {
+            // code in case the 2 socket messages missed each other
+            await this.tryToGenerateAESKey();
+        }
+        if (this.aesKey === null) {
+            this.disableChat();
+            return;
+        }
+
+        const iv = crypto.getRandomValues(new Uint8Array(12)); // Initialization vector
+        const encrypted = await crypto.subtle.encrypt(
+            {
+                name: "AES-GCM",
+                iv: iv,
+            },
+            this.aesKey,
+            new TextEncoder().encode(data)
+        );
+        console.log('decrypted', this.decryptMessage({ iv, encrypted }));
+        return { iv, encrypted };
+    }
+      
 
     // Decrypt the ciphertext using the private key
-    async decrypt(ciphertext, privateKey) {
-        const array = new Uint8Array(ciphertext);
-        const cryptoKey = await crypto.subtle.importKey(
-            'pkcs8',
-            privateKey,
-            {
-                name: 'RSA-OAEP',
-                hash: 'SHA-256'
-            },
-            true,
-            ['decrypt']
-        );
-        const decrypted = await crypto.subtle.decrypt(
-            {
-                name: 'RSA-OAEP'
-            },
-            cryptoKey,
-            array
-        );
-        return new TextDecoder().decode(decrypted);
+    async decryptMessage(data) {
+        if (this.aesKey === null) {
+            // code in case the 2 socket messages missed each other
+            await this.tryToGenerateAESKey();
+        } else if (this.aesKey === null) {
+            this.disableChat();
+            return;
+        }
+        const { iv, encrypted } = data;
+        try {
+            const decrypted = await crypto.subtle.decrypt(
+                {
+                    name: "AES-GCM",
+                    iv: iv,
+                    tagLength: 128,
+                },
+                this.aesKey,
+                encrypted
+            );
+            return new TextDecoder().decode(decrypted);
+        } catch (error) {
+            // Handle decryption errors
+            if (error.name === "OperationError") {
+                // This error can indicate a problem with the decryption operation,
+                // such as a wrong tag or tampered ciphertext
+                showAlert('Fehler bei der Entschlüsselung. Möglicherweise wurde die Nachricht manipuliert!');
+            } else {
+                // Other errors
+                console.error("Error decrypting message:", error);
+                return '<i>Nachricht konnte nicht entschlüsselt werden</i>';
+            }
+        }
+        return "";
     }
+      
 
     updateStyle(content) {
         const yourscripttag = document.getElementById('chatt');
@@ -1116,7 +1198,6 @@ class OnlineMultiplayer extends LocalMultiplayer {
     }
 
     err() {
-        //<meta http-equiv="refresh" content="5; URL=http://meine zieladresse">
         const newmeta = document.createElement('meta');
         newmeta.httpEquiv = 'refresh';
         newmeta.content = '5; URL=https://oberhofer.ddns.net/ttt';

@@ -2,7 +2,7 @@
 // EsLint global variables
 /* global activeGameMode, themeColor, patch, OnlineMultiplayer, modal, ExperimentalLocalMultiplayer, chat, themeColor, animationSpeed, ExperimentalOnlineMultiplayer*/
 // EsLint exported variables
-/* exported los, rematch, changeAnimationSpeed, help, pat, backButton, neu, disconnect, chatting, onBlur, onFocus, sendMsg, chatOk, tutorialJa, tutorialNein, closeModal, showAlert, anination, experimentalTutorialDisableHint, switchTheme, fadeButton, animation, openPatchNotes */
+/* exported los, rematch, changeAnimationSpeed, help, pat, backButton, neu, disconnect, openChat, onBlur, onFocus, sendMsg, chatOk, tutorialJa, tutorialNein, closeModal, showAlert, anination, experimentalTutorialDisableHint, switchTheme, fadeButton, animation, openPatchNotes */
 
 // ttt wrapper for class based game modes
 function executeGameModeMethod(methodName, requiredClass = null, ...args) {
@@ -50,8 +50,8 @@ function disconnect() {
     executeGameModeMethod('disconnect', OnlineMultiplayer);
 }
 
-function chatting() {
-    executeGameModeMethod('chatting', OnlineMultiplayer);
+function openChat() {
+    executeGameModeMethod('openChat', OnlineMultiplayer);
 }
 
 function closeChat() {

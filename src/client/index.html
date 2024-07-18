@@ -422,7 +422,7 @@
                         <div class="btn moveRightElement" id="reset" onclick="rematch()">
                             <span>Rematch</span>
                         </div>
-                        <div class="btn dontDisplay moveRightElement" id="chat" onclick="chatting()">
+                        <div class="btn dontDisplay moveRightElement" id="chat" onclick="openChat()">
                             <i class="far fa-comment" id="cha"></i>
                         </div>
                     </div>
@@ -509,7 +509,7 @@
                                                 There should be no noticeable changes for the user
                                             </li>
                                             <li>
-                                                Complet overhaul of the website
+                                                Complet overhaul of the Website Code
                                             </li>
                                             <ul>
                                                 <li>
@@ -536,6 +536,17 @@
                                                     </li>
                                                     <li>
                                                         Desktop Size restrictions are not affected
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                Switched from RSA-2048 to to AES-256-GCM with ECDH (Elliptic-curve Diffie-Hellman, Curve: P-256) for the Multiplayer Chat encryption
+                                                <ul>
+                                                    <li>
+                                                        This should increase the speed of the encryption and decryption process
+                                                    </li>
+                                                    <li>
+                                                        Old character limits (RSA Block size) are removed
                                                     </li>
                                                 </ul>
                                             </li>
