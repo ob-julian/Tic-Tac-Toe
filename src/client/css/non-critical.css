@@ -244,7 +244,7 @@ i {
     width: 124px;
     height: 15px;
     border-radius: 5px;
-    background: var(--bt-bg-color);
+    background-color: var(--bt-bg-color);
     outline: none;
     transition: background-color .2s, opacity var(--animationSpeed) ease-in-out;
 }
@@ -255,8 +255,8 @@ i {
     width: 25px;
     height: 25px;
     border-radius: 50%;
-    background: var(--text);
-    transition: background-color .2s, opacity var(--animationSpeed) ease-in-out;
+    background-color: var(--text);
+    transition: background-color .5s, opacity var(--animationSpeed) ease-in-out;
 }
 
 #slide::-moz-range-thumb {
@@ -265,9 +265,9 @@ i {
     width: 25px;
     height: 25px;
     border-radius: 50%;
-    background: var(--text);
+    background-color: var(--text);
     cursor: pointer;
-    transition: background-color .2s, opacity var(--animationSpeed) ease-in-out;
+    transition: background-color .5s, opacity var(--animationSpeed) ease-in-out;
 }
 
 #slid{
@@ -621,9 +621,6 @@ i {
     box-sizing: border-box;
 }
 
-#modalContentWindow {
-}
-
 #closeModal {
     color: #aaa;
     float: right;
@@ -706,13 +703,13 @@ i {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: var(--opposite);
+    background-color: var(--opposite);
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--lightOpposite);
+    background-color: var(--lightOpposite);
 } 
 
 /*Firefox "equal"*/
