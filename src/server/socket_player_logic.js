@@ -369,7 +369,11 @@ function socket_player_logic(io, serverId) {
     });
 }
 
+const isProduction = process.env.NODE_ENV === 'production';
 function consolelog(data){
+    if (isProduction) {
+        return;
+    }
     const date = new Date;
     console.log('[' + date.getDate() + '.' + (date.getMonth() + 1) + '-' + date.getHours() + ':' + date.getMinutes() + '] ' + data);
 }
