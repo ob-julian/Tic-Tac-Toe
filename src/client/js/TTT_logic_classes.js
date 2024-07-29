@@ -1174,6 +1174,7 @@ class OnlineMultiplayer extends LocalMultiplayer {
 
     chatWrite(wer, was){
         let text;
+        let was = this.htmlEscapeSpecialChars(was);
         if(wer === 'system'){
             text = '<center><p style=\'font-style: italic;\'>' + was + '</p></center>';
         }
