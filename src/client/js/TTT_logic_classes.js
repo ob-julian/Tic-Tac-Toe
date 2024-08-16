@@ -767,7 +767,7 @@ class OnlineMultiplayer extends LocalMultiplayer {
             })();
 
             showAlert('Gegner: ' + enemyName);
-            
+
             try {
                 //clear old keys
                 this.keyPair = null;
@@ -858,8 +858,7 @@ class OnlineMultiplayer extends LocalMultiplayer {
         });
 
         this.socket.on('receiveMessage', async (data) => {
-            let msg;
-            msg = await this.decryptMessage(data);
+            const msg = await this.decryptMessage(data);
             this.chatWrite('other', msg);
 
         });
@@ -944,7 +943,7 @@ class OnlineMultiplayer extends LocalMultiplayer {
             await this.tryToGenerateAESKey();
         }
         if (!this.chatEnabled || !this.aesKey) {
-            return
+            return;
         }
         if(this.noFillter){
             chat.classList.remove('dontDisplay');
@@ -1007,41 +1006,41 @@ class OnlineMultiplayer extends LocalMultiplayer {
     async generateKeyPair() {
         return crypto.subtle.generateKey(
             {
-            name: "ECDH",
-            namedCurve: "P-256", // Can also use "P-384" or "P-521"
+            name: 'ECDH',
+            namedCurve: 'P-256', // Can also use "P-384" or "P-521"
             },
             true, // Key is extractable
-            ["deriveKey"]
+            ['deriveKey']
         );
     }
-        
+
     async exportPublicKey(keyPair) {
-        return crypto.subtle.exportKey("raw", keyPair.publicKey);
+        return crypto.subtle.exportKey('raw', keyPair.publicKey);
         }
-        
+
     async importPublicKey(rawKey) {
         return crypto.subtle.importKey(
-            "raw",
+            'raw',
             rawKey,
             {
-            name: "ECDH",
-            namedCurve: "P-256",
+            name: 'ECDH',
+            namedCurve: 'P-256',
             },
             true,
             []
         );
     }
-        
+
     async deriveSharedSecret(privateKey, publicKey) {
         return crypto.subtle.deriveKey(
             {
-            name: "ECDH",
+            name: 'ECDH',
             public: publicKey,
             },
             privateKey,
-            { name: "AES-GCM", length: 256 }, // Derived key type
+            { name: 'AES-GCM', length: 256 }, // Derived key type
             true,
-            ["encrypt", "decrypt"]
+            ['encrypt', 'decrypt']
         );
     }
 
@@ -1051,10 +1050,10 @@ class OnlineMultiplayer extends LocalMultiplayer {
                 this.deriveSharedSecret(this.keyPair.privateKey, publicKey).then((aesKey) => {
                     this.aesKey = aesKey;
                 }).catch((error) => {
-                    console.error("Error deriving shared secret:", error);
+                    console.error('Error deriving shared secret:', error);
                 });
             }).catch((error) => {
-                console.error("Error importing public key:", error);
+                console.error('Error importing public key:', error);
             }).finally(() => {
                 // cleanup
                 this.keyPair = null;
@@ -1062,7 +1061,7 @@ class OnlineMultiplayer extends LocalMultiplayer {
             });
         }
     }
-    
+
     // Encrypt the message using the public key
     async  encryptMessage(data) {
         if (this.aesKey === null) {
@@ -1077,7 +1076,7 @@ class OnlineMultiplayer extends LocalMultiplayer {
         const iv = crypto.getRandomValues(new Uint8Array(12)); // Initialization vector
         const encrypted = await crypto.subtle.encrypt(
             {
-                name: "AES-GCM",
+                name: 'AES-GCM',
                 iv: iv,
             },
             this.aesKey,
@@ -1086,14 +1085,16 @@ class OnlineMultiplayer extends LocalMultiplayer {
         console.log('decrypted', this.decryptMessage({ iv, encrypted }));
         return { iv, encrypted };
     }
-      
+
 
     // Decrypt the ciphertext using the private key
     async decryptMessage(data) {
         if (this.aesKey === null) {
             // code in case the 2 socket messages missed each other
             await this.tryToGenerateAESKey();
-        } else if (this.aesKey === null) {
+        }
+        // Try again
+        if (this.aesKey === null) {
             this.disableChat();
             return;
         }
@@ -1101,7 +1102,7 @@ class OnlineMultiplayer extends LocalMultiplayer {
         try {
             const decrypted = await crypto.subtle.decrypt(
                 {
-                    name: "AES-GCM",
+                    name: 'AES-GCM',
                     iv: iv,
                     tagLength: 128,
                 },
@@ -1111,19 +1112,19 @@ class OnlineMultiplayer extends LocalMultiplayer {
             return new TextDecoder().decode(decrypted);
         } catch (error) {
             // Handle decryption errors
-            if (error.name === "OperationError") {
+            if (error.name === 'OperationError') {
                 // This error can indicate a problem with the decryption operation,
                 // such as a wrong tag or tampered ciphertext
                 showAlert('Fehler bei der Entschlüsselung. Möglicherweise wurde die Nachricht manipuliert!');
             } else {
                 // Other errors
-                console.error("Error decrypting message:", error);
+                console.error('Error decrypting message:', error);
                 return '<i>Nachricht konnte nicht entschlüsselt werden</i>';
             }
         }
-        return "";
+        return '';
     }
-      
+
 
     updateStyle(content) {
         const yourscripttag = document.getElementById('chatt');

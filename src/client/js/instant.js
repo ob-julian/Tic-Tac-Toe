@@ -165,57 +165,57 @@ function back() {
 function changeToOnlineMultiplayer() {
     activeGameMode = new OnlineMultiplayer();
     show('multiplayer');
-    showSubMenuScreen()
+    showSubMenuScreen();
     inNormalGame();
 }
 
 function changeToLocalMultiplayer() {
     activeGameMode = new LocalMultiplayer();
-    switchToBoard()
+    switchToBoard();
     inNormalGame();
 }
 
 function changeToSingleplayerArea() {
     show('singleplayer');
-    showSubMenuScreen()
+    showSubMenuScreen();
     notInGame();
 }
 
 function changeToEasyBot() {
     activeGameMode = new EasyBot();
-    switchToBoard()
+    switchToBoard();
     inNormalGame();
 }
 
 function changeToMediumBot() {
     activeGameMode = new MediumBot();
-    switchToBoard()
+    switchToBoard();
     inNormalGame();
 }
 
 function changeToHardBot() {
     activeGameMode = new HardBot();
-    switchToBoard()
+    switchToBoard();
     inNormalGame();
 }
 
 
 function changeToExperimentalLocalMultiplayer() {
     activeGameMode = new ExperimentalLocalMultiplayer();
-    switchToBoard()
+    switchToBoard();
     inExperimentalGame();
 }
 
 function changeToExperimentalMultiplayer() {
     activeGameMode = new ExperimentalOnlineMultiplayer();
     show('multiplayer');
-    showSubMenuScreen()
+    showSubMenuScreen();
     inExperimentalGame();
 }
 
 function changeToExperimentalArea() {
     show('experimental-area');
-    showSubMenuScreen()
+    showSubMenuScreen();
     notInGame();
 }
 
