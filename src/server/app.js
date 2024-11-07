@@ -10,12 +10,17 @@ const isProduction = process.env.NODE_ENV === 'production';
 
 // Local hosting for testing
 let allowNoHttps = true;
+const httpsConfig = getHttpsConfig();
 
-try {
-    const httpsConfig = require('../config/https.json');
-} catch {
-    console.error('Could not find HTTPS configuration, trying to use environment variables');
+function getHttpsConfig() {
+    try {
+        return require('../config/https.json');
+    } catch {
+        console.error('Could not find HTTPS configuration, trying to use environment variables');
+        return {}; // To prevent errors if both are missing
+    }
 }
+
 const keyLocation = process.env.SSL_KEY_PATH || httpsConfig.key;
 const certLocation = process.env.SSL_CERT_PATH || httpsConfig.cert;
 let server, ioServer;
