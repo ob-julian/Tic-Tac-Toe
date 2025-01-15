@@ -23,7 +23,8 @@
   },
   "homepage": "https://github.com/ob-julian/Tic-Tac-Toe#readme",
   "dependencies": {
-    "socket.io": "^4.8.0"
+    "socket.io": "^4.8.0",
+    "tic-tac-toe": "file:"
   },
   "devDependencies": {
     "@eslint/js": "^9.2.0",
