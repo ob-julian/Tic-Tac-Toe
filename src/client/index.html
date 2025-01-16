@@ -167,10 +167,9 @@
                 <script>
                     // This script load when the body starts loading
                     // So setting the color theme here so it is loaded as soon as possible
-                    let themeColor = localStorage.getItem('themeColor');
+                    let themeColor = localStorage.getItem('theme');
                     if(themeColor === null) {
                         themeColor = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-                        localStorage.setItem('themeColor', themeColor);
                     }
                     if(themeColor === 'dark') {
                         document.body.classList.remove('light');

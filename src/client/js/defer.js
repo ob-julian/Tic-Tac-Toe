@@ -169,7 +169,7 @@ function switchTheme() {
         document.body.classList.add('light');
         themeColor = 'light';
     }
-    localStorage.setItem('themeColor', themeColor);
+    localStorage.setItem('theme', themeColor);
 }
 
 
