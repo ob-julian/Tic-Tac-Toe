@@ -80,16 +80,16 @@ docker run -d \
 -p 3000:3000 \
 --restart always \
 --name tic-tac-toe_server \
--e CORS_ORIGIN=https://oberhofer.ddns.net \
--e SSL_KEY_PATH=/usr/src/ssl/live/oberhofer.ddns.net/privkey.pem \
--e SSL_CERT_PATH=/usr/src/ssl/live/oberhofer.ddns.net/fullchain.pem \
+-e CORS_ORIGIN=https://oberflow.dev \
+-e SSL_KEY_PATH=/usr/src/ssl/live/oberflow.dev/privkey.pem \
+-e SSL_CERT_PATH=/usr/src/ssl/live/oberflow.dev/fullchain.pem \
 -v /etc/letsencrypt/:/usr/src/ssl/ \
 tic-tac-toe_server
 ```
 
 Or as a one-liner:
 ```bash
-docker run -d -p 3000:3000 --restart always --name tic-tac-toe_server -e CORS_ORIGIN=https://oberhofer.ddns.net -e SSL_KEY_PATH=/usr/src/ssl/live/oberhofer.ddns.net/privkey.pem -e SSL_CERT_PATH=/usr/src/ssl/live/oberhofer.ddns.net/fullchain.pem -v /etc/letsencrypt/:/usr/src/ssl/ tic-tac-toe_server
+docker run -d -p 3000:3000 --restart always --name tic-tac-toe_server -e CORS_ORIGIN=https://oberflow.dev -e SSL_KEY_PATH=/usr/src/ssl/live/oberflow.dev/privkey.pem -e SSL_CERT_PATH=/usr/src/ssl/live/oberflow.dev/fullchain.pem -v /etc/letsencrypt/:/usr/src/ssl/ tic-tac-toe_server
 ```
 
 #### Further beginner tips:
