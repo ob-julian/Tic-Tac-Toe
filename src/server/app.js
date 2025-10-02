@@ -52,10 +52,11 @@ function startServer() {
         process.exit(1);
     }
     const processedOrigin = process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : null;
+    console.log(`CORS_ORIGIN is set to: ${processedOrigin}`);
     ioServer = io(server, {
         cors: {
             // Allow all origins in development
-            // Else us config or Docker environment variable
+            // Else use config or Docker environment variable
             origin: isProduction ? processedOrigin || corsConfig.origin : '*',
         }
     });
