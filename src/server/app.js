@@ -51,11 +51,12 @@ function startServer() {
         console.error('No CORS origin specified in production, exiting');
         process.exit(1);
     }
+    const processedOrigin = process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : null;
     ioServer = io(server, {
         cors: {
             // Allow all origins in development
             // Else us config or Docker environment variable
-            origin: isProduction ? process.env.CORS_ORIGIN || corsConfig.origin : '*',
+            origin: isProduction ? processedOrigin || corsConfig.origin : '*',
         }
     });
 

@@ -72,6 +72,8 @@ docker run -d \
 tic-tac-toe_server
 ```
 > Beginners Hint: The `\` at the end of the line is used to continue the command on the next line in the terminal.
+> Furthermore, if you want to allow requests from multiple domains, you can set the `CORS_ORIGIN` environment variable to a comma-separated list of domains, e.g. `-e CORS_ORIGIN=<https://domain1.com>,<https://domain2.com>`.
+
 
 A concrete example for my setup, a standard Ubuntu server with Apache2 and Let's Encrypt certificates, would look like this:
 
