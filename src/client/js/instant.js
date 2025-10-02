@@ -199,15 +199,6 @@ function calculateWhyWindowIsTooSmall(){
         usedDeviceHeight = "<span style='color: red;'>" + deviceHeight + "</span>";
     }
     toSmallDeviceDiv.innerHTML = `Dein Gerät ist zu klein.<br>Es unterschreitet die Mindesgröße von ${minWidth}&nbsp;x&nbsp;${minHeight}&nbsp;(px). Dein Gerät hat eine Größe von ${usedDeviceWidth}&nbsp;x&nbsp;${usedDeviceHeight}&nbsp;(px).`;
-    /*
-    if (deviceWidth < minWidth) {
-        usedWidth = "<span style='color: red;'>" + deviceWidth + "</span>";
-    }
-    if (deviceHeight < minHeight) {
-        usedHeight = "<span style='color: red;'>" + deviceHeight + "</span>";
-    }
-
-    toSmallDeviceDiv.innerHTML = `Es unterschreitet die Mindesgröße von ${minWidth}&nbsp;x&nbsp;${minHeight}&nbsp;(px). Dein Gerät hat eine Größe von ${deviceWidth}&nbsp;x&nbsp;${deviceHeight}&nbsp;(px).`;*/
 }
 
 function notInGame() {
