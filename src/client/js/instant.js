@@ -55,9 +55,9 @@ window.onhashchange = function() {
 
 
 window.addEventListener('DOMContentLoaded', function() {
-    modal = document.getElementById('myModal');
-    patch = document.getElementById('patch');
-    chat = document.getElementById('chatModal');
+    const modal = document.getElementById('myModal');
+    const patch = document.getElementById('patch');
+    const chat = document.getElementById('chatModal');
 
     // The Site Version is saved in the meta tag with the name "version"
     // This code reads the version and displays it on the page
@@ -130,7 +130,85 @@ window.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('online', () => toggleMultiplayerButtons(true));
     window.addEventListener('offline', () => toggleMultiplayerButtons(false));
 
+
+    // Handle explaining the small screen size
+    const callBack = function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                console.log('Element is visible');
+                window.addEventListener('resize', calculateWhyWindowIsTooSmall);
+                calculateWhyWindowIsTooSmall(); // Initial calculation
+            } else {
+                console.log('Element is not visible');
+                window.removeEventListener('resize', calculateWhyWindowIsTooSmall);
+            }
+        });
+    };
+    const observer = new IntersectionObserver(callBack, {root: null, threshold: 0.1});
+    const toSmallDeviceDiv = document.getElementById('noaccsize');
+    if (toSmallDeviceDiv === null) {
+        console.error('Element with id "noacc" not found.');
+        return;
+    } else {
+        observer.observe(toSmallDeviceDiv);
+    }
+
+
 });
+
+function calculateWhyWindowIsTooSmall(){
+    const toSmallDeviceDiv = document.getElementById('noaccsize');
+    if (toSmallDeviceDiv === null) {
+        console.error('Element with id "noaccsize" not found.');
+        return;
+    }
+    const deviceScaledWidth = window.innerWidth;
+    const deviceScaledHeight = window.innerHeight;
+    const deviceWidth = window.screen.width;
+    const deviceHeight = window.screen.height;
+    console.log(`Actual Width: ${deviceWidth}, Actual Height: ${deviceHeight}`);
+    console.log(`CSS Pixel Width: ${deviceScaledWidth}, CSS Pixel Height: ${deviceScaledHeight}`);
+    let minWidth = 400;
+    let minHeight = 600;
+    let usedWidth = deviceScaledWidth;
+    let usedHeight = deviceScaledHeight;
+    if (deviceWidth > minWidth && deviceHeight > minHeight) {
+        // This is a resized window on a large device
+        if (deviceScaledWidth < minWidth) {
+            usedWidth = "<span style='color: red;'>" + deviceScaledWidth + "</span>";
+        }
+        if (deviceScaledHeight < minHeight) {
+            usedHeight = "<span style='color: red;'>" + deviceScaledHeight + "</span>";
+        }
+        toSmallDeviceDiv.innerHTML = `Dein Browserfenster ist zu klein.<br>Bitte vergrößere es auf mindestens ${minWidth}&nbsp;x&nbsp;${minHeight}&nbsp;(px). Dein aktuelles Browserfenster hat eine Größe von ${usedWidth}&nbsp;x&nbsp;${usedHeight}&nbsp;(px).<br>Verkleinerendern der Zoomstufe (Strg + Minus) kann auch helfen.`;
+        return;
+    }
+    if (deviceWidth <= 100 && deviceHeight > 150) {
+        minWidth = 100;
+        minHeight = 150;
+    } else {
+        minWidth = 150;
+        minHeight = 150;
+    }
+    let usedDeviceWidth = deviceWidth;
+    let usedDeviceHeight = deviceHeight;
+    if (deviceWidth < minWidth) {
+        usedDeviceWidth = "<span style='color: red;'>" + deviceWidth + "</span>";
+    }
+    if (deviceHeight < minHeight) {
+        usedDeviceHeight = "<span style='color: red;'>" + deviceHeight + "</span>";
+    }
+    toSmallDeviceDiv.innerHTML = `Dein Gerät ist zu klein.<br>Es unterschreitet die Mindesgröße von ${minWidth}&nbsp;x&nbsp;${minHeight}&nbsp;(px). Dein Gerät hat eine Größe von ${usedDeviceWidth}&nbsp;x&nbsp;${usedDeviceHeight}&nbsp;(px).`;
+    /*
+    if (deviceWidth < minWidth) {
+        usedWidth = "<span style='color: red;'>" + deviceWidth + "</span>";
+    }
+    if (deviceHeight < minHeight) {
+        usedHeight = "<span style='color: red;'>" + deviceHeight + "</span>";
+    }
+
+    toSmallDeviceDiv.innerHTML = `Es unterschreitet die Mindesgröße von ${minWidth}&nbsp;x&nbsp;${minHeight}&nbsp;(px). Dein Gerät hat eine Größe von ${deviceWidth}&nbsp;x&nbsp;${deviceHeight}&nbsp;(px).`;*/
+}
 
 function notInGame() {
     modus = 0;

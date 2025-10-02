@@ -130,6 +130,10 @@ tr:last-child {
 
 }
 
+#noacc{
+    overflow: auto;
+}
+
 @media (max-width: 399px){
     #noacc{
         display: block !important;
