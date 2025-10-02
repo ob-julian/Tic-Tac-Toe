@@ -55,9 +55,11 @@ window.onhashchange = function() {
 
 
 window.addEventListener('DOMContentLoaded', function() {
-    const modal = document.getElementById('myModal');
-    const patch = document.getElementById('patch');
-    const chat = document.getElementById('chatModal');
+    // those Elements are globally accessible, but need to be assigned after DOM is loaded
+    // otherwise they are null
+    modal = document.getElementById('myModal');
+    patch = document.getElementById('patch');
+    chat = document.getElementById('chatModal');
 
     // The Site Version is saved in the meta tag with the name "version"
     // This code reads the version and displays it on the page
