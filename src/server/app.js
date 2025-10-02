@@ -83,6 +83,17 @@ function serverSetup() {
             cert: fs.readFileSync(certLocation)
         };
         tmpServer = https.createServer(options);
+
+        // Without this, the server would be unable to respond after 3 Months, because of outdated certs, ask me how I know :D
+        fs.watchFile(keyLocation, () => {
+            console.log('SSL key changed, trying to refresh');
+            refreshCertificates();
+        });
+
+        fs.watchFile(certLocation, () => {
+            console.log('SSL cert changed, trying to refresh');
+            refreshCertificates();
+        });
     } catch (err) {
         if (err.code === 'ENOENT') {
             console.error(err);
@@ -112,16 +123,6 @@ function refreshCertificates() {
         console.error('Could not refresh certificates');
     }
 }
-
-fs.watchFile(keyLocation, () => {
-    console.log('SSL key changed, trying to refresh');
-    refreshCertificates();
-});
-
-fs.watchFile(certLocation, () => {
-    console.log('SSL cert changed, trying to refresh');
-    refreshCertificates();
-});
 
 
 // Proper shutdown for Docker container and testing
