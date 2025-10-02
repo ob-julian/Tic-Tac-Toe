@@ -1,7 +1,7 @@
 /* global sleep, fadeButton, OnlineMultiplayer, LocalMultiplayer, EasyBot, MediumBot, HardBot, ExperimentalLocalMultiplayer, ExperimentalOnlineMultiplayer, changeAnimationSpeed, showAlert */
 /* exported modal, chat, patch, animationSpeed, intervall, modus, erro, activeGameMode, host */
 
-//const host = 'https://oberhofer.ddns.net:3000';
+//const host = 'https://oberflow.dev:3000';
 const host = 'localhost:3000';
 
 let modal, chat, patch, animationSpeed, intervall;

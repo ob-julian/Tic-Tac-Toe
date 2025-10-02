@@ -719,8 +719,36 @@ class OnlineMultiplayer extends LocalMultiplayer {
         this.socket.emit('conn', name, 1);
     }
 
+    noConnection(err) {
+        const navigatorFunction = function() {
+            /// naviages to the /tt subpage
+                window.location.href = '/ttt';
+        }
+        let message;
+        if (navigator.onLine) {
+            message = "Verbindungsfehler:<br>Könnte an einer Firewall liegen, die die Verbindung blockiert.<br>Oder der Server ist momentan nicht erreichbar.<br>Bitte versuche es später erneut.<br>Falls der Fehler weiterhin besteht, kontaktiere mich: <a href='mailto:reach-me@oberflow.dev'>reach-me@oberflow.dev</a><br>" + err;
+            //this.err();
+        } else {
+            message = "Du bist offline:<br>Bitte überprüfe deine Internetverbindung";
+            //this.err();
+        }
+        showAlert(message, true, "noSocketConnection", navigatorFunction);
+
+    }
+
     initSocket() {
         // this.socket events
+        this.socket.on('connect_error', (err) => {
+            this.noConnection(err);
+        });
+
+        this.socket.on('disconnect', (reason) => {
+            this.noConnection(reason);
+        });
+        this.socket.on('connect', () => {
+            closeModal("noSocketConnection", true);
+        });
+
         this.socket.on('queueIn', async () => {
             this.isInQueue = true;
             // Event when player is in queue
@@ -1201,7 +1229,7 @@ class OnlineMultiplayer extends LocalMultiplayer {
     err() {
         const newmeta = document.createElement('meta');
         newmeta.httpEquiv = 'refresh';
-        newmeta.content = '5; URL=https://oberhofer.ddns.net/ttt';
+        newmeta.content = '5; URL=https://oberflow.dev/ttt';
         document.getElementsByTagName('head').item(0).appendChild(newmeta);
     }
 

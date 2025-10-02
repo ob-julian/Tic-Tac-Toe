@@ -112,9 +112,21 @@ function backButton() {
     activeGameMode = null;
 }
 
-async function closeModal() {
+let closeModalFunction = null;
+let modalIndicator = null;
+async function closeModal(name = null, circumventCloseFunction = false) {
+    if(name && modalIndicator !== name) {
+        // Trying to close a modal that is not open
+        return;
+    }
     modal.classList.add('dontDisplay');
     document.getElementById('help').classList.remove('dontDisplay');
+    if (closeModalFunction && !circumventCloseFunction) {
+        console.log('Executing closeModalFunction');
+        await closeModalFunction();
+    }
+    closeModalFunction = null;
+    modalIndicator = null;
 }
 
 window.onclick = closePosibleOpen;
@@ -140,7 +152,9 @@ function closePosibleOpen(event) {
     }
 }
 
-function showAlert(text, isClosable = true) {
+function showAlert(text, isClosable = true, modalName = null, closeAction = null) {
+    closeModalFunction = closeAction;
+    modalIndicator = modalName; // To track what type of Modal is currently open
     document.getElementById('mote').innerHTML = text;
     modal.classList.remove('dontDisplay');
     if(!isClosable) {
