@@ -156,6 +156,7 @@ i {
     overflow: auto;
     max-width: 900px;
     right: -1px;
+    height: inherit;
 }
 
 .movechat {
