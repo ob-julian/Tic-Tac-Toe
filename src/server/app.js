@@ -66,9 +66,20 @@ function startServer() {
 
     socket_player_logic(ioServer, serverId);
 
-    return new Promise((resolve) => {
-        server.listen(3000, () => {
-            console.log('Server listening on port 3000');
+    let port = process.env.PORT || 3000;
+
+    return new Promise((resolve, reject) => {
+        server.on('error', (err) => {
+            if (err.code === 'EADDRINUSE') {
+                console.error(`Port ${port} is already in use`);
+                reject(new Error(`Port ${port} is already in use`));
+            } else {
+                reject(err);
+            }
+        });
+
+        server.listen(port, () => {
+            console.log('Server listening on port ' + port);
             resolve();
         });
     });
@@ -95,11 +106,13 @@ function serverSetup() {
             refreshCertificates();
         });
     } catch (err) {
+        // ENOENT: No such file or directory
         if (err.code === 'ENOENT') {
+            console.warn('Could not find HTTPS certificates, ENONENT error');
             console.error(err);
         }
         if (allowNoHttps && !isProduction) {
-            console.warn('Could not find HTTPS certificates, using HTTP');
+            console.warn('As this is not production, allowing to start without HTTPS');
             console.warn('Careful: This is not secure!'),
             tmpServer = http.createServer();
         } else {
