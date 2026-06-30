@@ -1,0 +1,13 @@
+services:
+  tic-tac-toe-server:
+    image: tic-tac-toe_server
+    container_name: tic-tac-toe_server
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      CORS_ORIGIN: "https://oberflow.dev,https://oberhofer.ddns.net"
+      SSL_KEY_PATH: "/usr/src/ssl/live/oberhofer.ddns.net/privkey.pem"
+      SSL_CERT_PATH: "/usr/src/ssl/live/oberhofer.ddns.net/fullchain.pem"
+    volumes:
+      - /etc/letsencrypt/:/usr/src/ssl/
