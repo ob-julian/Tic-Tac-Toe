@@ -100,7 +100,8 @@ docker run -d -p 3000:3000 --restart always --name tic-tac-toe_server -e CORS_OR
 2. Install [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/install/)
 2. Navigate to the [src/server](src/server) directory
 3. Edit the `docker-compose.yml` file to set the environment variables and ports according to your needs
-4. Run `docker-compose up -d` to start the server in the background
+4. Run `docker-compose build` to build the Docker image
+5. Run `docker-compose up -d` to start the server in the background
 > The `-d` flag is optional, but it is recommended to run the server in the background. If you want to see the logs of the server, you can omit the `-d` flag.
 
 #### Further beginner tips:
