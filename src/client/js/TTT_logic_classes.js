@@ -244,7 +244,7 @@ class ExperimentalLocalMultiplayer extends LocalMultiplayer {
         if (this.moves < 6) {
             super.makeMove(index);
         } else {
-            if (!this.selectedField && this.board[index] === this.turn) {
+            if (this.selectedField === null && this.board[index] === this.turn) {
                 // Player clicked empty field and has not selected a field before
                 this.selectedField = index;
                 this.getElement(index).style.color = 'red';
@@ -252,12 +252,12 @@ class ExperimentalLocalMultiplayer extends LocalMultiplayer {
                 // Player clicked the same field again
                 this.selectedField = null;
                 this.getElement(index).removeAttribute('style');
-            } else if (this.selectedField && this.board[index] === this.turn) {
+            } else if (this.selectedField !== null && this.board[index] === this.turn) {
                 // Player selected a field and clicked on their own symbol
                 this.getElement(this.selectedField).removeAttribute('style');
                 this.getElement(index).style.color = 'red';
                 this.selectedField = index;
-            } else if (this.selectedField && !this.board[index]) {
+            } else if (this.selectedField !== null && !this.board[index]) {
                 // Player selected a field and clicked on an empty field
                 this.board[index] = this.turn;
                 this.board[this.selectedField] = null;
