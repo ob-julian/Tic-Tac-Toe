@@ -170,37 +170,30 @@ function calculateWhyWindowIsTooSmall(){
     const deviceHeight = window.screen.height;
     console.log(`Actual Width: ${deviceWidth}, Actual Height: ${deviceHeight}`);
     console.log(`CSS Pixel Width: ${deviceScaledWidth}, CSS Pixel Height: ${deviceScaledHeight}`);
-    let minWidth = 400;
-    let minHeight = 600;
+    const minWidth = 300;
+    const minHeight = 650;
     let usedWidth = deviceScaledWidth;
     let usedHeight = deviceScaledHeight;
-    if (deviceWidth > minWidth && deviceHeight > minHeight) {
+    if (deviceWidth >= minWidth && deviceHeight >= minHeight) {
         // This is a resized window on a large device
         if (deviceScaledWidth < minWidth) {
-            usedWidth = "<span style='color: red;'>" + deviceScaledWidth + "</span>";
+            usedWidth = '<span style="color: red;">' + deviceScaledWidth + '</span>';
         }
         if (deviceScaledHeight < minHeight) {
-            usedHeight = "<span style='color: red;'>" + deviceScaledHeight + "</span>";
+            usedHeight = '<span style="color: red;">' + deviceScaledHeight + '</span>';
         }
-        toSmallDeviceDiv.innerHTML = `Dein Browserfenster ist zu klein.<br>Bitte vergrößere es auf mindestens ${minWidth}&nbsp;x&nbsp;${minHeight}&nbsp;(px). Dein aktuelles Browserfenster hat eine Größe von ${usedWidth}&nbsp;x&nbsp;${usedHeight}&nbsp;(px).<br>Verkleinerendern der Zoomstufe (Strg + Minus) kann auch helfen.`;
+        toSmallDeviceDiv.innerHTML = `Dein Browserfenster ist zu klein.<br>Bitte vergrößere es auf mindestens ${minWidth}&nbsp;x&nbsp;${minHeight}&nbsp;(px). Dein aktuelles Browserfenster hat eine Größe von ${usedWidth}&nbsp;x&nbsp;${usedHeight}&nbsp;(px).<br>Eine kleinere Zoomstufe (Strg + Minus) kann auch helfen.`;
         return;
-    }
-    if (deviceWidth <= 100 && deviceHeight > 150) {
-        minWidth = 100;
-        minHeight = 150;
-    } else {
-        minWidth = 150;
-        minHeight = 150;
     }
     let usedDeviceWidth = deviceWidth;
     let usedDeviceHeight = deviceHeight;
     if (deviceWidth < minWidth) {
-        usedDeviceWidth = "<span style='color: red;'>" + deviceWidth + "</span>";
+        usedDeviceWidth = '<span style="color: red;">' + deviceWidth + '</span>';
     }
     if (deviceHeight < minHeight) {
-        usedDeviceHeight = "<span style='color: red;'>" + deviceHeight + "</span>";
+        usedDeviceHeight = '<span style="color: red;">' + deviceHeight + '</span>';
     }
-    toSmallDeviceDiv.innerHTML = `Dein Gerät ist zu klein.<br>Es unterschreitet die Mindesgröße von ${minWidth}&nbsp;x&nbsp;${minHeight}&nbsp;(px). Dein Gerät hat eine Größe von ${usedDeviceWidth}&nbsp;x&nbsp;${usedDeviceHeight}&nbsp;(px).`;
+    toSmallDeviceDiv.innerHTML = `Dein Gerät ist zu klein.<br>Es unterschreitet die Mindestgröße von ${minWidth}&nbsp;x&nbsp;${minHeight}&nbsp;(px). Dein Gerät hat eine Größe von ${usedDeviceWidth}&nbsp;x&nbsp;${usedDeviceHeight}&nbsp;(px).`;
 }
 
 function notInGame() {

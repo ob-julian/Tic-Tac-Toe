@@ -1,8 +1,8 @@
 /* eslint-disable no-global-assign */
 // EsLint global variables
-/* global activeGameMode, themeColor, patch, OnlineMultiplayer, modal, ExperimentalLocalMultiplayer, chat, themeColor, animationSpeed, ExperimentalOnlineMultiplayer*/
+/* global activeGameMode, patch, OnlineMultiplayer, modal, ExperimentalLocalMultiplayer, chat, animationSpeed, ExperimentalOnlineMultiplayer, applyTheme */
 // EsLint exported variables
-/* exported los, rematch, changeAnimationSpeed, help, pat, backButton, neu, disconnect, openChat, onBlur, onFocus, sendMsg, chatOk, tutorialJa, tutorialNein, closeModal, showAlert, anination, experimentalTutorialDisableHint, switchTheme, fadeButton, animation, openPatchNotes */
+/* exported los, rematch, changeAnimationSpeed, help, pat, backButton, neu, disconnect, openChat, onBlur, onFocus, sendMsg, chatOk, tutorialJa, tutorialNein, closeModal, showAlert, anination, experimentalTutorialDisableHint, changeTheme, fadeButton, animation, openPatchNotes */
 
 // ttt wrapper for class based game modes
 function executeGameModeMethod(methodName, requiredClass = null, ...args) {
@@ -165,25 +165,29 @@ function showAlert(text, isClosable = true, modalName = null, closeAction = null
 }
 
 function changeAnimationSpeed(newSpeed){
+    const sliderValue = Number(newSpeed);
     newSpeed /= 2;
     animationSpeed = newSpeed;
     localStorage.setItem('animationSpeed', newSpeed);
     document.documentElement.style.setProperty('--animationSpeed', newSpeed + 'ms');
     newSpeed = newSpeed * 2 / 3;
     document.documentElement.style.setProperty('--animationSpeed2', newSpeed + 'ms');
+    const speedLabel = document.getElementById('animation-speed-value');
+    if (speedLabel) {
+        speedLabel.value = sliderValue === 0
+            ? 'Aus'
+            : `${(sliderValue / 2000).toLocaleString('de-DE', { maximumFractionDigits: 3 })} s`;
+    }
+    const speedSlider = document.getElementById('slide');
+    if (speedSlider) {
+        speedSlider.setAttribute('aria-valuetext', sliderValue === 0
+            ? 'Aus'
+            : `${(sliderValue / 2000).toLocaleString('de-DE', { maximumFractionDigits: 3 })} Sekunden`);
+    }
 }
 
-function switchTheme() {
-    if(themeColor === 'light') {
-        document.body.classList.remove('light');
-        document.body.classList.add('dark');
-        themeColor = 'dark';
-    } else {
-        document.body.classList.remove('dark');
-        document.body.classList.add('light');
-        themeColor = 'light';
-    }
-    localStorage.setItem('theme', themeColor);
+function changeTheme(theme) {
+    applyTheme(theme, true);
 }
 
 

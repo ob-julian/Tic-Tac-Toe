@@ -155,7 +155,7 @@
 
         /* Enable transitions for theme change */
         .with-transitions {
-            transition: background-color 500ms ease-in-out, color 1000ms ease-in-out;
+            transition: background-color var(--animationSpeed) ease-in-out, color var(--animationSpeed) ease-in-out;
         }
 
         </style>
@@ -166,13 +166,38 @@
                 <script>
                     // This script load when the body starts loading
                     // So setting the color theme here so it is loaded as soon as possible
-                    let themeColor = localStorage.getItem('theme');
-                    if(themeColor === null) {
-                        themeColor = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                    const themePreference = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+                    let themeColor = localStorage.getItem('theme') || 'auto';
+
+                    function applyTheme(mode, persist = false) {
+                        themeColor = ['auto', 'light', 'dark'].includes(mode) ? mode : 'auto';
+                        if (persist) {
+                            localStorage.setItem('theme', themeColor);
+                        }
+                        const effectiveTheme = themeColor === 'auto'
+                            ? (themePreference && themePreference.matches ? 'dark' : 'light')
+                            : themeColor;
+                        document.body.style.colorScheme = effectiveTheme;
+                        document.body.classList.toggle('dark', effectiveTheme === 'dark');
+                        document.body.classList.toggle('light', effectiveTheme === 'light');
+                        const selector = document.getElementById('theme-mode');
+                        if (selector) {
+                            selector.value = themeColor;
+                        }
                     }
-                    if(themeColor === 'dark') {
-                        document.body.classList.remove('light');
-                        document.body.classList.add('dark');
+
+                    applyTheme(themeColor);
+                    if (themePreference) {
+                        const updateForSystemTheme = () => {
+                            if (themeColor === 'auto') {
+                                applyTheme('auto');
+                            }
+                        };
+                        if (themePreference.addEventListener) {
+                            themePreference.addEventListener('change', updateForSystemTheme);
+                        } else if (themePreference.addListener) {
+                            themePreference.addListener(updateForSystemTheme);
+                        }
                     }
                     // hide the body until everything is loaded, to prevent flickering when changing the language
                     document.body.style.visibility = 'hidden';
@@ -210,27 +235,28 @@
                     <span id="ping">0</span>
                 </div>
                 <div class="box fadeElement" id="settingsBox">
-                    <div class="lider" title="Color Theme">
-                        <i class="fa fa-sun"></i>
-                        <label class="switch">
-                            <span class="dontDisplay">Color Theme</span>
-                            <input type="checkbox" id="checkbox" onclick="switchTheme()">
-                            <script>
-                                if (themeColor === 'dark')
-                                document.getElementById('checkbox').checked = true;
-                            </script>
-                            <span id="slider"></span>
-                        </label>
-                        <i class="fa fa-moon"></i>
+                    <div class="setting-group">
+                        <label class="setting-label" for="theme-mode">Darstellung</label>
+                        <div class="theme-control">
+                            <i class="fa fa-sun" aria-hidden="true"></i>
+                            <select id="theme-mode" aria-label="Darstellung" onchange="changeTheme(this.value)">
+                                <option value="auto">Auto</option>
+                                <option value="light">Hell</option>
+                                <option value="dark">Dunkel</option>
+                            </select>
+                            <i class="fa fa-moon" aria-hidden="true"></i>
+                        </div>
                     </div>
-                    <br>
-                    <div id="slid" class="lider" title="Animation Speed">
-                        <input type="range" name="slide" min="0" max="5000" value="1500" step="2" onchange="changeAnimationSpeed(this.value);" id="slide">
-                        <br>
-                        <i class="fas fa-angle-double-right linkss" onclick="document.getElementById('slide').value = 0; changeAnimationSpeed(0);"></i>
-                        <i class="fas fa-angle-right rechts" onclick="document.getElementById('slide').value = 5000; changeAnimationSpeed(5000);"></i>
-                        <label for="slide" class="dontShowButAccessible">Animation Speed</label>
-
+                    <div class="setting-group">
+                        <label class="setting-label speed-label" for="slide">
+                            <span>Animation</span>
+                            <output id="animation-speed-value" for="slide">0,75 s</output>
+                        </label>
+                        <input type="range" name="slide" min="0" max="5000" value="1500" step="2" oninput="changeAnimationSpeed(this.value);" id="slide" aria-valuetext="0,75 Sekunden">
+                        <div class="speed-ends" aria-hidden="true">
+                            <span>Sofort</span>
+                            <span>Langsam</span>
+                        </div>
                     </div>
                 </div>
                 <div class="dontDisplay" id="help" onclick="help()">

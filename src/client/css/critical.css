@@ -85,13 +85,14 @@ tr:last-child {
     }
 }
 
-@media (max-width:600px) {/*kleiner als*/
+@media (max-width:829px) {/*kleiner als*/
     #settingsBox {
         position: fixed;
-        bottom: 20px;
+        top: auto;
+        bottom: calc(12px + env(safe-area-inset-bottom));
         display: block;
         left: 50%;
-        transform: translate(-50%);
+        transform: translateX(-50%);
     }
     .ingame {
         display: none !important;
@@ -111,7 +112,7 @@ tr:last-child {
 
 }
 
-@media (min-width:600px) {/*größer als*/
+@media (min-width:830px) {/*größer als*/
     #settingsBox {
         position: fixed;
         top: 5px;
@@ -124,7 +125,7 @@ tr:last-child {
         margin-top: 55px;
     }
 
-    .hexhex:not(#settingsBox){
+    .hexhex {
         opacity: 0 !important;
     }
 
@@ -134,7 +135,7 @@ tr:last-child {
     overflow: auto;
 }
 
-@media (max-width: 399px){
+@media (max-width: 299px){
     #noacc{
         display: block !important;
     }
@@ -143,7 +144,7 @@ tr:last-child {
     }
 }
 
-@media (max-height: 599px){
+@media (max-height: 649px){
     #normalScreenSizeContent {
         display: none !important;
     }
