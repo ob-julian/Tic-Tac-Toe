@@ -55,9 +55,9 @@ window.onhashchange = function() {
 };
 
 function updateFancyUiLink() {
-    const link = document.getElementById('fancy-ui-link');
+    const link = document.getElementById('ai-ui-link');
     if (link) {
-        link.href = `fancy_ui/${window.location.hash}`;
+        link.href = `ai-ui/${window.location.hash}`;
     }
 }
 
