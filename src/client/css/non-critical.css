@@ -37,7 +37,6 @@
 }
 
 a {
-    color: default;
     text-decoration: none;
 }
 
@@ -88,7 +87,6 @@ input:checked ~ #slider::before {
 }
 
 #settingsBox {
-    position: fixed;
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -98,7 +96,6 @@ input:checked ~ #slider::before {
     border: 1px solid var(--line);
     background-color: var(--bg);
     box-shadow: 0 2px 8px var(--black20);
-    z-index: 10;
     transition: color var(--animationSpeed) ease-in-out, background-color var(--animationSpeed) ease-in-out, border-color var(--animationSpeed) ease-in-out, box-shadow var(--animationSpeed) ease-in-out;
 }
 
@@ -164,13 +161,14 @@ input:checked ~ #slider::before {
 
 @media (max-width: 829px) {
     #settingsBox {
-        top: auto;
-        bottom: calc(12px + env(safe-area-inset-bottom));
-        left: 50%;
-        z-index: 10;
-        width: calc(100vw - 24px - 24px);
+        width: calc(100vw - 48px);
         max-width: 320px;
-        transform: translateX(-50%);
+    }
+}
+
+@media (min-width: 830px) {
+    #settingsBox {
+        width: 210px;
     }
 }
 
@@ -200,7 +198,7 @@ i {
     background-color: red;
     border-radius: 27px;
     bottom: 10px;
-    right: calc(100% + -6px);
+    right: calc(100% - 6px);
     width: 10px;
     height: 10px;
     position: absolute;
@@ -208,21 +206,24 @@ i {
     display: none;
 }
 
-#chat-window, #patch-window {
+.panel-surface {
     background-color: var(--bg);
     padding: 20px;
     border: 1px solid var(--border);
     margin: 0;
     position: absolute;
-    height: calc(100vh - 47px);
-    height: -webkit-fill-available;
     display: inline;
     padding-right: 25px;
-    transform: translateX(101%);
-    transition-duration: var(--animationSpeed);
     box-sizing: border-box;
 }
 
+#chat-window,
+#patch-window {
+    height: calc(100vh - 47px);
+    height: -webkit-fill-available;
+    transform: translateX(101%);
+    transition-duration: var(--animationSpeed);
+}
 
 #chat-window {
     width: 50%;
@@ -267,7 +268,6 @@ i {
     height: calc(100% - 49px);
     width: 100%;
     overflow: auto;
-    overflow: overlay;
     position: inherit;
     z-index: 10;
     color: var(--text);
@@ -330,14 +330,14 @@ i {
     height: 8px;
     border-radius: 5px;
     background-color: var(--bt-bg-color);
-    transition: background-color var(--animationSpeed) ease-in-out;
+    transition: background-color var(--animationSpeed2) ease-in-out;
 }
 
 #slide::-moz-range-track {
     height: 8px;
     border-radius: 5px;
     background-color: var(--bt-bg-color);
-    transition: background-color var(--animationSpeed) ease-in-out;
+    transition: background-color var(--animationSpeed2) ease-in-out;
 }
 
 #slide::-webkit-slider-thumb {
@@ -389,17 +389,18 @@ i {
 
 .sk-circle {
     margin: 100px auto;
-    /*width: 40px;
-    height: 40px;
-    position: relative;*/
 }
 
 .sk-circle .sk-child {
+    --sk-circle-index: 1;
     width: 100%;
     height: 100%;
     position: absolute;
     left: 0;
     top: 0;
+    -webkit-transform: rotate(calc((var(--sk-circle-index) - 1) * 30deg));
+    -ms-transform: rotate(calc((var(--sk-circle-index) - 1) * 30deg));
+    transform: rotate(calc((var(--sk-circle-index) - 1) * 30deg));
 }
 
 .sk-circle .sk-child::before {
@@ -412,127 +413,52 @@ i {
     border-radius: 100%;
     -webkit-animation: sk-circleBounceDelay 1.2s infinite ease-in-out both;
     animation: sk-circleBounceDelay 1.2s infinite ease-in-out both;
+    -webkit-animation-delay: calc((var(--sk-circle-index) - 13) * 0.1s);
+    animation-delay: calc((var(--sk-circle-index) - 13) * 0.1s);
 }
 
 .sk-circle .sk-circle2 {
-    -webkit-transform: rotate(30deg);
-    -ms-transform: rotate(30deg);
-    transform: rotate(30deg);
+    --sk-circle-index: 2;
 }
 
 .sk-circle .sk-circle3 {
-    -webkit-transform: rotate(60deg);
-    -ms-transform: rotate(60deg);
-    transform: rotate(60deg);
+    --sk-circle-index: 3;
 }
 
 .sk-circle .sk-circle4 {
-    -webkit-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-    transform: rotate(90deg);
+    --sk-circle-index: 4;
 }
 
 .sk-circle .sk-circle5 {
-    -webkit-transform: rotate(120deg);
-    -ms-transform: rotate(120deg);
-    transform: rotate(120deg);
+    --sk-circle-index: 5;
 }
 
 .sk-circle .sk-circle6 {
-    -webkit-transform: rotate(150deg);
-    -ms-transform: rotate(150deg);
-    transform: rotate(150deg);
+    --sk-circle-index: 6;
 }
 
 .sk-circle .sk-circle7 {
-    -webkit-transform: rotate(180deg);
-    -ms-transform: rotate(180deg);
-    transform: rotate(180deg);
+    --sk-circle-index: 7;
 }
 
 .sk-circle .sk-circle8 {
-    -webkit-transform: rotate(210deg);
-    -ms-transform: rotate(210deg);
-    transform: rotate(210deg);
+    --sk-circle-index: 8;
 }
 
 .sk-circle .sk-circle9 {
-    -webkit-transform: rotate(240deg);
-    -ms-transform: rotate(240deg);
-    transform: rotate(240deg);
+    --sk-circle-index: 9;
 }
 
 .sk-circle .sk-circle10 {
-    -webkit-transform: rotate(270deg);
-    -ms-transform: rotate(270deg);
-    transform: rotate(270deg);
+    --sk-circle-index: 10;
 }
 
 .sk-circle .sk-circle11 {
-    -webkit-transform: rotate(300deg);
-    -ms-transform: rotate(300deg);
-    transform: rotate(300deg);
+    --sk-circle-index: 11;
 }
 
 .sk-circle .sk-circle12 {
-    -webkit-transform: rotate(330deg);
-    -ms-transform: rotate(330deg);
-    transform: rotate(330deg);
-}
-
-.sk-circle .sk-circle2::before {
-    -webkit-animation-delay: -1.1s;
-    animation-delay: -1.1s;
-}
-
-.sk-circle .sk-circle3::before {
-    -webkit-animation-delay: -1s;
-    animation-delay: -1s;
-}
-
-.sk-circle .sk-circle4::before {
-    -webkit-animation-delay: -0.9s;
-    animation-delay: -0.9s;
-}
-
-.sk-circle .sk-circle5::before {
-    -webkit-animation-delay: -0.8s;
-    animation-delay: -0.8s;
-}
-
-.sk-circle .sk-circle6::before {
-    -webkit-animation-delay: -0.7s;
-    animation-delay: -0.7s;
-}
-
-.sk-circle .sk-circle7::before {
-    -webkit-animation-delay: -0.6s;
-    animation-delay: -0.6s;
-}
-
-.sk-circle .sk-circle8::before {
-    -webkit-animation-delay: -0.5s;
-    animation-delay: -0.5s;
-}
-
-.sk-circle .sk-circle9::before {
-    -webkit-animation-delay: -0.4s;
-    animation-delay: -0.4s;
-}
-
-.sk-circle .sk-circle10::before {
-    -webkit-animation-delay: -0.3s;
-    animation-delay: -0.3s;
-}
-
-.sk-circle .sk-circle11::before {
-    -webkit-animation-delay: -0.2s;
-    animation-delay: -0.2s;
-}
-
-.sk-circle .sk-circle12::before {
-    -webkit-animation-delay: -0.1s;
-    animation-delay: -0.1s;
+    --sk-circle-index: 12;
 }
 
 .sk-div{
@@ -601,7 +527,8 @@ i {
     transition: all 0.3s;
 }
 
-.btn::before {
+.btn::before,
+.btn::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -609,8 +536,11 @@ i {
     width: 100%;
     height: 100%;
     z-index: 1;
-    opacity: 0;
     transition: all 0.3s;
+}
+
+.btn::before {
+    opacity: 0;
     border-top-width: 1px;
     border-bottom-width: 1px;
     border-top-style: solid;
@@ -630,14 +560,6 @@ i {
 }
 
 .btn::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    transition: all 0.3s;
     background-color: var(--button);
 }
 
@@ -692,29 +614,26 @@ i {
 }
 
 .modal-content {
-    background-color: var(--bg);
-    padding: 20px;
-    border: 1px solid #888;
-    margin: 0;
-    position: absolute;
+    border-color: #888;
     top: 50%;
     left: 50%;
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
-    display: inline;
-    padding-right: 25px;
     width: fit-content;
     max-width: 80%;
     max-height: 80%;
     overflow: auto;
-    box-sizing: border-box;
+}
+
+#closeModal,
+.closeBigPannel {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
 }
 
 #closeModal {
-    color: #aaa;
     float: right;
-    font-size: 28px;
-    font-weight: bold;
     position: fixed;
     top: 1px;
     right: 9px;
@@ -727,10 +646,7 @@ i {
 }
 
 .closeBigPannel {
-    color: #aaa;
     float: left;
-    font-size: 28px;
-    font-weight: bold;
     position: relative;
     top: -24px;
     left: -16px;
@@ -740,10 +656,6 @@ i {
     position: sticky;
     top: 0;
     font-size: 35px;
-}
-
-#singl:after {
-    content: 'Comming Soon';
 }
 
 .inpu {
