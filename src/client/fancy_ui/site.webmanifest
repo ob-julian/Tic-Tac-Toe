@@ -1,0 +1,26 @@
+{
+    "name": "Tic Tac Toe — Spielen",
+    "short_name": "Tic Tac Toe",
+    "description": "Spiele Tic Tac Toe allein gegen den Computer, lokal zu zweit oder online.",
+    "lang": "de",
+    "start_url": "/ttt/fancy_ui/",
+    "scope": "/ttt/fancy_ui/",
+    "display": "standalone",
+    "orientation": "portrait",
+    "background_color": "#111510",
+    "theme_color": "#111510",
+    "icons": [
+        {
+            "src": "assets/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "assets/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+        }
+    ]
+}

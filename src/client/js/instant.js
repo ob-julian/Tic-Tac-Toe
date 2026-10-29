@@ -50,9 +50,16 @@ function handleHashChange(action) {
 }
 
 window.onhashchange = function() {
+    updateFancyUiLink();
     handleHashChange(getAction());
 };
 
+function updateFancyUiLink() {
+    const link = document.getElementById('fancy-ui-link');
+    if (link) {
+        link.href = `fancy_ui/${window.location.hash}`;
+    }
+}
 
 window.addEventListener('DOMContentLoaded', function() {
     // those Elements are globally accessible, but need to be assigned after DOM is loaded
@@ -60,6 +67,7 @@ window.addEventListener('DOMContentLoaded', function() {
     modal = document.getElementById('myModal');
     patch = document.getElementById('patch');
     chat = document.getElementById('chatModal');
+    updateFancyUiLink();
 
     // The Site Version is saved in the meta tag with the name "version"
     // This code reads the version and displays it on the page

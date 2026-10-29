@@ -93,7 +93,7 @@ tr:last-child {
 @media (max-width:829px) {/*kleiner als*/
     #settingsBox {
         top: auto;
-        bottom: calc(12px + env(safe-area-inset-bottom));
+        bottom: calc(24px + env(safe-area-inset-bottom));
         display: block;
         left: 50%;
         transform: translateX(-50%);

@@ -37,7 +37,7 @@ class LocalMultiplayer {
         this.isAnimating = false;
 
         this._reset_GUI();
-        document.getElementById('score').innerHTML = 'X: ' + this.player1.score + ' vs. O: ' + this.player2.score;
+        document.getElementById('score').innerHTML = 'X: ' + this.player1.score + ' gegen O: ' + this.player2.score;
     }
 
     getElement(index) {
@@ -107,7 +107,7 @@ class LocalMultiplayer {
         } else{
             this._symbolToPlayer(this.winner).addPoint();
             showAlert('Gewinner: ' + this.winner);
-            document.getElementById('score').innerHTML = 'X: ' + this.player1.score + ' vs. O: ' + this.player2.score;
+            document.getElementById('score').innerHTML = 'X: ' + this.player1.score + ' gegen O: ' + this.player2.score;
         }
         document.getElementById('reset').style = 'visibility:visible';
     }
@@ -118,11 +118,11 @@ class LocalMultiplayer {
 
     async help() {
         document.getElementById('help').classList.add('dontDisplay');
-        showAlert('<b>Hilfe</b><br><br>Willst du ein Tutorial zu diesem Spielmodus?<br><br><div  align=\'left\' style=\'float:left;\'><button onclick=\'tutorialJa()\'>Ja</button></div><div  align=\'right\' style=\'margin-bottom: -18px;\'><button onclick=\'closeModal()\'>Nein</button></div>', false);
+        showAlert('<b>Hilfe</b><br><br>Willst du eine Anleitung zu diesem Spielmodus?<br><br><div  align=\'left\' style=\'float:left;\'><button onclick=\'tutorialJa()\'>Ja</button></div><div  align=\'right\' style=\'margin-bottom: -18px;\'><button onclick=\'closeModal()\'>Nein</button></div>', false);
     }
 
     tutorialJa() {
-        showAlert('<b>Anleitung</b><br><br>Ihr (also du und dein Gegner) setzt jeweils  abwechselnd euer Zeichen (<span style=\'color:#50ff1e\'>X</span> und <span style=\'color:#50ff1e\'>O</span>).<br> Ziel ist es, als erstes 3 von seinen Zeichen in einer Reihe, Spalte oder Diagonalen zu haben.<br><br><div  align=\'left\' style=\'float:left;\'><button onclick=\'closeModal()\'>Ok</button></div><div  align=\'right\' style=\'margin-bottom: -18px;\'><button onclick=\'animation()\'>Animation</button></div>', false);
+        showAlert('<b>Anleitung</b><br><br>Ihr (also du und dein Gegner) setzt jeweils  abwechselnd euer Zeichen (<span style=\'color:#50ff1e\'>X</span> und <span style=\'color:#50ff1e\'>O</span>).<br> Ziel ist es, als erstes 3 von seinen Zeichen in einer Reihe, Spalte oder Diagonalen zu haben.<br><br><div  align=\'left\' style=\'float:left;\'><button onclick=\'closeModal()\'>Ok</button></div><div  align=\'right\' style=\'margin-bottom: -18px;\'><button onclick=\'animation()\'>Beispiel abspielen</button></div>', false);
     }
 
     async animation() {
@@ -276,7 +276,7 @@ class ExperimentalLocalMultiplayer extends LocalMultiplayer {
     }
 
     tutorialJa() {
-        showAlert('<b>Anleitung</b><br><br>Ihr (also du und dein Gegner) setzt jeweils  abwechselnd euer Zeichen (<span style=\'color:#50ff1e\'>X</span> und <span style=\'color:#50ff1e\'>O</span>).<br> Ziel ist es, als erstes 3 von seinen Zeichen in einer Reihe, Spalte oder Diagonalen zu haben.<br>Der Unterschied zum normalen Spiel besteht jedoch darin, dass jeder nur 3 Zeichen besitzt.<br>Wenn alle gesetzt worden sind, werden die Zeichen auf den Feldern solange versetzt, bis einer Gewonnen hat.<br><br><div  align=\'left\' style=\'float:left;\'><button onclick=\'closeModal()\'>Ok</button></div><div  align=\'right\' style=\'margin-bottom: -18px;\'><button onclick=\'animation()\'>Animation</button></div>', false);
+        showAlert('<b>Anleitung</b><br><br>Ihr (also du und dein Gegner) setzt jeweils  abwechselnd euer Zeichen (<span style=\'color:#50ff1e\'>X</span> und <span style=\'color:#50ff1e\'>O</span>).<br> Ziel ist es, als erstes 3 von seinen Zeichen in einer Reihe, Spalte oder Diagonalen zu haben.<br>Der Unterschied zum normalen Spiel besteht jedoch darin, dass jeder nur 3 Zeichen besitzt.<br>Wenn alle gesetzt worden sind, werden die Zeichen auf den Feldern solange versetzt, bis einer Gewonnen hat.<br><br><div  align=\'left\' style=\'float:left;\'><button onclick=\'closeModal()\'>Ok</button></div><div  align=\'right\' style=\'margin-bottom: -18px;\'><button onclick=\'animation()\'>Beispiel abspielen</button></div>', false);
     }
 
     animationEnd() {
@@ -333,7 +333,7 @@ class ExperimentalLocalMultiplayer extends LocalMultiplayer {
 
     nochNichtGespielt(){
         //document.getElementById("experimentalTutorial").style.display="block";
-        showAlert('Sieht so aus als würdest du das erste mal diesen Modus spielen. <br>Willst du ein Tutorial?<br><div  align=\'left\' style=\'float:left;\'><button onclick=\'tutorialJa(), experimentalTutorialDisableHint()\'>Ja</button></div><div  align=\'right\' style=\'margin-bottom: -18px;\'><button onclick=\'tutorialNein(), experimentalTutorialDisableHint()\'>Nein</button></div>', false);
+        showAlert('Sieht so aus, als würdest du diesen Modus zum ersten Mal spielen. <br>Willst du eine Anleitung?<br><div  align=\'left\' style=\'float:left;\'><button onclick=\'tutorialJa(), experimentalTutorialDisableHint()\'>Ja</button></div><div  align=\'right\' style=\'margin-bottom: -18px;\'><button onclick=\'tutorialNein(), experimentalTutorialDisableHint()\'>Nein</button></div>', false);
     }
 
     disableTutorialHint(){
@@ -665,6 +665,9 @@ class OnlineMultiplayer extends LocalMultiplayer {
         this.unreadMessages = 0;
         this.isInQueue = false;
         this.chatEnabled = true;
+        this.chatClosing = false;
+        this.encryptionNoticeSent = false;
+        this.chatStarted = false;
 
         this.noFillter = localStorage.getItem('nofillter');
         if (this.noFillter === null) {
@@ -778,19 +781,21 @@ class OnlineMultiplayer extends LocalMultiplayer {
             this.player2.name = enemyName;
             // Do not show notification if the player finds an enemy instantly
             if (('Notification' in window) && Notification.permission === 'granted' && this.isInQueue) {
-                new Notification('Gegner ' + enemyName + ' will gegen dich spielen');
+                new Notification('Gegner ' + enemyName + ' möchte gegen dich spielen');
             }
             this.isInQueue = false;
+            this.encryptionNoticeSent = false;
+            this.chatStarted = false;
 
             fadeout(() => {
-                document.getElementById('youAre').innerHTML = 'You are ' + playerSymbol;
+                document.getElementById('youAre').innerHTML = 'Du spielst ' + playerSymbol;
                 document.getElementById('gameMenuContainer').classList.add('dontDisplay');
                 document.getElementById('gameBoardContainer').classList.remove('dontDisplay');
                 document.getElementById('queueAnimationContainer').classList.add('dontDisplay');
                 document.getElementById('multiplayer').classList.add('dontDisplay');
                 document.getElementById('help').classList.remove('dontDisplay');
                 document.getElementById('chat').classList.remove('dontDisplay');
-                document.getElementById('score').innerHTML = playerSymbol + ': 0 vs. ' + enemySymbol + ': 0';
+                document.getElementById('score').innerHTML = playerSymbol + ': 0 gegen ' + enemySymbol + ': 0';
                 document.getElementById('pin').classList.remove('dontDisplay');
             })();
 
@@ -824,13 +829,13 @@ class OnlineMultiplayer extends LocalMultiplayer {
 
         this.socket.on('win', (winner, punkteSelf, punkteEnemy) => {
             if(winner === this.player1.symbol){
-                document.getElementById('score').innerHTML = this.player1.symbol + ': ' + punkteSelf + ' vs. ' + this.player2.symbol + ': ' + punkteEnemy;
+                document.getElementById('score').innerHTML = this.player1.symbol + ': ' + punkteSelf + ' gegen ' + this.player2.symbol + ': ' + punkteEnemy;
                 showAlert('Du hast gewonnen');
                 this.chatWrite('system', 'Du hast gewonnen');
                 this.turn = this.player2.symbol;
             }
             else{
-                document.getElementById('score').innerHTML = this.player1.symbol + ': ' + punkteEnemy + ' vs. ' + this.player2.symbol + ': ' + punkteSelf;
+                document.getElementById('score').innerHTML = this.player1.symbol + ': ' + punkteEnemy + ' gegen ' + this.player2.symbol + ': ' + punkteSelf;
                 showAlert('Du hast verloren');
                 this.chatWrite('system', 'Du hast verloren');
                 this.turn = this.player1.symbol;
@@ -842,14 +847,14 @@ class OnlineMultiplayer extends LocalMultiplayer {
         });
 
         this.socket.on('rematchask', () => {
-            document.getElementById('reset').innerHTML = 'Rematch Akzeptieren';
+            document.getElementById('reset').innerHTML = 'Revanche annehmen';
             document.getElementById('reset').classList.remove('disabled');
             this.rematchAsked = true;
         });
 
         this.socket.on('reset', () => {
             this.reset();
-            document.getElementById('reset').innerHTML = 'Rematch';
+            document.getElementById('reset').innerHTML = 'Revanche';
             document.getElementById('reset').classList.remove('disabled');
         });
 
@@ -857,8 +862,17 @@ class OnlineMultiplayer extends LocalMultiplayer {
             document.getElementById('turn').innerHTML = this.player1.symbol;
         });
 
+        this.socket.on('resett', () => {
+            this.turn = playerSymbols[1];
+            super.reset();
+            if (this.experimental) {
+                this.experimental.reset();
+            }
+            document.querySelectorAll('.cell').forEach(cell => cell.removeAttribute('style'));
+        });
+
         this.socket.on('erro', () => {
-            showAlert('Error:<br>Bitte starte dein Spiel neu', false);
+            showAlert('Fehler:<br>Bitte starte dein Spiel neu', false);
             this.err();
         });
 
@@ -868,7 +882,7 @@ class OnlineMultiplayer extends LocalMultiplayer {
 
         this.socket.on('serverRestart', async (server) => {
             if((this.serverId !== server) && (this.serverId !== null)){
-                showAlert('Bitte starte dein Spiel neu.<br>Es gab einen Server Neustart', false);
+                showAlert('Bitte starte dein Spiel neu.<br>Es gab einen Serverneustart', false);
                 this.err();
             }
             else{
@@ -882,7 +896,9 @@ class OnlineMultiplayer extends LocalMultiplayer {
 
         this.socket.on('startChat', () => {
             document.getElementById('chat-content').innerHTML = '';
-            this.chatWrite('system', 'Dies ist der Anfang deines Chats mit ' + this.player2.name);
+            this.chatStarted = true;
+            this.chatWrite('system', 'Der Chat mit ' + this.player2.name + ' hat begonnen.');
+            this.writeEncryptionNotice();
         });
 
         this.socket.on('receiveMessage', async (data) => {
@@ -993,20 +1009,40 @@ class OnlineMultiplayer extends LocalMultiplayer {
     }
 
     async closeChat(){
-        document.getElementById('chat-window').classList.remove('movechat');
+        if (this.chatClosing || chat.classList.contains('dontDisplay')) return;
+        this.chatClosing = true;
+        const chatWindow = document.getElementById('chat-window');
+        chatWindow.classList.remove('movechat');
         chat.classList.remove('chatopa');
         this.inOpenChat = false;
         this.inChatInput = false;
-        await sleep(animationSpeed);
-        chat.classList.add('dontDisplay');
+        const duration = Math.max(...getComputedStyle(chatWindow).transitionDuration.split(',').map(value => {
+            const time = parseFloat(value);
+            return value.trim().endsWith('ms') ? time : time * 1000;
+        }));
+        try {
+            if (duration > 0) {
+                await new Promise(resolve => {
+                    let timeout;
+                    const finish = (event) => {
+                        if (event && (event.target !== chatWindow || event.propertyName !== 'transform')) return;
+                        clearTimeout(timeout);
+                        chatWindow.removeEventListener('transitionend', finish);
+                        resolve();
+                    };
+                    timeout = setTimeout(() => finish(), duration + 50);
+                    chatWindow.addEventListener('transitionend', finish);
+                });
+            }
+            if (!this.inOpenChat) chat.classList.add('dontDisplay');
+        } finally {
+            this.chatClosing = false;
+        }
     }
 
     async sendChat() {
-        let message = document.getElementById('chatinputbox').value;
-        message = message.trim();
+        const message = document.getElementById('chatinputbox').value.trim();
         if (message !== '') {
-            message = this.htmlEscapeSpecialChars(message);
-
             const msg = await this.encryptMessage(message);
             this.socket.emit('sendMessage', msg);
             this.chatWrite('me', message);
@@ -1076,18 +1112,26 @@ class OnlineMultiplayer extends LocalMultiplayer {
     tryToGenerateAESKey() {
         if (this.otherPersonsKey !== null && this.keyPair !== null && this.aesKey === null) {
             return this.importPublicKey(this.otherPersonsKey).then((publicKey) => {
-                this.deriveSharedSecret(this.keyPair.privateKey, publicKey).then((aesKey) => {
+                return this.deriveSharedSecret(this.keyPair.privateKey, publicKey).then((aesKey) => {
                     this.aesKey = aesKey;
+                    this.writeEncryptionNotice();
                 }).catch((error) => {
-                    console.error("Error deriving shared secret:", error);
+                    console.error("Fehler beim Einrichten des gemeinsamen Schlüssels:", error);
                 });
             }).catch((error) => {
-                console.error("Error importing public key:", error);
+                console.error("Fehler beim Importieren des öffentlichen Schlüssels:", error);
             }).finally(() => {
                 // cleanup
                 this.keyPair = null;
                 this.otherPersonsKey = null;
             });
+        }
+    }
+
+    writeEncryptionNotice() {
+        if (this.chatStarted && this.aesKey && !this.encryptionNoticeSent) {
+            this.chatWrite('system', 'Die Ende-zu-Ende-Verschlüsselung für diesen Chat wurde erfolgreich eingerichtet.');
+            this.encryptionNoticeSent = true;
         }
     }
     
@@ -1200,30 +1244,22 @@ class OnlineMultiplayer extends LocalMultiplayer {
         document.getElementsByTagName('head').item(0).appendChild(newscript);
     }
 
-    chatWrite(wer, was){
-        let text;
-        was = this.htmlEscapeSpecialChars(was);
-        if(wer === 'system'){
-            text = '<center><p style=\'font-style: italic;\'>' + was + '</p></center>';
-        }
-        else if(wer === 'me'){
-            text = '<p style=\'text-align: end;\'>' + was + '</p>';
-        }
-        else if(wer === 'other'){
-            text = '<p>' + was + '</p>';
+    chatWrite(wer, was) {
+        const paragraph = document.createElement('p');
+        paragraph.textContent = was;
+
+        if (wer === 'system') {
+            const wrapper = document.createElement('center');
+            paragraph.style.fontStyle = 'italic';
+            wrapper.appendChild(paragraph);
+            document.getElementById('chat-content').appendChild(wrapper);
+        } else if (wer === 'me') {
+            paragraph.style.textAlign = 'end';
+            document.getElementById('chat-content').appendChild(paragraph);
+        } else if (wer === 'other') {
+            document.getElementById('chat-content').appendChild(paragraph);
             this.nachrichtPlus(1);
         }
-        document.getElementById('chat-content').innerHTML = document.getElementById('chat-content').innerHTML + text;
-    }
-
-    htmlEscapeSpecialChars(text) {
-        const specialChars = {
-            '&': '&amp;',
-            '<': '&lt;',
-            '>': '&gt;',
-            '"': '&quot;',
-            '\'': '&apos;'};
-        return text.replace(/[&<>"#]/g, find => specialChars[find]);
     }
 
     err() {
