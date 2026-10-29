@@ -1,8 +1,7 @@
 /* global sleep, fadeButton, OnlineMultiplayer, LocalMultiplayer, EasyBot, MediumBot, HardBot, ExperimentalLocalMultiplayer, ExperimentalOnlineMultiplayer, changeAnimationSpeed, showAlert */
 /* exported modal, chat, patch, animationSpeed, intervall, modus, erro, activeGameMode, host */
 
-//const host = 'https://oberflow.dev:3000';
-const host = 'http://localhost:3000';
+const host = window.TTT_SERVER_URL || `${window.location.protocol}//${window.location.hostname}:3000`;
 
 let modal, chat, patch, animationSpeed, intervall;
 let modus = 0;
