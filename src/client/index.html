@@ -202,6 +202,10 @@
                     // hide the body until everything is loaded, to prevent flickering when changing the language
                     document.body.style.visibility = 'hidden';
                     window.addEventListener('DOMContentLoaded', function() {
+                        const selector = document.getElementById('theme-mode');
+                        if (selector) {
+                            selector.value = themeColor;
+                        }
                         document.body.style.visibility = 'visible';
                         document.body.classList.remove('no-transitions');
                         document.body.classList.add('with-transitions');
